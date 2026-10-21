@@ -1,0 +1,13 @@
+<page route="/sites/s/{site}" title="Site" menu="false" icon="house">
+  <heading source="site_header">
+    <button label="Edit" href="/sites/s/{site}/edit" size="sm"/>
+    <button label="Links" href="/sites/s/{site}/links" variant="outline" size="sm"/>
+    <button label="People" href="/sites/s/{site}/people" variant="outline" size="sm"/>
+    <button label="Settings" href="/sites/s/{site}/settings" variant="outline" size="sm"/>
+  </heading>
+  <view type="form" source="view_site">
+    <group title="" cols="1">
+      <field name="page" label="Start page" fieldType="markdown" readonly="true"/>
+    </group>
+  </view>
+</page>

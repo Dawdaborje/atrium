@@ -1,0 +1,19 @@
+<page route="/booking/services/new" title="Offer time" menu="false">
+  <view type="form" function="create_service" submit="Offer it" success="Offered" redirect="/booking/service/{id}">
+    <group title="Meeting" cols="2">
+      <field name="title" label="Title" colspan="2" required="true" help="For example: Office hours, Coffee chat, Review"/>
+      <field name="description" label="What it is for" fieldType="text" colspan="2"/>
+      <field name="location" label="Where" help="A room or a link"/>
+      <field name="minutes" label="Length in minutes" fieldType="integer" required="true"/>
+    </group>
+    <group title="When" cols="2">
+      <field name="weekdays" label="Days" fieldType="many2many" source="pick_weekdays" optionLabel="name" entity="days" colspan="2"/>
+      <field name="tz" label="Time zone" help="The hours below are in this zone, like Europe/Oslo. Empty: your calendar's zone, else UTC."/>
+      <field name="from_time" label="From" help="For example 09:00"/>
+      <field name="to_time" label="Until" help="For example 17:00"/>
+      <field name="buffer" label="Break after a meeting (minutes)" fieldType="integer"/>
+      <field name="notice_hours" label="Notice needed (hours)" fieldType="integer"/>
+      <field name="days_ahead" label="How many days ahead" fieldType="integer"/>
+    </group>
+  </view>
+</page>

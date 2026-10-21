@@ -1,0 +1,18 @@
+<page route="/mail" title="Shared inbox" icon="inbox">
+  <button label="Boxes" href="/mail/boxes" variant="outline"/>
+  <view type="list" source="inbox" open="/mail/t/{id}">
+    <search fields="subject,from"/>
+    <filter field="box" label="Box" source="box_options"/>
+    <filter field="status" label="State" options="open, pending, closed"/>
+    <columns>
+      <column field="status" label="" fieldType="badge"/>
+      <column field="subject" label="Subject"/>
+      <column field="from" label="From"/>
+      <column field="box" label="Box"/>
+      <column field="assignee" label="Taken by"/>
+      <column field="count" label="Messages"/>
+      <column field="when" label="Last"/>
+    </columns>
+    <empty title="Nothing waiting" description="Mail to the address of a box arrives here."/>
+  </view>
+</page>

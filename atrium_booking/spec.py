@@ -1,0 +1,27 @@
+MODELS = [
+    {"name": "bk_service", "label": "Bookable service", "plural": "Bookable services", "icon": "clock", "title": "title", "fields": [
+        {"name": "owner", "type": "string", "required": True, "max_length": 128, "index": "plain"},
+        {"name": "title", "type": "string", "required": True, "max_length": 120},
+        {"name": "description", "type": "text"},
+        {"name": "location", "type": "string", "max_length": 200},
+        {"name": "minutes", "type": "int", "required": True, "default": 30},
+        {"name": "buffer", "type": "int", "default": 0, "help": "Minutes kept free after each meeting"},
+        {"name": "notice_hours", "type": "int", "default": 4, "help": "How long before a meeting it can still be booked"},
+        {"name": "days_ahead", "type": "int", "default": 30},
+        {"name": "weekdays", "type": "json", "help": "1 (Monday) to 7 (Sunday), as text"},
+        {"name": "from_time", "type": "string", "default": "09:00", "max_length": 5},
+        {"name": "to_time", "type": "string", "default": "17:00", "max_length": 5},
+        {"name": "active", "type": "bool", "default": True, "index": "plain"},
+    ]},
+    {"name": "bk_booking", "label": "Booking", "plural": "Bookings", "icon": "calendar-check", "title": "title", "fields": [
+        {"name": "service", "type": "string", "required": True, "max_length": 64, "index": "plain"},
+        {"name": "title", "type": "string", "max_length": 200},
+        {"name": "host", "type": "string", "required": True, "max_length": 128, "index": "plain"},
+        {"name": "booker", "type": "string", "required": True, "max_length": 128, "index": "plain"},
+        {"name": "starts_at", "type": "datetime", "required": True, "index": "plain"},
+        {"name": "ends_at", "type": "datetime", "required": True},
+        {"name": "status", "type": "select", "default": "confirmed", "options": ["confirmed", "cancelled"], "index": "plain"},
+        {"name": "event", "type": "string", "max_length": 64},
+        {"name": "note", "type": "text"},
+    ]},
+]

@@ -1,0 +1,12 @@
+<page route="/sites/new" title="New site" menu="false">
+  <view type="form" function="create_site" submit="Create site" success="Site created" redirect="/sites/s/{id}">
+    <group title="Site" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for"/>
+      <field name="home" label="Start page" fieldType="text" help="Markdown. You can add links below."/>
+      <field name="open" label="Everyone in the organization can visit it" fieldType="boolean"/>
+      <field name="show_news" label="Show the latest news on the start page" fieldType="boolean"/>
+      <field name="members" label="People who can edit it" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people"/>
+    </group>
+  </view>
+</page>

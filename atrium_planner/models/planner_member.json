@@ -1,0 +1,42 @@
+{
+  "model_id": "mdl_xg6bljt5i3",
+  "name": "planner_member",
+  "label": "Member",
+  "plural_label": "Members",
+  "icon": "user",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_tbdnzuevza",
+      "name": "plan",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_nll2zibhuo",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_levt3e3kv7",
+      "name": "role",
+      "type": "select",
+      "default": "member",
+      "options": [
+        {
+          "id": "opt_4dqu5p2pt4",
+          "value": "owner"
+        },
+        {
+          "id": "opt_bveyphv5xy",
+          "value": "member"
+        }
+      ]
+    }
+  ]
+}

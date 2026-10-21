@@ -1,0 +1,24 @@
+{
+  "model_id": "mdl_pxj6h70y4w",
+  "name": "cal_skip",
+  "label": "Skipped occurrence",
+  "plural_label": "Skipped occurrences",
+  "icon": "calendar-x",
+  "title_field": "date",
+  "fields": [
+    {
+      "id": "fld_h3nl52jkj6",
+      "name": "event",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_gdtwlasqnh",
+      "name": "date",
+      "type": "date",
+      "required": true
+    }
+  ]
+}

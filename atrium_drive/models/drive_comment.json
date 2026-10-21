@@ -1,0 +1,37 @@
+{
+  "model_id": "mdl_5y4o7l4psj",
+  "name": "drive_comment",
+  "label": "Comment",
+  "plural_label": "Comments",
+  "icon": "message-square",
+  "title_field": "body",
+  "fields": [
+    {
+      "id": "fld_y5i2uktznn",
+      "name": "file",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_vgcjscilwh",
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "max_length": 128
+    },
+    {
+      "id": "fld_amnmn3acoq",
+      "name": "body",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "fld_lbdq7jy4nx",
+      "name": "at",
+      "type": "string",
+      "max_length": 40
+    }
+  ]
+}

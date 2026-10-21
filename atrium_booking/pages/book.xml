@@ -1,0 +1,15 @@
+<page route="/booking" title="Book time" icon="clock">
+  <button label="My bookings" href="/booking/mine" variant="outline"/>
+  <button label="What I offer" href="/booking/services" variant="outline"/>
+  <view type="list" source="find_services" open="/booking/s/{id}">
+    <search fields="title,host,description"/>
+    <columns>
+      <column field="title" label="Meeting"/>
+      <column field="host" label="With"/>
+      <column field="length" label="Length"/>
+      <column field="days" label="Days"/>
+      <column field="hours" label="Hours"/>
+    </columns>
+    <empty title="Nothing to book yet" description="When colleagues offer time, it shows here."/>
+  </view>
+</page>

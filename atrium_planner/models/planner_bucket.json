@@ -1,0 +1,31 @@
+{
+  "model_id": "mdl_h5is7ry3tl",
+  "name": "planner_bucket",
+  "label": "Bucket",
+  "plural_label": "Buckets",
+  "icon": "columns-3",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_q3mtxo5qnm",
+      "name": "plan",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_k5sybz57ud",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 80
+    },
+    {
+      "id": "fld_7moasr2ikp",
+      "name": "position",
+      "type": "int",
+      "default": 0
+    }
+  ]
+}

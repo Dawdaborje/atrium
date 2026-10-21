@@ -1,0 +1,14 @@
+<page route="/forms" title="Forms" icon="clipboard-list">
+  <button label="My forms" href="/forms/mine" variant="outline"/>
+  <button label="New form" href="/forms/new"/>
+  <view type="list" source="forms_to_fill" open="/forms/f/{id}/fill">
+    <columns>
+      <column field="done" label="" fieldType="badge"/>
+      <column field="title" label="Form"/>
+      <column field="owner" label="From"/>
+      <column field="closes" label="Closes"/>
+      <column field="anonymous" label="Anonymous" fieldType="boolean"/>
+    </columns>
+    <empty title="Nothing to fill in" description="Open forms from your colleagues show here."/>
+  </view>
+</page>

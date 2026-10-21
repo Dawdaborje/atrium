@@ -1,0 +1,218 @@
+{
+  "model_id": "mdl_3hsnw5w3ze",
+  "name": "planner_task",
+  "label": "Task",
+  "plural_label": "Tasks",
+  "icon": "square-check",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_xdrlcm2bvp",
+      "name": "plan",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_x7vcwcrxcl",
+      "name": "bucket",
+      "type": "string",
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_xm7b7hmc3d",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "track": true
+    },
+    {
+      "id": "fld_tyom4urzkd",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_hn2k7mzvbj",
+      "name": "assignees",
+      "type": "json",
+      "help": "User ids of the people it is assigned to"
+    },
+    {
+      "id": "fld_qy77n6rzyu",
+      "name": "assignee_names",
+      "type": "string",
+      "max_length": 300
+    },
+    {
+      "id": "fld_u6buisbum7",
+      "name": "due",
+      "type": "date",
+      "index": "plain",
+      "track": true
+    },
+    {
+      "id": "fld_rx23zgo6tp",
+      "name": "start",
+      "type": "date"
+    },
+    {
+      "id": "fld_mq3c4dral7",
+      "name": "priority",
+      "type": "select",
+      "default": "medium",
+      "options": [
+        {
+          "id": "opt_k47nhffahf",
+          "value": "low"
+        },
+        {
+          "id": "opt_k4pi5y4rm5",
+          "value": "medium"
+        },
+        {
+          "id": "opt_2cc3r6ejjp",
+          "value": "high"
+        },
+        {
+          "id": "opt_k6ezkkjq23",
+          "value": "urgent"
+        }
+      ],
+      "track": true
+    },
+    {
+      "id": "fld_2fcpszggqg",
+      "name": "progress",
+      "type": "select",
+      "default": "not_started",
+      "index": "plain",
+      "options": [
+        {
+          "id": "opt_zrrqzfsptd",
+          "value": "not_started"
+        },
+        {
+          "id": "opt_djq4jho2lr",
+          "value": "in_progress"
+        },
+        {
+          "id": "opt_7r3od4yzvj",
+          "value": "completed"
+        }
+      ],
+      "track": true
+    },
+    {
+      "id": "fld_he53wcoh4w",
+      "name": "position",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_qp7rnkc4y7",
+      "name": "labels",
+      "type": "json",
+      "help": "Keys of the plan's labels"
+    },
+    {
+      "id": "fld_z5y2fdwfbs",
+      "name": "labels_text",
+      "type": "string",
+      "max_length": 300
+    },
+    {
+      "id": "fld_ljqxeo76zh",
+      "name": "recurrence",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "id": "opt_aq4m5z3q47",
+          "value": "none"
+        },
+        {
+          "id": "opt_cm5rpezk5i",
+          "value": "daily"
+        },
+        {
+          "id": "opt_gcah7nyjbh",
+          "value": "weekly"
+        },
+        {
+          "id": "opt_4jxiftdrxe",
+          "value": "monthly"
+        },
+        {
+          "id": "opt_4ih2z2glzn",
+          "value": "yearly"
+        }
+      ]
+    },
+    {
+      "id": "fld_umbyhgah7o",
+      "name": "check_total",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_5unnzoslm4",
+      "name": "check_done",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_ugha4hf7jt",
+      "name": "created_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_amcsvnyawm",
+      "name": "completed_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_mhx76lv7ol",
+      "name": "completed_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_zqadn5vtwj",
+      "name": "assignee_keys",
+      "type": "string",
+      "max_length": 600,
+      "help": ",key,key, : for finding a person's tasks"
+    },
+    {
+      "id": "fld_xis5xfhei4",
+      "name": "label_keys",
+      "type": "string",
+      "max_length": 600
+    },
+    {
+      "id": "fld_bl0k7r3x2c",
+      "name": "blocked_by",
+      "type": "json",
+      "help": "Keys of the tasks of the same plan that must be completed first"
+    },
+    {
+      "id": "fld_bk9m4t6w1d",
+      "name": "blocked_keys",
+      "type": "string",
+      "max_length": 800,
+      "help": ",key,key, : for finding what waits for a task"
+    }
+  ],
+  "chatter": {
+    "enabled": true,
+    "messages": true,
+    "notes": false,
+    "followers": true,
+    "track_changes": true,
+    "visitors": "none"
+  }
+}

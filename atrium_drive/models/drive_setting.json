@@ -1,0 +1,52 @@
+{
+  "model_id": "mdl_gsq4udpi7c",
+  "name": "drive_setting",
+  "label": "Drive setting",
+  "plural_label": "Drive settings",
+  "icon": "settings",
+  "title_field": "quota_mb",
+  "fields": [
+    {
+      "id": "fld_palffwdxyu",
+      "name": "quota_mb",
+      "type": "int",
+      "default": 0,
+      "help": "The most each person may store, in MB, counting every version. 0 means no limit."
+    },
+    {
+      "id": "fld_b5qqn7mglg",
+      "name": "links_enabled",
+      "type": "bool",
+      "default": true,
+      "help": "Whether files and folders can be shared by link."
+    },
+    {
+      "id": "fld_f56boouozo",
+      "name": "link_days",
+      "type": "int",
+      "default": 30,
+      "help": "How many days a new link works. 0 means it does not expire."
+    },
+    {
+      "id": "fld_sp6wiqvcdp",
+      "name": "link_days_max",
+      "type": "int",
+      "default": 0,
+      "help": "The longest a link may work, in days. 0 means no limit."
+    },
+    {
+      "id": "fld_pdhhikoxuu",
+      "name": "search_contents",
+      "type": "bool",
+      "default": true,
+      "help": "Whether search also looks at the text inside files."
+    },
+    {
+      "id": "fld_s6dztvu3he",
+      "name": "comments_enabled",
+      "type": "bool",
+      "default": true,
+      "help": "Whether people can comment on files."
+    }
+  ]
+}

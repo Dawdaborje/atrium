@@ -1,0 +1,12 @@
+<page route="/news/new" title="Write a post" menu="false">
+  <view type="form" function="create_post" submit="Save" success="Saved" redirect="/news/p/{id}">
+    <group title="Post" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="summary" label="In one line" colspan="2"/>
+      <field name="category" label="Category" help="For example: Company, People, Product"/>
+      <field name="pinned" label="Keep at the top" fieldType="boolean"/>
+      <field name="body" label="Text" fieldType="text" colspan="2" help="Markdown."/>
+      <field name="publish" label="Publish now and tell everyone" fieldType="boolean" colspan="2"/>
+    </group>
+  </view>
+</page>

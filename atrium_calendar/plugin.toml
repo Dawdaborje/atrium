@@ -1,0 +1,69 @@
+[plugin]
+name = "atrium_calendar"
+icon_path = "assets/logo.svg"
+label = "Calendar"
+version = "0.4.1"
+description = "Shared calendars with events that repeat, invitations and answers, availability, and iCalendar files."
+long_description = """
+A calendar for Atrium. Everyone has a calendar of their own and can make shared ones with owners, editors and viewers.
+Events can last all day, repeat daily, weekly, monthly or yearly, leave out single days, and invite people, who answer
+and are told when the time changes. The month view, the agenda and a view of who is free come with it, and calendars
+go in and out as .ics files. An event's comments and the history of its changes are the kernel's chatter. Written in
+Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "events::emit", "notify::send"]
+access_models = [
+  { name = "cal_calendar", permissions = ["read", "write"] },
+  { name = "cal_member", permissions = ["read", "write"] },
+  { name = "cal_event", permissions = ["read", "write"] },
+  { name = "cal_response", permissions = ["read", "write"] },
+  { name = "cal_skip", permissions = ["read", "write"] },
+  { name = "cal_setting", permissions = ["read", "write"] },
+  { name = "cal_link", permissions = ["read", "write"] },
+]
+# What people outside the organization may do: only through booking links (see src/links.rs), each call needing a token.
+public_functions = ["link_busy", "link_book", "link_cancel", "rule_var_my_calendars"]
+public_capabilities = ["db::query", "db::mutate", "notify::send"]
+public_access_models = [
+  { name = "cal_link", permissions = ["read"] },
+  { name = "cal_calendar", permissions = ["read"] },
+  { name = "cal_member", permissions = ["read"] },
+  { name = "cal_event", permissions = ["read", "write"] },
+  { name = "cal_response", permissions = ["read", "write"] },
+  { name = "cal_skip", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Calendar"
+icon = "calendar-days"
+route = "/calendar"
+description = "Calendars, events and availability"
+
+[[schedule]]
+name = "morning-agenda"
+title = "Tell people what is on their calendar today"
+description = "Sends each person with events today a note with how many and when the first starts."
+function = "morning_agenda"
+cron = "0 7 * * *"
+
+[[schedule]]
+name = "starting-soon"
+title = "Remind people of events about to start"
+description = "Tells the people invited to an event that starts in ten to fifteen minutes."
+function = "starting_soon"
+cron = "*/5 * * * *"
+
+[[events]]
+name = "event_created"
+direction = "emit"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

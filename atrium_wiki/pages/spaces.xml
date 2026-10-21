@@ -1,0 +1,16 @@
+<page route="/wiki" title="Wiki" icon="book-open">
+  <button label="Recent" href="/wiki/recent" variant="outline"/>
+  <button label="Search" href="/wiki/search" variant="outline"/>
+  <view type="list" source="my_spaces" open="/wiki/s/{id}" create="/wiki/new" create_label="New space">
+    <search fields="name,description"/>
+    <columns>
+      <column field="name" label="Space"/>
+      <column field="description" label="About"/>
+      <column field="pages" label="Pages"/>
+      <column field="people" label="People"/>
+      <column field="role" label="You are" fieldType="badge"/>
+      <column field="open" label="Open to all" fieldType="boolean"/>
+    </columns>
+    <empty title="No spaces yet" description="A space holds the pages of a team or a subject."/>
+  </view>
+</page>

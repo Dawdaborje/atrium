@@ -1,0 +1,93 @@
+{
+  "model_id": "mdl_6xda7flseo",
+  "name": "frm_question",
+  "label": "Question",
+  "plural_label": "Questions",
+  "icon": "circle-help",
+  "title_field": "label",
+  "fields": [
+    {
+      "id": "fld_tye9dv13qz",
+      "name": "form",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_1ctdhewe7u",
+      "name": "position",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_b1pcjtgn7k",
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "max_length": 300
+    },
+    {
+      "id": "fld_8gwtejsh04",
+      "name": "kind",
+      "type": "select",
+      "default": "text",
+      "options": [
+        {
+          "id": "opt_1but2g0qfm",
+          "value": "text"
+        },
+        {
+          "id": "opt_wejwgxjx8g",
+          "value": "long"
+        },
+        {
+          "id": "opt_o19vtn82hp",
+          "value": "choice"
+        },
+        {
+          "id": "opt_c1sgms38kd",
+          "value": "multi"
+        },
+        {
+          "id": "opt_llbfgd3l3e",
+          "value": "dropdown"
+        },
+        {
+          "id": "opt_b39t4wayq9",
+          "value": "rating"
+        },
+        {
+          "id": "opt_7b0flo7jly",
+          "value": "yes_no"
+        },
+        {
+          "id": "opt_5c7a05cdpy",
+          "value": "number"
+        },
+        {
+          "id": "opt_uel4xi91uj",
+          "value": "date"
+        }
+      ]
+    },
+    {
+      "id": "fld_3tpif7sj46",
+      "name": "options",
+      "type": "json",
+      "help": "The choices, for choice, multi and dropdown questions"
+    },
+    {
+      "id": "fld_dlxp0obdkv",
+      "name": "required",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "id": "fld_dm5vnd3civ",
+      "name": "help",
+      "type": "string",
+      "max_length": 300
+    }
+  ]
+}

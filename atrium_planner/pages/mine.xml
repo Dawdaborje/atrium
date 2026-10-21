@@ -1,0 +1,13 @@
+<page route="/planner/mine" title="My tasks" menu="false" icon="square-check">
+  <view type="list" source="my_tasks" open="/planner/task/{id}">
+    <columns>
+      <column field="title" label="Task"/>
+      <column field="plan_name" label="Plan"/>
+      <column field="due_text" label="Due"/>
+      <column field="priority" label="Priority" fieldType="badge"/>
+      <column field="progress" label="Progress" fieldType="badge"/>
+      <column field="check_text" label="Checklist"/>
+    </columns>
+    <empty title="Nothing assigned to you" description="Tasks assigned to you in any plan show here."/>
+  </view>
+</page>

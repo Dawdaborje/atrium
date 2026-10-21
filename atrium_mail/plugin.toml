@@ -1,0 +1,40 @@
+[plugin]
+name = "atrium_mail"
+icon_path = "assets/logo.svg"
+label = "Shared inbox"
+version = "0.1.0"
+description = "Shared inboxes: mail to a company address becomes a conversation a team answers together."
+long_description = """
+Shared inboxes for Atrium. Mail to inbox@<mail domain> (or inbox+sales@... for a box with the tag "sales") becomes a
+conversation. The people of the box see it, take it, answer it (the customer's reply comes back into the same
+conversation), talk about it among themselves in the chatter, and close it. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "mail::thread", "communication::send", "email::send"]
+access_models = [
+  { name = "mail_box", permissions = ["read", "write"] },
+  { name = "mail_member", permissions = ["read", "write"] },
+  { name = "mail_thread", permissions = ["read", "write"] },
+  { name = "mail_message", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Shared inbox"
+icon = "inbox"
+route = "/mail"
+description = "Shared mailboxes a team answers together"
+
+[[mail_routes]]
+alias = "inbox"
+function = "on_mail"
+model = "mail_thread"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

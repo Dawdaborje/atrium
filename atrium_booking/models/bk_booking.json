@@ -1,0 +1,102 @@
+{
+  "model_id": "mdl_7uu33loic1",
+  "name": "bk_booking",
+  "label": "Booking",
+  "plural_label": "Bookings",
+  "icon": "calendar-check",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_pmk8nwfod2",
+      "name": "service",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_6kq61bkihe",
+      "name": "title",
+      "type": "string",
+      "max_length": 200
+    },
+    {
+      "id": "fld_b2z6kilnij",
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_m93vu4whhn",
+      "name": "booker",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_ovhco2n0u6",
+      "name": "starts_at",
+      "type": "datetime",
+      "required": true,
+      "index": "plain"
+    },
+    {
+      "id": "fld_7qpif8hw6y",
+      "name": "ends_at",
+      "type": "datetime",
+      "required": true
+    },
+    {
+      "id": "fld_xijp84pffr",
+      "name": "status",
+      "type": "select",
+      "default": "confirmed",
+      "options": [
+        {
+          "id": "opt_knuy4rwaha",
+          "value": "confirmed"
+        },
+        {
+          "id": "opt_ineozijlul",
+          "value": "cancelled"
+        }
+      ],
+      "index": "plain"
+    },
+    {
+      "id": "fld_4qmd903wl9",
+      "name": "event",
+      "type": "string",
+      "max_length": 64
+    },
+    {
+      "id": "fld_eo02zeab6b",
+      "name": "note",
+      "type": "text"
+    },
+    {
+      "id": "fld_bb2g7u4i9a",
+      "name": "guest_name",
+      "type": "string",
+      "max_length": 120,
+      "help": "Who booked, when it was someone outside the organization"
+    },
+    {
+      "id": "fld_bb5h1j8k3c",
+      "name": "guest_email",
+      "type": "string",
+      "max_length": 200,
+      "index": "plain"
+    },
+    {
+      "id": "fld_bb8l6m2n5e",
+      "name": "link",
+      "type": "string",
+      "max_length": 64,
+      "help": "The host's booking link token, to take the meeting back"
+    }
+  ]
+}

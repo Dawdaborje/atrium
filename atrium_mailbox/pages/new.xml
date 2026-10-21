@@ -1,0 +1,11 @@
+<page route="/mailbox/new" title="Write" menu="false">
+  <view type="form" function="send_message" submit="Send" success="Sent" redirect="/mailbox">
+    <group title="New message" cols="2">
+      <field name="to" label="To" colspan="2" required="true" help="One or more addresses, separated by commas."/>
+      <field name="cc" label="Cc" colspan="2"/>
+      <field name="subject" label="Subject" colspan="2" required="true"/>
+      <field name="text" label="Message" fieldType="text" colspan="2" required="true"/>
+      <field name="files" label="Attachments" fieldType="file" guard="atrium_mailbox" multiple="true" colspan="2" help="Up to 10 files, 10 MB in all."/>
+    </group>
+  </view>
+</page>

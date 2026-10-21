@@ -1,0 +1,65 @@
+{
+  "model_id": "mdl_5wyvjuur76",
+  "name": "wiki_page",
+  "label": "Page",
+  "plural_label": "Pages",
+  "icon": "file-text",
+  "title_field": "title",
+  "chatter": {
+    "enabled": true,
+    "messages": true,
+    "notes": false,
+    "followers": true,
+    "track_changes": true,
+    "visitors": "none"
+  },
+  "history": {
+    "enabled": true,
+    "keep_days": 2555,
+    "fields": "all"
+  },
+  "fields": [
+    {
+      "id": "fld_krbjr1gyue",
+      "name": "space",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_g8h8a63gwr",
+      "name": "parent",
+      "type": "string",
+      "max_length": 64,
+      "index": "plain",
+      "help": "The key of the page this one is under; empty at the top"
+    },
+    {
+      "id": "fld_bhgyzomxu7",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "track": true
+    },
+    {
+      "id": "fld_yqxpo1hkdj",
+      "name": "body",
+      "type": "text",
+      "track": true,
+      "help": "Markdown; [[Another page]] links to a page of the same space"
+    },
+    {
+      "id": "fld_llhburyjvd",
+      "name": "updated_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_2kj2rarj8t",
+      "name": "edited_at",
+      "type": "datetime"
+    }
+  ]
+}

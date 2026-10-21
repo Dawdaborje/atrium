@@ -1,0 +1,12 @@
+<page route="/mailbox/m/{id}/files" title="Attachments" menu="false" icon="mail">
+  <view type="form" source="get_attachments">
+    <header>
+      <button label="Back to the message" href="/mailbox/m/{id}"/>
+    </header>
+    <group title="" cols="1">
+      <field name="subject" label="Message" readonly="true"/>
+      <field name="files" label="Files" fieldType="file" multiple="true" readonly="true" help="Stored for you alone; nobody else can open them."/>
+      <field name="skipped" label="Not fetched" readonly="true"/>
+    </group>
+  </view>
+</page>

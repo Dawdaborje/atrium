@@ -1,0 +1,86 @@
+{
+  "model_id": "mdl_7rtag041o6",
+  "name": "mail_thread",
+  "label": "Conversation",
+  "plural_label": "Conversations",
+  "icon": "mail",
+  "title_field": "subject",
+  "chatter": {
+    "enabled": true,
+    "messages": true,
+    "notes": false,
+    "followers": true,
+    "track_changes": false,
+    "visitors": "none"
+  },
+  "fields": [
+    {
+      "id": "fld_cth8nm36wj",
+      "name": "box",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_cxhtj8h6oa",
+      "name": "subject",
+      "type": "string",
+      "max_length": 300
+    },
+    {
+      "id": "fld_rlf5lxaaew",
+      "name": "from_name",
+      "type": "string",
+      "max_length": 200
+    },
+    {
+      "id": "fld_knmtz1uwhx",
+      "name": "from_address",
+      "type": "string",
+      "max_length": 320,
+      "index": "plain"
+    },
+    {
+      "id": "fld_4tcdfprha2",
+      "name": "status",
+      "type": "select",
+      "default": "open",
+      "options": [
+        {
+          "id": "opt_eojiooe8ly",
+          "value": "open"
+        },
+        {
+          "id": "opt_aoxmkt2cho",
+          "value": "pending"
+        },
+        {
+          "id": "opt_zhbnkod5n3",
+          "value": "closed"
+        }
+      ],
+      "index": "plain"
+    },
+    {
+      "id": "fld_se00bx08qb",
+      "name": "assignee",
+      "type": "string",
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_y52ikrv1di",
+      "name": "last_at",
+      "type": "string",
+      "max_length": 40,
+      "index": "plain"
+    },
+    {
+      "id": "fld_320vs1qe3f",
+      "name": "count",
+      "type": "int",
+      "default": 0
+    }
+  ]
+}

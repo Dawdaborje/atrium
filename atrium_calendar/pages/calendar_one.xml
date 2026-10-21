@@ -1,0 +1,11 @@
+<page route="/calendar/c/{calendar}" title="Calendar" menu="false" icon="calendar-days">
+  <heading source="calendar_header">
+    <button label="New event" href="/calendar/new" size="sm"/>
+    <button label="People" href="/calendar/c/{calendar}/people" variant="outline" size="sm"/>
+    <button label="Settings" href="/calendar/c/{calendar}/settings" variant="outline" size="sm"/>
+  </heading>
+  <view type="calendar" source="events_in" date_start="starts_at" date_stop="ends_at" color="color" open="/calendar/event/{id}">
+    <field name="title"/>
+    <empty title="Nothing on" description="No events in this month."/>
+  </view>
+</page>

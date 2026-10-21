@@ -1,0 +1,9 @@
+<page route="/mail/boxes/new" title="New box" menu="false">
+  <view type="form" function="create_box" submit="Make the box" success="Made" redirect="/mail/boxes">
+    <group title="Box (administrators only)" cols="2">
+      <field name="name" label="Name" required="true"/>
+      <field name="tag" label="Tag" help="Mail to inbox+tag@ comes here. Leave empty for plain inbox@."/>
+      <field name="users" label="People" fieldType="many2many" source="pick_people" optionLabel="name" entity="people" colspan="2"/>
+    </group>
+  </view>
+</page>

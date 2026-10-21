@@ -1,0 +1,26 @@
+{
+  "model_id": "mdl_dvrhm1bcwn",
+  "name": "meet_guest",
+  "label": "Guest",
+  "plural_label": "Guests",
+  "icon": "user",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_84lktxh1b7",
+      "name": "meeting",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_431fxv74k0",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

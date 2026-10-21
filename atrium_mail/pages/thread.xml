@@ -1,0 +1,17 @@
+<page route="/mail/t/{id}" title="Conversation" menu="false" model="mail_thread" icon="mail">
+  <view type="form" source="get_thread">
+    <header>
+      <button label="Reply" href="/mail/t/{id}/reply"/>
+      <button label="Take it" function="take_thread"/>
+      <button label="Let go" function="release_thread"/>
+      <button label="Close" function="close_thread" confirm="Close this conversation? A new message from the customer opens it again."/>
+      <button label="Reopen" function="reopen_thread"/>
+    </header>
+    <group title="" cols="2">
+      <field name="from" label="From" readonly="true"/>
+      <field name="status" label="State" readonly="true"/>
+      <field name="assignee" label="Taken by" readonly="true"/>
+      <field name="conversation" label="Conversation" fieldType="markdown" readonly="true" colspan="2"/>
+    </group>
+  </view>
+</page>

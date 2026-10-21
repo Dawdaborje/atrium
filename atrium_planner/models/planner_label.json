@@ -1,0 +1,31 @@
+{
+  "model_id": "mdl_kyvdwmrqr5",
+  "name": "planner_label",
+  "label": "Label",
+  "plural_label": "Labels",
+  "icon": "tag",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_4z47lfzefx",
+      "name": "plan",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_c5wx4nb7d4",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 40
+    },
+    {
+      "id": "fld_scmdugzffq",
+      "name": "color",
+      "type": "string",
+      "max_length": 20
+    }
+  ]
+}

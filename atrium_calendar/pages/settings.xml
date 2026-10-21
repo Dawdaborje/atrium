@@ -1,0 +1,13 @@
+<page route="/calendar/c/{calendar}/settings" title="Calendar settings" menu="false">
+  <view type="form" source="calendar_info" function="edit_calendar" submit="Save" success="Saved">
+    <header>
+      <button label="Delete calendar" function="delete_calendar" confirm="Delete this calendar and all its events? This cannot be undone."/>
+    </header>
+    <group title="Calendar" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="color" label="Colour" help="A colour like #2563eb."/>
+    </group>
+  </view>
+  <button label="Import or export a file" href="/calendar/c/{calendar}/ics" variant="outline"/>
+</page>

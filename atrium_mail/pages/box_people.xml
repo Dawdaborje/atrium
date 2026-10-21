@@ -1,0 +1,16 @@
+<page route="/mail/b/{box_id}/people" title="People of the box" menu="false">
+  <button label="Back" href="/mail/boxes" variant="outline"/>
+  <view type="list" source="box_members">
+    <columns>
+      <column field="name" label="Name"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_box_member" confirm="Remove this person from the box?" danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_box_members" submit="Add people" success="Added">
+    <group title="Add people (administrators only)" cols="1">
+      <field name="users" label="People" fieldType="many2many" source="pick_people" optionLabel="name" entity="people" required="true"/>
+    </group>
+  </view>
+</page>

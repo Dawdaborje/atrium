@@ -1,0 +1,16 @@
+<page route="/news/p/{id}" title="Post" menu="false" model="news_post" icon="newspaper">
+  <view type="form" source="get_post">
+    <header>
+      <button label="Like" function="toggle_like"/>
+      <button label="Edit" href="/news/p/{id}/edit"/>
+      <button label="Publish" function="publish_post" confirm="Publish this post and tell everyone?"/>
+      <button label="Back to draft" function="unpublish_post" confirm="Take this post off the news?"/>
+      <button label="Delete post" function="delete_post" confirm="Delete this post and its likes?"/>
+    </header>
+    <group title="" cols="1">
+      <field name="rendered" label="Post" fieldType="markdown" readonly="true"/>
+      <field name="reactions" label="Reactions" readonly="true"/>
+      <field name="readers" label="Read by" readonly="true" help="Shown to the author and administrators."/>
+    </group>
+  </view>
+</page>

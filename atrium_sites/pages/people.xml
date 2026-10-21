@@ -1,0 +1,18 @@
+<page route="/sites/s/{site}/people" title="People of the site" menu="false">
+  <button label="Back to the site" href="/sites/s/{site}" variant="outline"/>
+  <view type="list" source="site_members">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="role" label="Role" fieldType="badge"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_site_member" confirm="Remove this person from the site?" danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_site_members" submit="Add people" success="Added">
+    <group title="Add people" cols="2">
+      <field name="users" label="People" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people" required="true"/>
+      <field name="role" label="They can" fieldType="selection" options="visitor, editor, owner"/>
+    </group>
+  </view>
+</page>

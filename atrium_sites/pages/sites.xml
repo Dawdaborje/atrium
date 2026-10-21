@@ -1,0 +1,13 @@
+<page route="/sites" title="Sites" icon="house">
+  <view type="list" source="my_sites" open="/sites/s/{id}" create="/sites/new" create_label="New site">
+    <search fields="name,description"/>
+    <columns>
+      <column field="name" label="Site"/>
+      <column field="description" label="About"/>
+      <column field="people" label="People"/>
+      <column field="role" label="You are" fieldType="badge"/>
+      <column field="open" label="Open to all" fieldType="boolean"/>
+    </columns>
+    <empty title="No sites yet" description="A site is a start page for a team or a department."/>
+  </view>
+</page>

@@ -1,0 +1,12 @@
+<page route="/sites/s/{site}/settings" title="Site settings" menu="false">
+  <button label="Back to the site" href="/sites/s/{site}" variant="outline"/>
+  <view type="form" source="site_info" function="edit_site" submit="Save" success="Saved">
+    <header>
+      <button label="Delete site" function="delete_site" confirm="Delete this site and its links? This cannot be undone."/>
+    </header>
+    <group title="Site" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="open" label="Everyone in the organization can visit it" fieldType="boolean"/>
+    </group>
+  </view>
+</page>

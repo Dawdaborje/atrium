@@ -1,0 +1,85 @@
+{
+  "model_id": "mdl_9kc1cjgwzw",
+  "name": "news_post",
+  "label": "Post",
+  "plural_label": "Posts",
+  "icon": "newspaper",
+  "title_field": "title",
+  "chatter": {
+    "enabled": true,
+    "messages": true,
+    "notes": false,
+    "followers": true,
+    "track_changes": false,
+    "visitors": "none"
+  },
+  "fields": [
+    {
+      "id": "fld_bi8vt6iuuu",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200
+    },
+    {
+      "id": "fld_zq9euzj7fg",
+      "name": "summary",
+      "type": "string",
+      "max_length": 400
+    },
+    {
+      "id": "fld_prh4oxewpq",
+      "name": "body",
+      "type": "text"
+    },
+    {
+      "id": "fld_ri0phaf8mq",
+      "name": "category",
+      "type": "string",
+      "max_length": 60,
+      "index": "plain"
+    },
+    {
+      "id": "fld_mkwibnmo57",
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_ucj5vmtzdp",
+      "name": "status",
+      "type": "select",
+      "default": "draft",
+      "options": [
+        {
+          "id": "opt_wt7llm8uq9",
+          "value": "draft"
+        },
+        {
+          "id": "opt_1b9r3ule2r",
+          "value": "published"
+        }
+      ],
+      "index": "plain"
+    },
+    {
+      "id": "fld_kmr6ymm4xb",
+      "name": "pinned",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "id": "fld_o7shcvyfoq",
+      "name": "published_at",
+      "type": "datetime",
+      "index": "plain"
+    },
+    {
+      "id": "fld_qiqgi8f34u",
+      "name": "edited_at",
+      "type": "datetime"
+    }
+  ]
+}

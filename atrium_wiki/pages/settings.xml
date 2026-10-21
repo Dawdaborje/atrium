@@ -1,0 +1,12 @@
+<page route="/wiki/s/{space}/settings" title="Space settings" menu="false">
+  <view type="form" source="space_info" function="edit_space" submit="Save" success="Saved">
+    <header>
+      <button label="Delete space" function="delete_space" confirm="Delete this space and all its pages? This cannot be undone."/>
+    </header>
+    <group title="Space" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="open" label="Everyone in the organization can read it" fieldType="boolean"/>
+    </group>
+  </view>
+</page>

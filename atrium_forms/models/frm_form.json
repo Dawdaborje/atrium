@@ -1,0 +1,81 @@
+{
+  "model_id": "mdl_2ew4h0clcv",
+  "name": "frm_form",
+  "label": "Form",
+  "plural_label": "Forms",
+  "icon": "clipboard-list",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_0k6gvmloxv",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_em4ig4vfzs",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200
+    },
+    {
+      "id": "fld_me2oobdm25",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_10sfej8gqe",
+      "name": "status",
+      "type": "select",
+      "default": "draft",
+      "options": [
+        {
+          "id": "opt_vz5k2pzxbq",
+          "value": "draft"
+        },
+        {
+          "id": "opt_5425qclj0c",
+          "value": "open"
+        },
+        {
+          "id": "opt_s1etlfkcv1",
+          "value": "closed"
+        }
+      ],
+      "index": "plain"
+    },
+    {
+      "id": "fld_mwzbrlc35h",
+      "name": "anonymous",
+      "type": "bool",
+      "default": false,
+      "help": "Answers are kept without the name of who gave them"
+    },
+    {
+      "id": "fld_okpgagink2",
+      "name": "once",
+      "type": "bool",
+      "default": true,
+      "help": "Each person answers once"
+    },
+    {
+      "id": "fld_k4rsuhb49e",
+      "name": "closes_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_okptevx0st",
+      "name": "thanks",
+      "type": "string",
+      "max_length": 300
+    },
+    {
+      "id": "fld_xysqhqw9c0",
+      "name": "edited_at",
+      "type": "datetime"
+    }
+  ]
+}

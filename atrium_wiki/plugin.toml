@@ -1,0 +1,35 @@
+[plugin]
+name = "atrium_wiki"
+icon_path = "assets/logo.svg"
+label = "Wiki"
+version = "0.1.1"
+description = "Spaces of linked Markdown pages with history, comments and search."
+long_description = """
+A wiki for Atrium. A space belongs to its people (owners, editors and readers) and can be opened for reading to the
+whole organization. Pages form a tree, are written in Markdown, link to each other with [[Page title]], keep every
+version (any version can be put back), and have comments and followers through the kernel's chatter. Search looks at
+titles and text of every page the person can read. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "history::read", "history::restore"]
+access_models = [
+  { name = "wiki_space", permissions = ["read", "write"] },
+  { name = "wiki_member", permissions = ["read", "write"] },
+  { name = "wiki_page", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Wiki"
+icon = "book-open"
+route = "/wiki"
+description = "Spaces and pages of knowledge"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

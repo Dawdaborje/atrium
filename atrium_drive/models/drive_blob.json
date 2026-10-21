@@ -1,0 +1,68 @@
+{
+  "model_id": "mdl_wrtlxymsce",
+  "name": "drive_blob",
+  "label": "Stored version",
+  "plural_label": "Stored versions",
+  "icon": "archive",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_eeisytul6j",
+      "name": "file",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_dov5nlujpm",
+      "name": "blob_key",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "index": "plain",
+      "help": "The media key, for finding the file a key belongs to"
+    },
+    {
+      "id": "fld_akiel3mrca",
+      "name": "version",
+      "type": "int",
+      "required": true
+    },
+    {
+      "id": "fld_7bqqg6ta5g",
+      "name": "media",
+      "type": "file",
+      "help": "Held here so every version stays alive, not only the current one"
+    },
+    {
+      "id": "fld_iecahwkq6g",
+      "name": "name",
+      "type": "string",
+      "max_length": 200
+    },
+    {
+      "id": "fld_lugxf2upig",
+      "name": "mime",
+      "type": "string",
+      "max_length": 120
+    },
+    {
+      "id": "fld_pwnpksn4ze",
+      "name": "size",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_t77pcbb57m",
+      "name": "uploaded_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_nc2meaww4a",
+      "name": "at",
+      "type": "datetime"
+    }
+  ]
+}

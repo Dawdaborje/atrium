@@ -1,0 +1,11 @@
+<page route="/forms/q/{id}" title="Question" menu="false" icon="circle-help">
+  <view type="form" source="get_question" function="update_question" submit="Save" success="Saved">
+    <group title="Question" cols="2">
+      <field name="label" label="Question" colspan="2" required="true"/>
+      <field name="kind" label="Kind" fieldType="selection" options="text, long, choice, multi, dropdown, rating, yes_no, number, date"/>
+      <field name="required" label="Required" fieldType="boolean"/>
+      <field name="options" label="Choices" fieldType="text" colspan="2" help="One to a line. Only for choice, multi and dropdown."/>
+      <field name="help" label="A hint under the question" colspan="2"/>
+    </group>
+  </view>
+</page>

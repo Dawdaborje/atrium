@@ -1,0 +1,8 @@
+<page route="/chat/browse" title="Browse channels" menu="false">
+  <view type="list" source="browse_channels" open="/chat/{id}">
+    <columns>
+      <column field="name" label="Channel"/>
+      <column field="topic" label="About"/>
+    </columns>
+  </view>
+</page>

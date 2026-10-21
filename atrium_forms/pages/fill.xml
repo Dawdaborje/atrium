@@ -1,0 +1,6 @@
+<page route="/forms/f/{id}/fill" title="Form" menu="false" icon="clipboard-list">
+  <heading source="form_header">
+    <button label="Back to forms" href="/forms" variant="outline" size="sm"/>
+  </heading>
+  <questionnaire source="questionnaire" submit="submit_response" redirect="/forms"/>
+</page>

@@ -1,0 +1,58 @@
+{
+  "model_id": "mdl_dr9bfyrs4u",
+  "name": "meet_meeting",
+  "label": "Meeting",
+  "plural_label": "Meetings",
+  "icon": "video",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_8h77jpl9j4",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200
+    },
+    {
+      "id": "fld_i9f93elbqi",
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_4mwic755fh",
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "max_length": 80,
+      "index": "plain"
+    },
+    {
+      "id": "fld_1gvh3ftwjy",
+      "name": "starts_at",
+      "type": "string",
+      "max_length": 40,
+      "index": "plain"
+    },
+    {
+      "id": "fld_dwy9a8u3o4",
+      "name": "minutes",
+      "type": "int",
+      "default": 30
+    },
+    {
+      "id": "fld_dkql4ylifz",
+      "name": "about",
+      "type": "text"
+    },
+    {
+      "id": "fld_ev7k2m9qd1",
+      "name": "event",
+      "type": "string",
+      "max_length": 64,
+      "help": "The calendar event made for this meeting (empty when there is none)"
+    }
+  ]
+}

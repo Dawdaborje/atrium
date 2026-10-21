@@ -1,0 +1,43 @@
+{
+  "model_id": "mdl_ul7t6ye8pj",
+  "name": "cal_calendar",
+  "label": "Calendar",
+  "plural_label": "Calendars",
+  "icon": "calendar",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_x6iqp7n2qt",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 120,
+      "index": "plain"
+    },
+    {
+      "id": "fld_rfcqh64zna",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_lsmut0bexd",
+      "name": "color",
+      "type": "string",
+      "max_length": 20
+    },
+    {
+      "id": "fld_zepsvyhbyv",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_p1nub3fd0n",
+      "name": "personal",
+      "type": "bool",
+      "default": false
+    }
+  ]
+}

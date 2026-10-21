@@ -1,0 +1,16 @@
+<page route="/planner/{plan}/people" title="People in this plan" menu="false">
+  <view type="list" source="plan_members">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="role" label="Role" fieldType="badge"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_plan_member" confirm="Remove this person from the plan? Their tasks become unassigned." danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_plan_members" submit="Add people" success="Added">
+    <group title="Add people" cols="1">
+      <field name="users" label="People" fieldType="many2many" source="pick_org_people" optionLabel="name" entity="people" required="true"/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,11 @@
+<page route="/meet/new" title="Plan a meeting" menu="false">
+  <view type="form" function="create_meeting" submit="Plan it" success="Planned" redirect="/meet/m/{id}">
+    <group title="Meeting" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="starts_at" label="Starts" help="Date and time, for example 2026-11-02T14:00"/>
+      <field name="minutes" label="Minutes" fieldType="integer"/>
+      <field name="users" label="Invite" fieldType="many2many" source="pick_people" optionLabel="name" entity="people" colspan="2"/>
+      <field name="about" label="About" fieldType="text" colspan="2"/>
+    </group>
+  </view>
+</page>

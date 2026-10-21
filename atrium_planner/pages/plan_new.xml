@@ -1,0 +1,9 @@
+<page route="/planner/new" title="New plan" menu="false">
+  <view type="form" function="create_plan" submit="Create plan" success="Plan created" redirect="/planner/{id}">
+    <group title="Plan" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="members" label="People" fieldType="many2many" source="pick_org_people" optionLabel="name" entity="people" help="You are in it already. The three buckets To do, In progress and Done are made for you."/>
+    </group>
+  </view>
+</page>

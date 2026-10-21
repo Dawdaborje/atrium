@@ -1,0 +1,35 @@
+[plugin]
+name = "atrium_news"
+icon_path = "assets/logo.svg"
+label = "News"
+version = "0.1.1"
+description = "Company news: posts by chosen authors, pinned at the top, with comments, likes and read counts."
+long_description = """
+News for Atrium. Administrators choose who may write; authors keep drafts, publish a post (everyone is told), pin it
+at the top, and see how many people read it. Everyone can read, like and comment (the kernel's chatter). Posts are
+written in Markdown and grouped by category. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send"]
+access_models = [
+  { name = "news_post", permissions = ["read", "write"] },
+  { name = "news_author", permissions = ["read", "write"] },
+  { name = "news_read", permissions = ["read", "write"] },
+  { name = "news_like", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "News"
+icon = "newspaper"
+route = "/news"
+description = "Company news and announcements"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

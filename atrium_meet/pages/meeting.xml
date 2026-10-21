@@ -1,0 +1,16 @@
+<page route="/meet/m/{id}" title="Meeting" menu="false" icon="video">
+  <view type="form" source="get_meeting">
+    <header>
+      <button label="Join" function="join_meeting"/>
+      <button label="Cancel meeting" function="cancel_meeting" confirm="Cancel this meeting? The people invited are told." redirect="/meet"/>
+    </header>
+    <group title="" cols="2">
+      <field name="title" label="Meeting" readonly="true"/>
+      <field name="when" label="When" readonly="true"/>
+      <field name="host" label="Host" readonly="true"/>
+      <field name="minutes" label="Minutes" readonly="true"/>
+      <field name="guests" label="Invited" readonly="true" colspan="2"/>
+      <field name="about" label="About" readonly="true" colspan="2"/>
+    </group>
+  </view>
+</page>

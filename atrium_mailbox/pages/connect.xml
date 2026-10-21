@@ -1,0 +1,4 @@
+<page route="/mailbox/connect" title="Connect your mailbox" menu="false" icon="mail">
+  <login bridge="jmap" title="Your mailbox (JMAP server)" help="Your user name and password on the organization's mail server. The password is kept encrypted by the server and is never shown again."/>
+  <login bridge="imap" title="Your mailbox (IMAP server)" help="Use this one if your organization's mail server is an IMAP server. The same login sends your mail."/>
+</page>

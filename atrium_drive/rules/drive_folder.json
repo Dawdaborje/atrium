@@ -1,0 +1,17 @@
+{
+  "model": "drive_folder",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    }
+  ]
+}

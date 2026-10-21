@@ -1,0 +1,118 @@
+{
+  "model_id": "mdl_46giy6lb7m",
+  "name": "bk_service",
+  "label": "Bookable service",
+  "plural_label": "Bookable services",
+  "icon": "clock",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_kk6bh69vev",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_5ucpmustc3",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 120
+    },
+    {
+      "id": "fld_c0ads8x2c3",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_3aaa0adbd7",
+      "name": "location",
+      "type": "string",
+      "max_length": 200
+    },
+    {
+      "id": "fld_m4tng52fol",
+      "name": "minutes",
+      "type": "int",
+      "required": true,
+      "default": 30
+    },
+    {
+      "id": "fld_emp3ysbss3",
+      "name": "buffer",
+      "type": "int",
+      "default": 0,
+      "help": "Minutes kept free after each meeting"
+    },
+    {
+      "id": "fld_3oa5if9sht",
+      "name": "notice_hours",
+      "type": "int",
+      "default": 4,
+      "help": "How long before a meeting it can still be booked"
+    },
+    {
+      "id": "fld_xwq4awz8tm",
+      "name": "days_ahead",
+      "type": "int",
+      "default": 30
+    },
+    {
+      "id": "fld_6ocd00a24m",
+      "name": "weekdays",
+      "type": "json",
+      "help": "1 (Monday) to 7 (Sunday), as text"
+    },
+    {
+      "id": "fld_9u1m48a879",
+      "name": "from_time",
+      "type": "string",
+      "default": "09:00",
+      "max_length": 5
+    },
+    {
+      "id": "fld_1ig3sgy6xz",
+      "name": "to_time",
+      "type": "string",
+      "default": "17:00",
+      "max_length": 5
+    },
+    {
+      "id": "fld_7z4sznz88v",
+      "name": "active",
+      "type": "bool",
+      "default": true,
+      "index": "plain"
+    },
+    {
+      "id": "fld_bs2t7y4q9a",
+      "name": "tz",
+      "type": "string",
+      "max_length": 64,
+      "help": "The time zone the days and hours are in (UTC when empty)"
+    },
+    {
+      "id": "fld_bs5p1m8r3c",
+      "name": "public",
+      "type": "bool",
+      "default": false,
+      "help": "Open to people outside the organization, through a public address"
+    },
+    {
+      "id": "fld_bs8k6n2w5e",
+      "name": "link",
+      "type": "string",
+      "max_length": 64,
+      "help": "The calendar's booking link token for the owner; part of the public address"
+    },
+    {
+      "id": "fld_bs9o4v1z7g",
+      "name": "owner_name",
+      "type": "string",
+      "max_length": 120,
+      "help": "The owner's name, kept for the public page"
+    }
+  ]
+}

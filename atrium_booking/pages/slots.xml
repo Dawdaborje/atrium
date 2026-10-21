@@ -1,0 +1,15 @@
+<page route="/booking/s/{id}" title="Pick a time" menu="false" icon="clock">
+  <heading source="service_header">
+    <button label="My bookings" href="/booking/mine" variant="outline" size="sm"/>
+  </heading>
+  <view type="list" source="free_slots">
+    <columns>
+      <column field="day" label="Day"/>
+      <column field="time" label="Time"/>
+    </columns>
+    <actions>
+      <action name="book" label="Book" function="book" confirm="Book this time?"/>
+    </actions>
+    <empty title="No free time" description="Nothing is free in the coming weeks, or it is not offered right now."/>
+  </view>
+</page>

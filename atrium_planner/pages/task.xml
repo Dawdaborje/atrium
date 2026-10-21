@@ -1,0 +1,25 @@
+<page route="/planner/task/{id}" title="Task" menu="false" model="planner_task">
+  <view type="form" source="get_task" function="update_task" submit="Save" success="Saved">
+    <header>
+      <button label="Complete" function="complete_task"/>
+      <button label="Reopen" function="reopen_task"/>
+      <button label="Delete" function="delete_task" confirm="Delete this task?"/>
+    </header>
+    <statusbar field="progress" options="not_started, in_progress, completed"/>
+    <group title="Task" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="description" label="Notes" fieldType="text" colspan="2"/>
+      <field name="plan_name" label="Plan" readonly="true"/>
+      <field name="bucket" label="Bucket" fieldType="many2one" source="pick_buckets" optionLabel="name" entity="buckets"/>
+      <field name="assignees" label="Assigned to" fieldType="many2many" source="pick_people" optionLabel="name" entity="people"/>
+      <field name="labels" label="Labels" fieldType="many2many" source="pick_labels" optionLabel="name" entity="labels"/>
+      <field name="blocked_by" label="Waits for" fieldType="many2many" source="pick_tasks" optionLabel="name" entity="tasks" help="Tasks of this plan that must be completed first."/>
+      <field name="start" label="Start" fieldType="date"/>
+      <field name="due" label="Due" fieldType="date"/>
+      <field name="priority" label="Priority" fieldType="selection" options="low, medium, high, urgent"/>
+      <field name="progress" label="Progress" fieldType="selection" options="not_started, in_progress, completed"/>
+      <field name="recurrence" label="Repeats" fieldType="selection" options="none, daily, weekly, monthly, yearly"/>
+    </group>
+  </view>
+  <checklist title="Checklist" source="task_checklist" add="add_check" toggle="toggle_check" remove="remove_check"/>
+</page>

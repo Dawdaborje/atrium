@@ -1,0 +1,42 @@
+{
+  "model_id": "mdl_de22d2akdj",
+  "name": "drive_favourite",
+  "label": "Favourite",
+  "plural_label": "Favourites",
+  "icon": "star",
+  "title_field": "item",
+  "fields": [
+    {
+      "id": "fld_7e4e3y5c6l",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_2mhsndejaw",
+      "name": "item",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_mvbhsgyyoe",
+      "name": "kind",
+      "type": "select",
+      "required": true,
+      "options": [
+        {
+          "id": "opt_tdvdmsucc7",
+          "value": "folder"
+        },
+        {
+          "id": "opt_tnerzjl2cc",
+          "value": "file"
+        }
+      ]
+    }
+  ]
+}

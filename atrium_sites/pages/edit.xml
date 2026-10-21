@@ -1,0 +1,9 @@
+<page route="/sites/s/{site}/edit" title="Edit the start page" menu="false">
+  <view type="form" source="site_info" function="edit_site" submit="Save" success="Saved" redirect="/sites/s/{site}">
+    <group title="Start page" cols="1">
+      <field name="description" label="What it is for"/>
+      <field name="home" label="Text" fieldType="text" help="Markdown. Link to a page of the app with [Words](/wiki/s/abc)."/>
+      <field name="show_news" label="Show the latest news" fieldType="boolean"/>
+    </group>
+  </view>
+</page>

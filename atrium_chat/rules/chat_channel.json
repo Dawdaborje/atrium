@@ -1,0 +1,17 @@
+{
+  "model": "chat_channel",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    }
+  ]
+}

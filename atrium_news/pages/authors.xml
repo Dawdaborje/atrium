@@ -1,0 +1,16 @@
+<page route="/news/authors" title="Who writes the news" menu="false" icon="pen">
+  <view type="list" source="authors">
+    <columns>
+      <column field="name" label="Author"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_author" confirm="This person can no longer write posts." danger="true"/>
+    </actions>
+    <empty title="Only administrators write" description="Add people who may write posts."/>
+  </view>
+  <view type="form" function="add_authors" submit="Add authors" success="Added">
+    <group title="Add authors (administrators only)" cols="1">
+      <field name="users" label="People" fieldType="many2many" source="pick_people" optionLabel="name" entity="people" required="true"/>
+    </group>
+  </view>
+</page>

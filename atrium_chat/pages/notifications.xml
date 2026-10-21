@@ -1,0 +1,7 @@
+<page route="/chat/{channel}/notifications" title="Notifications" menu="false">
+  <view type="form" source="my_membership" function="set_muted" submit="Save" success="Saved" redirect="/chat/{channel}">
+    <group title="Notifications" cols="1">
+      <field name="muted" label="Mute this conversation" fieldType="boolean" help="A muted conversation stays quiet on your list. You are still told when someone mentions you."/>
+    </group>
+  </view>
+</page>

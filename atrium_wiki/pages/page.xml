@@ -1,0 +1,14 @@
+<page route="/wiki/p/{id}" title="Page" menu="false" model="wiki_page" icon="file-text">
+  <view type="form" source="get_page">
+    <header>
+      <button label="Edit" href="/wiki/p/{id}/edit"/>
+      <button label="History" href="/wiki/p/{id}/history"/>
+      <button label="Delete page" function="delete_page" confirm="Delete this page? Pages under it move up one level. Its history stays."/>
+    </header>
+    <group title="" cols="1">
+      <field name="path" label="Where" readonly="true"/>
+      <field name="rendered" label="Page" fieldType="markdown" readonly="true"/>
+      <field name="linked_from" label="Linked from" readonly="true"/>
+    </group>
+  </view>
+</page>

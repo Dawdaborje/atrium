@@ -1,0 +1,13 @@
+<page route="/calendar" title="Calendar" icon="calendar-days">
+  <heading title="Calendar">
+    <button label="New event" href="/calendar/new" size="sm"/>
+    <button label="Agenda" href="/calendar/agenda" variant="outline" size="sm"/>
+    <button label="Calendars" href="/calendar/calendars" variant="outline" size="sm"/>
+    <button label="Time zone" href="/calendar/timezone" variant="outline" size="sm"/>
+    <button label="Who is free" href="/calendar/availability" variant="outline" size="sm"/>
+  </heading>
+  <view type="calendar" source="events_in" date_start="starts_at" date_stop="ends_at" color="color" open="/calendar/event/{id}">
+    <field name="title"/>
+    <empty title="Nothing on" description="No events in this month."/>
+  </view>
+</page>

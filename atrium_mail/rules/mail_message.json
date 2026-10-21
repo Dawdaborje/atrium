@@ -1,0 +1,26 @@
+{
+  "model": "mail_message",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    },
+    {
+      "name": "members_read",
+      "operations": [
+        "read"
+      ],
+      "when": {
+        "box": "$my_boxes"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<page route="/chat/{channel}/members" title="People in this conversation" menu="false">
+  <view type="list" source="channel_members">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="role" label="Role"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_member" confirm="Remove this person from the conversation?" danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_members" submit="Add people" success="Added">
+    <group title="Add people" cols="1">
+      <field name="users" label="People" fieldType="many2many" source="list_people" optionLabel="name" entity="people" required="true"/>
+    </group>
+  </view>
+</page>

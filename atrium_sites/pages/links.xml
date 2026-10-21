@@ -1,0 +1,24 @@
+<page route="/sites/s/{site}/links" title="Links of the site" menu="false" icon="link">
+  <button label="Back to the site" href="/sites/s/{site}" variant="outline"/>
+  <view type="list" source="site_links">
+    <columns>
+      <column field="number" label="#"/>
+      <column field="title" label="Link"/>
+      <column field="url" label="Goes to"/>
+      <column field="about" label="About"/>
+    </columns>
+    <actions>
+      <action name="up" label="Move up" function="link_up"/>
+      <action name="down" label="Move down" function="link_down"/>
+      <action name="delete" label="Delete" function="delete_link" confirm="Take this link off the site?" danger="true"/>
+    </actions>
+    <empty title="No links" description="Add the first one below."/>
+  </view>
+  <view type="form" function="add_link" submit="Add link" success="Added">
+    <group title="Add a link" cols="2">
+      <field name="title" label="Title" required="true"/>
+      <field name="url" label="Goes to" required="true" help="A page of this app such as /wiki or /drive, or a web address starting with https://"/>
+      <field name="about" label="A few words about it" colspan="2"/>
+    </group>
+  </view>
+</page>

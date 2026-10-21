@@ -1,0 +1,19 @@
+<page route="/mailbox/m/{id}" title="Message" menu="false" icon="mail">
+  <view type="form" source="get_message">
+    <header>
+      <button label="Reply" href="/mailbox/m/{id}/reply"/>
+      <button label="Attachments" href="/mailbox/m/{id}/files"/>
+      <button label="Mark as unread" function="mark_unread" redirect="/mailbox"/>
+      <button label="Move to trash" function="trash_message" confirm="Move this message to the trash?" redirect="/mailbox"/>
+    </header>
+    <group title="" cols="2">
+      <field name="subject" label="Subject" readonly="true" colspan="2"/>
+      <field name="from" label="From" readonly="true"/>
+      <field name="when" label="Received" readonly="true"/>
+      <field name="to" label="To" readonly="true"/>
+      <field name="cc" label="Cc" readonly="true"/>
+      <field name="files" label="Attachments" readonly="true" colspan="2"/>
+      <field name="body" label="Message" fieldType="markdown" readonly="true" colspan="2"/>
+    </group>
+  </view>
+</page>

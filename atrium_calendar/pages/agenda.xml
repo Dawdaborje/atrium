@@ -1,0 +1,12 @@
+<page route="/calendar/agenda" title="Agenda" menu="false" icon="list">
+  <view type="list" source="agenda" open="/calendar/event/{id}">
+    <columns>
+      <column field="when_text" label="When"/>
+      <column field="title" label="Event"/>
+      <column field="location" label="Where"/>
+      <column field="calendar_name" label="Calendar"/>
+      <column field="response" label="Your answer" fieldType="badge"/>
+    </columns>
+    <empty title="Nothing in the next two weeks" description="Events you make or are invited to show here."/>
+  </view>
+</page>

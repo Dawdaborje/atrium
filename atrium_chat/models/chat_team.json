@@ -1,0 +1,29 @@
+{
+  "model_id": "mdl_ybl7aou7tr",
+  "name": "chat_team",
+  "label": "Team",
+  "plural_label": "Teams",
+  "icon": "users",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_6h4zclj22a",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 80,
+      "index": "plain"
+    },
+    {
+      "id": "fld_xmdt4m2sc3",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_zu6aeedjdb",
+      "name": "created_by",
+      "type": "string",
+      "max_length": 128
+    }
+  ]
+}

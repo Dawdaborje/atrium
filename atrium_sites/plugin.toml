@@ -1,0 +1,36 @@
+[plugin]
+name = "atrium_sites"
+icon_path = "assets/logo.svg"
+label = "Sites"
+version = "0.1.0"
+description = "Start pages for teams, departments and the organization, with news and links to what each uses."
+long_description = """
+Sites for Atrium. A site is a start page for a team, a department or everyone: some words in Markdown, the latest news
+(when the news plugin is installed) and quick links to a wiki space, a drive folder, a plan, a form or any web
+address. Sites have owners, editors and visitors, and can be opened for everyone in the organization to visit. Written in
+Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+optional_dependencies = ["atrium_news"]
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "plugins::call"]
+access_models = [
+  { name = "site_site", permissions = ["read", "write"] },
+  { name = "site_member", permissions = ["read", "write"] },
+  { name = "site_link", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Sites"
+icon = "house"
+route = "/sites"
+description = "Start pages for teams and departments"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

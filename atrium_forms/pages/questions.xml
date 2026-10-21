@@ -1,0 +1,27 @@
+<page route="/forms/f/{id}/questions" title="Questions" menu="false" icon="circle-help">
+  <button label="Back to the form" href="/forms/f/{id}" variant="outline"/>
+  <view type="list" source="form_questions" open="/forms/q/{id}">
+    <columns>
+      <column field="number" label="#"/>
+      <column field="label" label="Question"/>
+      <column field="kind" label="Kind" fieldType="badge"/>
+      <column field="options_text" label="Choices"/>
+      <column field="required" label="Required" fieldType="boolean"/>
+    </columns>
+    <actions>
+      <action name="up" label="Move up" function="question_up"/>
+      <action name="down" label="Move down" function="question_down"/>
+      <action name="delete" label="Delete" function="delete_question" confirm="Delete this question?" danger="true"/>
+    </actions>
+    <empty title="No questions" description="Add the first question below."/>
+  </view>
+  <view type="form" function="add_question" submit="Add question" success="Added">
+    <group title="Add a question" cols="2">
+      <field name="label" label="Question" colspan="2" required="true"/>
+      <field name="kind" label="Kind" fieldType="selection" options="text, long, choice, multi, dropdown, rating, yes_no, number, date" help="text: one line · long: paragraph · choice: pick one · multi: pick several · dropdown: pick one from a list · rating: 1 to 5 · yes_no · number · date"/>
+      <field name="required" label="Required" fieldType="boolean"/>
+      <field name="options" label="Choices" fieldType="text" colspan="2" help="One to a line. Only for choice, multi and dropdown."/>
+      <field name="help" label="A hint under the question" colspan="2"/>
+    </group>
+  </view>
+</page>

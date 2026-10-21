@@ -1,0 +1,11 @@
+<page route="/people/list" title="Org chart as a list" menu="false">
+  <view type="list" source="org_chart" open="/people/{id}">
+    <columns>
+      <column field="label" label="Name"/>
+      <column field="title" label="Job title"/>
+      <column field="department" label="Department"/>
+      <column field="reports" label="Reports"/>
+    </columns>
+    <empty title="No one to show"/>
+  </view>
+</page>

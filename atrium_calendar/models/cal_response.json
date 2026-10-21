@@ -1,0 +1,50 @@
+{
+  "model_id": "mdl_7qtnbt3iyr",
+  "name": "cal_response",
+  "label": "Reply",
+  "plural_label": "Replies",
+  "icon": "reply",
+  "title_field": "status",
+  "fields": [
+    {
+      "id": "fld_v4kphukzgk",
+      "name": "event",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_6xb1twcbj6",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_w2fmmktsja",
+      "name": "status",
+      "type": "select",
+      "default": "needs_action",
+      "options": [
+        {
+          "id": "opt_5qc5vmgcme",
+          "value": "needs_action"
+        },
+        {
+          "id": "opt_im3hvgb350",
+          "value": "accepted"
+        },
+        {
+          "id": "opt_hy0nn8onph",
+          "value": "tentative"
+        },
+        {
+          "id": "opt_kuuydzg8yk",
+          "value": "declined"
+        }
+      ]
+    }
+  ]
+}

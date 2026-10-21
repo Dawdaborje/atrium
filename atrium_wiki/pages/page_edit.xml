@@ -1,0 +1,9 @@
+<page route="/wiki/p/{id}/edit" title="Edit page" menu="false" model="wiki_page">
+  <view type="form" source="get_page" function="update_page" submit="Save" success="Saved" redirect="/wiki/p/{id}">
+    <group title="Page" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="parent" label="Under" fieldType="many2one" source="pick_pages" optionLabel="name" entity="pages" colspan="2"/>
+      <field name="body" label="Text" fieldType="text" colspan="2" help="Markdown. Link to another page with [[Its title]]."/>
+    </group>
+  </view>
+</page>

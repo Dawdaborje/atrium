@@ -1,0 +1,20 @@
+<page route="/people/{id}/edit" title="Edit profile" menu="false">
+  <view type="form" source="person" function="save_profile" submit="Save" success="Saved">
+    <group title="Profile" cols="2">
+      <field name="name" label="Name" readonly="true"/>
+      <field name="title" label="Job title"/>
+      <field name="department" label="Department"/>
+      <field name="manager" label="Reports to" fieldType="many2one" source="pick_people" optionLabel="name" entity="people"/>
+      <field name="email" label="Email"/>
+      <field name="phone" label="Phone"/>
+      <field name="mobile" label="Mobile"/>
+      <field name="location" label="Location"/>
+      <field name="skills" label="Skills" help="Separated by commas" colspan="2"/>
+      <field name="bio" label="About" fieldType="text" colspan="2"/>
+      <field name="birthday" label="Birthday" help="Month and day, like 03-14. Leave empty to hide it."/>
+      <field name="away_until" label="Away until" fieldType="date" help="The last day you are away. Empty when you are here."/>
+      <field name="away_note" label="Why" help="A few words shown next to your name"/>
+      <field name="photo" label="Photo" fieldType="image"/>
+    </group>
+  </view>
+</page>

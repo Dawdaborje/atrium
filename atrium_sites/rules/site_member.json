@@ -1,0 +1,17 @@
+{
+  "model": "site_member",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    }
+  ]
+}

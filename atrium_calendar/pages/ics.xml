@@ -1,0 +1,12 @@
+<page route="/calendar/c/{calendar}/ics" title="Calendar file" menu="false">
+  <view type="form" source="export_ics">
+    <group title="Export: copy this into a .ics file" cols="1">
+      <field name="ics" label="iCalendar" fieldType="text" readonly="true"/>
+    </group>
+  </view>
+  <view type="form" function="import_ics" submit="Import" success="Imported">
+    <group title="Import: paste the contents of a .ics file" cols="1">
+      <field name="ics" label="iCalendar" fieldType="text" required="true"/>
+    </group>
+  </view>
+</page>

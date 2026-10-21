@@ -1,0 +1,34 @@
+<page route="/chat/{channel?}" title="Chat" shell="none" query="thread" icon="messages-square">
+  <panes focus="{channel}" back="/chat">
+    <pane name="rail" title="Conversations" width="280" min="220" max="440" collapsible="true">
+      <group cols="2">
+        <button label="New conversation" href="/chat/new_message" colspan="2"/>
+        <button label="New channel" size="sm" href="/chat/new_channel" variant="outline"/>
+        <button label="New group" size="sm" href="/chat/new_group" variant="outline"/>
+        <button label="Browse" size="sm" href="/chat/browse" variant="outline"/>
+        <button label="Search" size="sm" href="/chat/search" variant="outline"/>
+      </group>
+      <rail source="my_channels" topic="inbox.{me}" presence="online" active="{channel}" open="/chat/{id}" search="true" title="Conversations" empty="No conversations yet."/>
+    </pane>
+    <pane name="welcome" show="!{channel}">
+      <empty title="Choose a conversation" description="Pick one from the list, or start a new one.">
+        <button label="New conversation" href="/chat/new_message"/>
+      </empty>
+    </pane>
+    <pane name="main" show="{channel}">
+      <heading source="channel_header" topic="channel.{channel}">
+        <button label="Pinned" href="/chat/{channel}/pinned" variant="outline" size="sm"/>
+        <button label="Alerts" href="/chat/{channel}/notifications" variant="outline" size="sm"/>
+        <button label="People" href="/chat/{channel}/members" variant="outline" size="sm"/>
+        <button label="Settings" href="/chat/{channel}/settings" variant="outline" size="sm"/>
+      </heading>
+      <presence topic="channel.{channel}" source="people"/>
+      <messages source="channel_messages" topic="channel.{channel}" typing="true" time_field="at" thread="?thread={id}" react="react" pin="pin_message" edit="edit_message" delete="delete_message" empty="Nobody has written here yet."/>
+      <composer send="post_message" topic="channel.{channel}" typing="true" attach="true" mentions="list_people"/>
+    </pane>
+    <pane name="thread" title="Thread" width="380" min="280" max="560" show="{query.thread}">
+      <messages source="thread_messages" topic="thread.{query.thread}" typing="true" time_field="at" react="react" pin="pin_message" edit="edit_message" delete="delete_message" empty="No replies yet."/>
+      <composer send="post_message" topic="thread.{query.thread}" typing="true" attach="true" mentions="list_people" placeholder="Reply…"/>
+    </pane>
+  </panes>
+</page>

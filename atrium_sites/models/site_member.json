@@ -1,0 +1,46 @@
+{
+  "model_id": "mdl_buzbj7dk3t",
+  "name": "site_member",
+  "label": "Site member",
+  "plural_label": "Site members",
+  "icon": "users",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_26jfh4op5k",
+      "name": "site",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_sfsgmp1uoz",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_u95epcqxg4",
+      "name": "role",
+      "type": "select",
+      "default": "editor",
+      "options": [
+        {
+          "id": "opt_5c0monj9vb",
+          "value": "owner"
+        },
+        {
+          "id": "opt_xuokdeof0i",
+          "value": "editor"
+        },
+        {
+          "id": "opt_mxpcifhdgk",
+          "value": "visitor"
+        }
+      ]
+    }
+  ]
+}

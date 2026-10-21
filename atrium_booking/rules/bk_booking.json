@@ -1,0 +1,17 @@
+{
+  "model": "bk_booking",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    }
+  ]
+}

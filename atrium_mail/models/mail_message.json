@@ -1,0 +1,78 @@
+{
+  "model_id": "mdl_7p844zen5l",
+  "name": "mail_message",
+  "label": "Message",
+  "plural_label": "Messages",
+  "icon": "message-square",
+  "title_field": "subject",
+  "fields": [
+    {
+      "id": "fld_65zx435flp",
+      "name": "box",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_9fausrnxxi",
+      "name": "thread",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_d13ldnnvgx",
+      "name": "direction",
+      "type": "select",
+      "default": "in",
+      "options": [
+        {
+          "id": "opt_hly9qfnprf",
+          "value": "in"
+        },
+        {
+          "id": "opt_qzpa1hgh11",
+          "value": "out"
+        }
+      ]
+    },
+    {
+      "id": "fld_9yjdim5kyp",
+      "name": "subject",
+      "type": "string",
+      "max_length": 300
+    },
+    {
+      "id": "fld_v168y7gaog",
+      "name": "sender",
+      "type": "string",
+      "max_length": 320
+    },
+    {
+      "id": "fld_nxbui83ayt",
+      "name": "by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_a37tox03ij",
+      "name": "text",
+      "type": "text"
+    },
+    {
+      "id": "fld_6z6ppyynnb",
+      "name": "at",
+      "type": "string",
+      "max_length": 40
+    },
+    {
+      "id": "fld_phug0txj36",
+      "name": "message_id",
+      "type": "string",
+      "max_length": 400,
+      "index": "plain"
+    }
+  ]
+}

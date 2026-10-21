@@ -1,0 +1,18 @@
+<page route="/people" title="People" icon="contact">
+  <button label="Org chart" href="/people/chart" variant="outline"/>
+  <button label="Birthdays and anniversaries" href="/people/upcoming" variant="outline"/>
+  <view type="list" source="directory" open="/people/{id}" create="/people/me" create_label="My profile">
+    <search fields="name,title,department,location,skills,email"/>
+    <filter field="department" label="Department" source="department_options"/>
+    <columns>
+      <column field="photo" label="" fieldType="image"/>
+      <column field="name" label="Name"/>
+      <column field="title" label="Job title"/>
+      <column field="department" label="Department"/>
+      <column field="phone" label="Phone"/>
+      <column field="location" label="Location"/>
+      <column field="away_text" label="Status"/>
+    </columns>
+    <empty title="Nobody here yet" description="People appear when they sign in to the organization."/>
+  </view>
+</page>

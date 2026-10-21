@@ -1,0 +1,25 @@
+{
+  "model_id": "mdl_cs7t3zn8qv",
+  "name": "cal_setting",
+  "label": "Calendar setting",
+  "plural_label": "Calendar settings",
+  "icon": "settings",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_cs1u5r9e2b",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_cs4t8z6w1k",
+      "name": "tz",
+      "type": "string",
+      "max_length": 64,
+      "help": "The time zone the person types and reads times in (empty: UTC)"
+    }
+  ]
+}

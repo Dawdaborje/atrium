@@ -1,0 +1,11 @@
+<page route="/news/p/{id}/edit" title="Edit post" menu="false" model="news_post">
+  <view type="form" source="get_post" function="update_post" submit="Save" success="Saved" redirect="/news/p/{id}">
+    <group title="Post" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="summary" label="In one line" colspan="2"/>
+      <field name="category" label="Category"/>
+      <field name="pinned" label="Keep at the top" fieldType="boolean"/>
+      <field name="body" label="Text" fieldType="text" colspan="2" help="Markdown."/>
+    </group>
+  </view>
+</page>

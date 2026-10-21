@@ -1,0 +1,11 @@
+<page route="/people/upcoming" title="Birthdays and anniversaries" menu="false">
+  <view type="list" source="upcoming" open="/people/{id}">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="what" label="What"/>
+      <column field="on" label="On" fieldType="date"/>
+      <column field="days_until" label="In days"/>
+    </columns>
+    <empty title="Nothing in the next 30 days"/>
+  </view>
+</page>

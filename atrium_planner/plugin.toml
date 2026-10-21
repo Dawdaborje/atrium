@@ -1,0 +1,57 @@
+[plugin]
+name = "atrium_planner"
+icon_path = "assets/logo.svg"
+label = "Planner"
+version = "0.2.0"
+description = "Plans with boards, tasks, assignment, due dates, checklists, repeating tasks and reminders."
+long_description = """
+A planner for Atrium. A plan belongs to its members and is a board of buckets; tasks move between buckets by drag and
+drop, carry assignees, a due date, a priority, labels and a checklist, and can repeat. A task's comments, followers and
+the history of what changed are the kernel's chatter. Assignment notifies, and a morning run reminds people of what is due
+or overdue. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "events::emit", "notify::send"]
+access_models = [
+  { name = "planner_plan", permissions = ["read", "write"] },
+  { name = "planner_member", permissions = ["read", "write"] },
+  { name = "planner_bucket", permissions = ["read", "write"] },
+  { name = "planner_label", permissions = ["read", "write"] },
+  { name = "planner_task", permissions = ["read", "write"] },
+  { name = "planner_check", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Planner"
+icon = "kanban"
+route = "/planner"
+description = "Plans, boards and tasks"
+
+[[schedule]]
+name = "due-reminders"
+title = "Remind people of tasks that are due"
+description = "Tells the people assigned to tasks due today, or that fell due yesterday."
+function = "due_reminders"
+cron = "0 7 * * *"
+
+[[events]]
+name = "task_created"
+direction = "emit"
+
+[[events]]
+name = "task_assigned"
+direction = "emit"
+
+[[events]]
+name = "task_completed"
+direction = "emit"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

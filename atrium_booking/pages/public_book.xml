@@ -1,0 +1,11 @@
+<page route="/book/{link}/{service}" public="true" title="Book a time" menu="false" icon="clock" model="bk_service">
+  <heading source="public_service"/>
+  <view type="form" function="public_book" submit="Book this time" success="Booked" redirect="/book/done/{token}">
+    <group title="Pick a time" cols="1">
+      <field name="slot" label="Time" fieldType="many2one" source="public_slots" optionLabel="name" entity="slots" required="true" help="Times are in the host's time zone, shown above."/>
+      <field name="name" label="Your name" required="true"/>
+      <field name="email" label="Your email address" required="true" help="The host sees it. Keep the address of the next page to cancel."/>
+      <field name="note" label="Anything to add" fieldType="text"/>
+    </group>
+  </view>
+</page>

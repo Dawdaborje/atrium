@@ -1,0 +1,15 @@
+<page route="/booking/mine" title="My bookings" menu="false" icon="calendar-check">
+  <view type="list" source="my_bookings">
+    <columns>
+      <column field="when" label="When"/>
+      <column field="title" label="Meeting"/>
+      <column field="with" label="With"/>
+      <column field="you_are" label="You are" fieldType="badge"/>
+      <column field="note" label="Note"/>
+    </columns>
+    <actions>
+      <action name="cancel" label="Cancel" function="cancel_booking" confirm="Cancel this meeting for both of you?" danger="true"/>
+    </actions>
+    <empty title="Nothing booked" description="Meetings you book or that others book with you show here."/>
+  </view>
+</page>

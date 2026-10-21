@@ -1,0 +1,35 @@
+[plugin]
+name = "atrium_mailbox"
+icon_path = "assets/logo.svg"
+label = "Mailbox"
+version = "0.3.0"
+description = "Your own mail, read and written in Atrium, from your account on the organization's mail server."
+long_description = """
+A personal mailbox for Atrium. Each person connects their own login once (the password is kept by the kernel, encrypted,
+and this plugin never sees it); then they read their folders, open, answer and write mail, mark it unread and move it to
+the trash. The mail stays on the organization's mail server (JMAP, or plain IMAP with SMTP for sending); nothing is copied here. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["bridge::call", "media::store", "media::read", "media::release"]
+bridges = ["jmap", "imap"]
+access_models = []
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Mailbox"
+icon = "mail"
+route = "/mailbox"
+description = "Your own mail"
+
+# Attachments fetched from the mail server are stored for the one person who asked; nobody else is ever allowed to read them.
+[media_guard]
+function = "can_read_media"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

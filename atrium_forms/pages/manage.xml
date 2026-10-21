@@ -1,0 +1,25 @@
+<page route="/forms/f/{id}" title="Form" menu="false" icon="clipboard-list">
+  <heading source="form_header">
+    <button label="Questions" href="/forms/f/{id}/questions" size="sm"/>
+    <button label="Preview" href="/forms/f/{id}/fill" variant="outline" size="sm"/>
+    <button label="Results" href="/forms/f/{id}/results" variant="outline" size="sm"/>
+    <button label="Responses" href="/forms/f/{id}/responses" variant="outline" size="sm"/>
+  </heading>
+  <view type="form" source="form_info" function="update_form" submit="Save" success="Saved">
+    <header>
+      <button label="Open" function="open_form" confirm="Open the form for everyone to answer?"/>
+      <button label="Close" function="close_form" confirm="Stop taking answers?"/>
+      <button label="Back to draft" function="reopen_as_draft"/>
+      <button label="Delete" function="delete_form" confirm="Delete this form and all its answers?"/>
+    </header>
+    <group title="Form" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="description" label="What it is about" fieldType="text" colspan="2"/>
+      <field name="status" label="State" readonly="true"/>
+      <field name="anonymous" label="Answers are anonymous" fieldType="boolean"/>
+      <field name="once" label="Each person answers once" fieldType="boolean"/>
+      <field name="closes_at" label="Closes on" fieldType="date"/>
+      <field name="thanks" label="Message after answering" colspan="2"/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,10 @@
+#V2
+INFO FOR NS;
+SELECT username, email, display_name, name FROM user LIMIT 15;
+INFO FOR DB;
+SELECT username, email, full_name FROM users LIMIT 20;
+SELECT route, title FROM plugin_ui_pages WHERE plugin = 'atrium_chat' OR route = '/chat/{channel?}';
+SELECT id, string::contains(<string>body, 'New conversation') AS has_new, string::contains(<string>content, 'New conversation') AS has_content, string::contains(<string>xml, 'New conversation') AS has_xml, string::contains(<string>source, 'New conversation') AS has_source FROM plugin_ui_pages WHERE route = '/chat/{channel?}';
+SELECT object::keys(id) FROM plugin_ui_pages:epikajx2obu8hjenr8d2;
+SELECT object::keys($this) AS keys FROM plugin_ui_pages:epikajx2obu8hjenr8d2;
+SELECT plugin, source_path, string::contains(<string>component_tree, 'New conversation') AS has_new, string::contains(<string>component_tree, 'label":"Group"') AS has_group FROM plugin_ui_pages WHERE route = '/chat/{channel?}';

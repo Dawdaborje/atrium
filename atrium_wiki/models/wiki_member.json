@@ -1,0 +1,46 @@
+{
+  "model_id": "mdl_3qvxo8xu7r",
+  "name": "wiki_member",
+  "label": "Space member",
+  "plural_label": "Space members",
+  "icon": "users",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_uvlonfotwm",
+      "name": "space",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_2pwo5d9nbl",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_7ozhphoqif",
+      "name": "role",
+      "type": "select",
+      "default": "editor",
+      "options": [
+        {
+          "id": "opt_t636jo9v3u",
+          "value": "owner"
+        },
+        {
+          "id": "opt_nwl6hib9oi",
+          "value": "editor"
+        },
+        {
+          "id": "opt_j7wf9589p2",
+          "value": "reader"
+        }
+      ]
+    }
+  ]
+}

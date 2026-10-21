@@ -1,0 +1,11 @@
+<page route="/news/mine" title="My posts" menu="false" icon="pen">
+  <view type="list" source="my_posts" open="/news/p/{id}" create="/news/new" create_label="Write a post">
+    <columns>
+      <column field="tag" label="" fieldType="badge"/>
+      <column field="title" label="Title"/>
+      <column field="category" label="Category"/>
+      <column field="when" label="Date"/>
+    </columns>
+    <empty title="You have written nothing" description="Authors can write posts; ask an administrator to make you one."/>
+  </view>
+</page>

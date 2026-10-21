@@ -1,0 +1,51 @@
+{
+  "model_id": "mdl_bjhngz7e2b",
+  "name": "drive_folder",
+  "label": "Folder",
+  "plural_label": "Folders",
+  "icon": "folder",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_36jdk5a3io",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "index": "plain"
+    },
+    {
+      "id": "fld_nnsn6jxec6",
+      "name": "parent",
+      "type": "string",
+      "max_length": 64,
+      "index": "plain",
+      "help": "The key of the folder it is in; empty at the top"
+    },
+    {
+      "id": "fld_7dbbc66z7b",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_yib6cmcrmk",
+      "name": "trashed",
+      "type": "bool",
+      "default": false,
+      "index": "plain"
+    },
+    {
+      "id": "fld_qmq2rnkxbr",
+      "name": "trashed_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_pmzel3bcbc",
+      "name": "modified_at",
+      "type": "datetime"
+    }
+  ]
+}

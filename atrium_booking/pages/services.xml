@@ -1,0 +1,13 @@
+<page route="/booking/services" title="What I offer" menu="false" icon="clock">
+  <view type="list" source="my_services" open="/booking/service/{id}" create="/booking/services/new" create_label="Offer time">
+    <columns>
+      <column field="title" label="Meeting"/>
+      <column field="length" label="Length"/>
+      <column field="days" label="Days"/>
+      <column field="hours" label="Hours"/>
+      <column field="upcoming" label="Booked"/>
+      <column field="active" label="On" fieldType="boolean"/>
+    </columns>
+    <empty title="You offer nothing yet" description="Offer a kind of meeting and colleagues can book a free time."/>
+  </view>
+</page>

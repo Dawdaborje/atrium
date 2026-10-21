@@ -1,0 +1,26 @@
+{
+  "model_id": "mdl_fw03twgp8b",
+  "name": "mail_member",
+  "label": "Box member",
+  "plural_label": "Box members",
+  "icon": "users",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_se450gjyf2",
+      "name": "box",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_pe1t5l2oj4",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

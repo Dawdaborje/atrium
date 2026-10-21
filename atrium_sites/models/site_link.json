@@ -1,0 +1,44 @@
+{
+  "model_id": "mdl_28zuuzuari",
+  "name": "site_link",
+  "label": "Site link",
+  "plural_label": "Site links",
+  "icon": "link",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_ntnotemr3m",
+      "name": "site",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_bam26yc1kn",
+      "name": "position",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_pr28utzrwd",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 120
+    },
+    {
+      "id": "fld_1iqfnxt76o",
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "max_length": 500
+    },
+    {
+      "id": "fld_lvg9mw7nss",
+      "name": "about",
+      "type": "string",
+      "max_length": 200
+    }
+  ]
+}

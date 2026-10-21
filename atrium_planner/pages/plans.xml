@@ -1,0 +1,12 @@
+<page route="/planner" title="Planner" icon="kanban">
+  <view type="list" source="my_plans" open="/planner/{id}" create="/planner/new" create_label="New plan">
+    <columns>
+      <column field="name" label="Plan"/>
+      <column field="open" label="Open tasks"/>
+      <column field="overdue" label="Overdue"/>
+      <column field="done" label="Done"/>
+      <column field="members" label="People"/>
+    </columns>
+    <empty title="No plans yet" description="Make a plan to start organising work."/>
+  </view>
+</page>

@@ -1,0 +1,19 @@
+{
+  "model_id": "mdl_cl8w2h5xk3",
+  "name": "cal_link",
+  "label": "Booking link",
+  "plural_label": "Booking links",
+  "icon": "link",
+  "title_field": "host",
+  "fields": [
+    {
+      "id": "fld_cl3p6v9n4a",
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain",
+      "help": "The member whose time the link offers; the record's own key is the token in the address"
+    }
+  ]
+}

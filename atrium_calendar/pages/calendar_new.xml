@@ -1,0 +1,9 @@
+<page route="/calendar/calendars/new" title="New calendar" menu="false">
+  <view type="form" function="create_calendar" submit="Create calendar" success="Calendar created" redirect="/calendar/c/{id}">
+    <group title="Calendar" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="members" label="People" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people" help="They can add and change events. You are the owner."/>
+    </group>
+  </view>
+</page>

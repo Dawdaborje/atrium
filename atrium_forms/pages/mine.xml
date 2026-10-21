@@ -1,0 +1,12 @@
+<page route="/forms/mine" title="My forms" menu="false" icon="clipboard-list">
+  <view type="list" source="my_forms" open="/forms/f/{id}" create="/forms/new" create_label="New form">
+    <columns>
+      <column field="title" label="Form"/>
+      <column field="state" label="State" fieldType="badge"/>
+      <column field="responses" label="Responses"/>
+      <column field="closes" label="Closes"/>
+      <column field="anonymous" label="Anonymous" fieldType="boolean"/>
+    </columns>
+    <empty title="No forms yet" description="Make a form to ask your colleagues something."/>
+  </view>
+</page>

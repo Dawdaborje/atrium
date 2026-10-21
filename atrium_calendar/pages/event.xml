@@ -1,0 +1,24 @@
+<page route="/calendar/event/{id}" title="Event" menu="false" model="cal_event">
+  <view type="form" source="get_event" function="update_event" submit="Save" success="Saved">
+    <header>
+      <button label="Delete" function="delete_event" confirm="Delete this event for everyone?"/>
+    </header>
+    <group title="Event" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="starts_at" label="Starts" fieldType="datetime"/>
+      <field name="ends_at" label="Ends" fieldType="datetime"/>
+      <field name="all_day" label="All day" fieldType="boolean"/>
+      <field name="time_zone" label="Times in" readonly="true" help="Your time zone; change it under Time zone."/>
+      <field name="calendar_name" label="Calendar" readonly="true"/>
+      <field name="repeat" label="Repeats" fieldType="selection" options="none, daily, weekly, monthly, yearly"/>
+      <field name="until" label="Repeats until" fieldType="date"/>
+      <field name="location" label="Where"/>
+      <field name="attendees" label="Invited" fieldType="many2many" source="pick_org_people" optionLabel="name" entity="people"/>
+      <field name="responses" label="Answers" readonly="true" colspan="2"/>
+      <field name="busy" label="Clashes" readonly="true" colspan="2"/>
+      <field name="my_response" label="Your answer" fieldType="selection" options="needs_action, accepted, tentative, declined" help="Only when you are invited."/>
+      <field name="skip" label="Leave out one day" fieldType="date" help="For a repeating event: the day it does not happen."/>
+      <field name="description" label="Notes" fieldType="text" colspan="2"/>
+    </group>
+  </view>
+</page>

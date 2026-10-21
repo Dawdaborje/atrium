@@ -1,0 +1,3 @@
+<page route="/drive/link/{token}/{folder?}" title="Shared with a link" menu="false">
+  <files source="open_link" open="/drive/link/{token}/{id}"/>
+</page>

@@ -1,0 +1,18 @@
+{
+  "model_id": "mdl_rpyllbepht",
+  "name": "news_author",
+  "label": "Author",
+  "plural_label": "Authors",
+  "icon": "pen",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_8nuuadt9vg",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

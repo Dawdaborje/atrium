@@ -1,0 +1,99 @@
+{
+  "model_id": "mdl_25sfzosjt6",
+  "name": "drive_file",
+  "label": "File",
+  "plural_label": "Files",
+  "icon": "file",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_4cvzqcsv7l",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "index": "plain"
+    },
+    {
+      "id": "fld_pitulzuq2b",
+      "name": "folder",
+      "type": "string",
+      "max_length": 64,
+      "index": "plain",
+      "help": "The key of the folder it is in; empty at the top"
+    },
+    {
+      "id": "fld_a6r4ddo2id",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_ewz35djk62",
+      "name": "media",
+      "type": "file",
+      "help": "The current version: { key, name, mime, size }"
+    },
+    {
+      "id": "fld_5xzps6k474",
+      "name": "mime",
+      "type": "string",
+      "max_length": 120
+    },
+    {
+      "id": "fld_t3dbye24dl",
+      "name": "size",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_7o7byhqwlg",
+      "name": "version",
+      "type": "int",
+      "default": 1
+    },
+    {
+      "id": "fld_zr7btkfqxz",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_cprr7krkk4",
+      "name": "trashed",
+      "type": "bool",
+      "default": false,
+      "index": "plain"
+    },
+    {
+      "id": "fld_pjqho6enzh",
+      "name": "trashed_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_sdq5cmuxro",
+      "name": "modified_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_xdeif4mkob",
+      "name": "modified_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_xtf4jfhv5c",
+      "name": "content",
+      "type": "text",
+      "help": "The text found in the file, for search"
+    },
+    {
+      "id": "fld_gpfdjmspwq",
+      "name": "content_version",
+      "type": "int",
+      "default": 0,
+      "help": "The version whose text `content` holds"
+    }
+  ]
+}

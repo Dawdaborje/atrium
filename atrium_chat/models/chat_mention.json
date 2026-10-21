@@ -1,0 +1,39 @@
+{
+  "model_id": "mdl_ejqdtfqgqr",
+  "name": "chat_mention",
+  "label": "Mention",
+  "plural_label": "Mentions",
+  "icon": "at-sign",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_ma2fldafgv",
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_74euoupqja",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_knlenshr4n",
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "max_length": 64
+    },
+    {
+      "id": "fld_boywth5zy5",
+      "name": "n",
+      "type": "int",
+      "required": true
+    }
+  ]
+}

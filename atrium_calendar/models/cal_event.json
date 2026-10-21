@@ -1,0 +1,131 @@
+{
+  "model_id": "mdl_e8qvl2f2m0",
+  "name": "cal_event",
+  "label": "Event",
+  "plural_label": "Events",
+  "icon": "calendar-days",
+  "title_field": "title",
+  "fields": [
+    {
+      "id": "fld_jqx54wsfbs",
+      "name": "calendar",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_h4beihkutf",
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "max_length": 200,
+      "track": true
+    },
+    {
+      "id": "fld_wp0po68kly",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_q93df8kbz5",
+      "name": "location",
+      "type": "string",
+      "max_length": 200,
+      "track": true
+    },
+    {
+      "id": "fld_z32km5ujqu",
+      "name": "starts_at",
+      "type": "datetime",
+      "required": true,
+      "index": "plain",
+      "track": true
+    },
+    {
+      "id": "fld_qrb07h0bd0",
+      "name": "ends_at",
+      "type": "datetime",
+      "track": true
+    },
+    {
+      "id": "fld_wx99gw6345",
+      "name": "all_day",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "id": "fld_hl3jcx8y0o",
+      "name": "repeat",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "id": "opt_gekht5l9im",
+          "value": "none"
+        },
+        {
+          "id": "opt_ejg5a0is28",
+          "value": "daily"
+        },
+        {
+          "id": "opt_od7jtsrzf1",
+          "value": "weekly"
+        },
+        {
+          "id": "opt_o4y10u02cr",
+          "value": "monthly"
+        },
+        {
+          "id": "opt_qh0o34ts2l",
+          "value": "yearly"
+        }
+      ]
+    },
+    {
+      "id": "fld_2hzu44bc9g",
+      "name": "until",
+      "type": "date"
+    },
+    {
+      "id": "fld_myuoung72v",
+      "name": "attendees",
+      "type": "json",
+      "help": "User ids invited"
+    },
+    {
+      "id": "fld_eqyhwsk4vi",
+      "name": "attendee_keys",
+      "type": "string",
+      "max_length": 900,
+      "help": ",key,key, for finding a person's events"
+    },
+    {
+      "id": "fld_3ez79y3osu",
+      "name": "attendee_names",
+      "type": "string",
+      "max_length": 600
+    },
+    {
+      "id": "fld_cchm2rlwpa",
+      "name": "created_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_ev8z3q7m5t",
+      "name": "tz",
+      "type": "string",
+      "max_length": 64,
+      "help": "The zone the event was made in: a repeating event keeps its local time there through clock changes"
+    }
+  ],
+  "chatter": {
+    "enabled": true,
+    "messages": true,
+    "notes": false,
+    "followers": true,
+    "track_changes": true,
+    "visitors": "none"
+  }
+}

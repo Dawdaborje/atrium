@@ -1,0 +1,128 @@
+{
+  "model_id": "mdl_p23hzhs6xk",
+  "name": "people_profile",
+  "label": "Profile",
+  "plural_label": "Profiles",
+  "icon": "contact",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_ytzdpkodot",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain",
+      "help": "The person's login id"
+    },
+    {
+      "id": "fld_z7nkjikzjt",
+      "name": "title",
+      "type": "string",
+      "max_length": 120
+    },
+    {
+      "id": "fld_5rbzs2rj6y",
+      "name": "department",
+      "type": "string",
+      "max_length": 120,
+      "index": "plain"
+    },
+    {
+      "id": "fld_aj247uatpn",
+      "name": "manager",
+      "type": "string",
+      "max_length": 128,
+      "index": "plain",
+      "help": "The login id of the person they report to"
+    },
+    {
+      "id": "fld_soj7xfa4dn",
+      "name": "email",
+      "type": "string",
+      "max_length": 200
+    },
+    {
+      "id": "fld_mid4aglnl4",
+      "name": "phone",
+      "type": "string",
+      "max_length": 60
+    },
+    {
+      "id": "fld_pyhjagn2wb",
+      "name": "mobile",
+      "type": "string",
+      "max_length": 60
+    },
+    {
+      "id": "fld_qniidv52eo",
+      "name": "location",
+      "type": "string",
+      "max_length": 120
+    },
+    {
+      "id": "fld_mu2lvdxgdq",
+      "name": "bio",
+      "type": "text"
+    },
+    {
+      "id": "fld_ypblaubsv6",
+      "name": "skills",
+      "type": "string",
+      "max_length": 400,
+      "help": "Separated by commas"
+    },
+    {
+      "id": "fld_4ajgnzehio",
+      "name": "photo",
+      "type": "image"
+    },
+    {
+      "id": "fld_hlx42tk33f",
+      "name": "hr_managed",
+      "type": "json",
+      "help": "The fields the HR link keeps up to date; people cannot edit these"
+    },
+    {
+      "id": "fld_c4ekvll76k",
+      "name": "updated_at",
+      "type": "string",
+      "max_length": 40
+    },
+    {
+      "id": "fld_tkutoy7p42",
+      "name": "birthday",
+      "type": "string",
+      "max_length": 120,
+      "help": "Month and day, written MM-DD"
+    },
+    {
+      "id": "fld_wgbrojrx2l",
+      "name": "started",
+      "type": "string",
+      "max_length": 120,
+      "help": "The day they started, from HR (YYYY-MM-DD)"
+    },
+    {
+      "id": "fld_g2iuesse6u",
+      "name": "away_until",
+      "type": "string",
+      "max_length": 120,
+      "help": "The last day they are away (YYYY-MM-DD)"
+    },
+    {
+      "id": "fld_hawmeo3j74",
+      "name": "away_note",
+      "type": "string",
+      "max_length": 120,
+      "help": "Why, in a few words"
+    },
+    {
+      "id": "fld_sfi5jlvmz6",
+      "name": "away_source",
+      "type": "string",
+      "max_length": 120,
+      "help": "self or hr: who set the away status"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<page route="/wiki/search" title="Search the wiki" menu="false" icon="search">
+  <view type="list" source="search_pages" open="/wiki/p/{id}">
+    <search fields="title"/>
+    <columns>
+      <column field="title" label="Page"/>
+      <column field="space_name" label="Space"/>
+      <column field="found" label="Found in" fieldType="badge"/>
+      <column field="snippet" label="Text"/>
+    </columns>
+    <empty title="Type at least two letters" description="Titles and text of the pages you can read."/>
+  </view>
+</page>

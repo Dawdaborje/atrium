@@ -1,0 +1,11 @@
+<page route="/chat/search" title="Search messages" menu="false">
+  <view type="list" source="search_messages" page_size="25" open="/chat/{channel}">
+    <search fields="body"/>
+    <columns>
+      <column field="channel_name" label="Conversation"/>
+      <column field="author_name" label="From"/>
+      <column field="body" label="Message"/>
+      <column field="at" label="When" fieldType="datetime"/>
+    </columns>
+  </view>
+</page>

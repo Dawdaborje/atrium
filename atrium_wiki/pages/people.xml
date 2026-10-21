@@ -1,0 +1,17 @@
+<page route="/wiki/s/{space}/people" title="People in this space" menu="false">
+  <view type="list" source="space_members">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="role" label="Role" fieldType="badge"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_space_member" confirm="Remove this person from the space?" danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_space_members" submit="Add people" success="Added">
+    <group title="Add people" cols="2">
+      <field name="users" label="People" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people" required="true"/>
+      <field name="role" label="They can" fieldType="selection" options="reader, editor, owner"/>
+    </group>
+  </view>
+</page>

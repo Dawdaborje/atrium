@@ -1,0 +1,12 @@
+<page route="/forms/new" title="New form" menu="false">
+  <view type="form" function="create_form" submit="Create form" success="Form created" redirect="/forms/f/{id}/questions">
+    <group title="Form" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="description" label="What it is about" fieldType="text" colspan="2"/>
+      <field name="anonymous" label="Answers are anonymous" fieldType="boolean" help="Nobody, not even you, sees who gave which answer."/>
+      <field name="once" label="Each person answers once" fieldType="boolean"/>
+      <field name="closes_at" label="Closes on" fieldType="date" help="Leave empty to close it yourself."/>
+      <field name="thanks" label="Message after answering"/>
+    </group>
+  </view>
+</page>

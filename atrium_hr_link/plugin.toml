@@ -1,0 +1,59 @@
+[plugin]
+name = "atrium_hr_link"
+icon_path = "assets/logo.svg"
+label = "Atrium and HR"
+version = "0.4.0"
+description = "Keeps Atrium in step with HR: a chat channel for each department, and the directory profiles of the people."
+long_description = """
+Optional link between the HR plugins and Atrium. Every department gets a channel in the team "Departments", and
+its members are the employees who work in it and have a login. People who start are added, people who leave are
+taken out of every shared channel, and a nightly run catches transfers. Job title, department, work phone and email,
+location and manager are copied onto each person's directory profile, and people cannot change those fields there. HR and Atrium each work without the other;
+this plugin is the only place that knows both. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = ["hr", "hr_leave", "atrium_chat", "atrium_people"]
+capabilities = ["events::subscribe", "plugins::call"]
+access_models = []
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+# What HR announces.
+[[events]]
+name = "hr.employee_hired"
+direction = "listen"
+handler = "on_employee_event"
+
+[[events]]
+name = "hr.employee_rehired"
+direction = "listen"
+handler = "on_employee_event"
+
+[[events]]
+name = "hr.employee_status_changed"
+direction = "listen"
+handler = "on_employee_event"
+
+[[events]]
+name = "hr_leave.leave_approved"
+direction = "listen"
+handler = "on_leave_event"
+
+[[schedule]]
+name = "departments-nightly"
+title = "Update department channels"
+description = "Adds and removes people in each department's channel, so transfers are caught."
+function = "sync_departments"
+cron = "40 0 * * *"
+
+[[command]]
+name = "sync"
+function = "sync_departments"
+help = "Make a channel for each department and put its people in it (safe to run again)"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

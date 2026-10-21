@@ -1,0 +1,8 @@
+<page route="/forms/f/{id}/csv" title="Responses as a file" menu="false">
+  <button label="Back to the results" href="/forms/f/{id}/results" variant="outline"/>
+  <view type="form" source="responses_csv">
+    <group title="Copy this into a .csv file" cols="1">
+      <field name="csv" label="CSV" fieldType="text" readonly="true"/>
+    </group>
+  </view>
+</page>

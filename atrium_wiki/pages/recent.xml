@@ -1,0 +1,11 @@
+<page route="/wiki/recent" title="Recently changed" menu="false" icon="clock">
+  <view type="list" source="recent_pages" open="/wiki/p/{id}">
+    <columns>
+      <column field="title" label="Page"/>
+      <column field="space_name" label="Space"/>
+      <column field="edited" label="Changed (UTC)"/>
+      <column field="by" label="By"/>
+    </columns>
+    <empty title="Nothing yet" description="Pages show here as they are written."/>
+  </view>
+</page>

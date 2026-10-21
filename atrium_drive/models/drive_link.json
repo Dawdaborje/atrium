@@ -1,0 +1,59 @@
+{
+  "model_id": "mdl_vlkaxtsnuu",
+  "name": "drive_link",
+  "label": "Link",
+  "plural_label": "Links",
+  "icon": "link",
+  "title_field": "item",
+  "fields": [
+    {
+      "id": "fld_yogn6hz6cd",
+      "name": "item",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_yvc6facwck",
+      "name": "kind",
+      "type": "select",
+      "required": true,
+      "options": [
+        {
+          "id": "opt_5jpwr5ie53",
+          "value": "folder"
+        },
+        {
+          "id": "opt_tkyu7vmjag",
+          "value": "file"
+        }
+      ]
+    },
+    {
+      "id": "fld_u53ged26lf",
+      "name": "created_by",
+      "type": "string",
+      "max_length": 128
+    },
+    {
+      "id": "fld_3q3e6c756l",
+      "name": "expires_at",
+      "type": "string",
+      "max_length": 40,
+      "help": "When the link stops working; empty: never"
+    },
+    {
+      "id": "fld_xphgxowkty",
+      "name": "revoked",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "id": "fld_fsdl7riz6n",
+      "name": "at",
+      "type": "string",
+      "max_length": 40
+    }
+  ]
+}

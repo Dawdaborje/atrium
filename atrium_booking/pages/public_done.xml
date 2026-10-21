@@ -1,0 +1,14 @@
+<page route="/book/done/{token}" public="true" title="Your booking" menu="false" icon="calendar-check" model="bk_booking">
+  <view type="form" source="public_booking">
+    <header>
+      <button label="Cancel this booking" function="public_cancel" confirm="Cancel this meeting?" redirect="/book/done/{token}"/>
+    </header>
+    <group title="Your meeting" cols="1">
+      <field name="title" label="Meeting" readonly="true"/>
+      <field name="with" label="With" readonly="true"/>
+      <field name="when" label="When" readonly="true"/>
+      <field name="status" label="Status" readonly="true"/>
+      <field name="guest" label="Booked by" readonly="true" help="Keep this page's address: it is the only way to cancel."/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,41 @@
+[plugin]
+name = "atrium_booking"
+icon_path = "assets/logo.svg"
+label = "Booking"
+version = "0.2.0"
+description = "Offer time for others to book: meeting types, weekly hours, free slots read from the calendar."
+long_description = """
+Booking for Atrium. A person offers a kind of meeting (its length, the days and hours it can be booked, a break
+between meetings, how much notice is needed). Colleagues see the free times, which come from the host's calendar
+without ever showing what fills the rest, and book one. The meeting appears in the host's calendar with the guest
+invited, either side can cancel, and both are told. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = ["atrium_calendar"]
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "plugins::call"]
+access_models = [
+  { name = "bk_service", permissions = ["read", "write"] },
+  { name = "bk_booking", permissions = ["read", "write"] },
+]
+# People outside the organization book through a public address (see docs/design.md); each call carries the link's token.
+public_functions = ["public_service", "public_slots", "public_book", "public_booking", "public_cancel"]
+public_capabilities = ["db::query", "db::mutate", "plugins::call", "notify::send"]
+public_access_models = [
+  { name = "bk_service", permissions = ["read"] },
+  { name = "bk_booking", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Booking"
+icon = "clock"
+route = "/booking"
+description = "Offer time and book colleagues"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

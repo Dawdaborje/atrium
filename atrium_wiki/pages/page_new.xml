@@ -1,0 +1,9 @@
+<page route="/wiki/s/{space}/new" title="New page" menu="false">
+  <view type="form" function="create_page" submit="Create page" success="Page created" redirect="/wiki/p/{id}">
+    <group title="Page" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="parent" label="Under" fieldType="many2one" source="pick_pages" optionLabel="name" entity="pages" help="Leave empty for the top of the space."/>
+      <field name="body" label="Text" fieldType="text" colspan="2" help="Markdown. Link to another page with [[Its title]]."/>
+    </group>
+  </view>
+</page>

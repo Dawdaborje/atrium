@@ -1,0 +1,17 @@
+<page route="/drive/settings" title="Drive settings" roles="org_admin" menu="false">
+  <button label="Back to the drive" href="/drive" variant="outline"/>
+  <view type="form" source="drive_settings" function="save_drive_settings" submit="Save" success="Saved">
+    <group title="Storage" cols="1">
+      <field name="quota_mb" label="Storage for each person (MB)" fieldType="integer" help="Counts every stored file once, whatever its versions. 0 means no limit."/>
+    </group>
+    <group title="Links" cols="1">
+      <field name="links_enabled" label="Allow sharing by link" fieldType="boolean" help="Anyone in the organization who has a link can view what it points to."/>
+      <field name="link_days" label="Days a new link works" fieldType="integer" help="0 means it does not expire."/>
+      <field name="link_days_max" label="Longest a link may work (days)" fieldType="integer" help="0 means no limit; otherwise links must expire."/>
+    </group>
+    <group title="Search and comments" cols="1">
+      <field name="search_contents" label="Search the text inside files" fieldType="boolean" help="Search finds words that are only in a file's text. Files already stored are not read again."/>
+      <field name="comments_enabled" label="Allow comments on files" fieldType="boolean"/>
+    </group>
+  </view>
+</page>

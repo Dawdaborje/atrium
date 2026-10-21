@@ -1,0 +1,38 @@
+{
+  "model_id": "mdl_6qsxlt4hcm",
+  "name": "frm_response",
+  "label": "Response",
+  "plural_label": "Responses",
+  "icon": "check-square",
+  "title_field": "form",
+  "fields": [
+    {
+      "id": "fld_6lqri28u5j",
+      "name": "form",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_bq14whykeb",
+      "name": "user",
+      "type": "string",
+      "max_length": 128,
+      "index": "plain",
+      "help": "Empty when the form is anonymous"
+    },
+    {
+      "id": "fld_afmnrqb54l",
+      "name": "answers",
+      "type": "json",
+      "help": "{ question key: answer }"
+    },
+    {
+      "id": "fld_5mm08rdxgz",
+      "name": "submitted_at",
+      "type": "datetime",
+      "index": "plain"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+<page route="/planner/{plan}" title="Board" menu="false" icon="kanban">
+  <heading source="plan_header">
+    <button label="My tasks" href="/planner/mine" variant="outline" size="sm"/>
+    <button label="People" href="/planner/{plan}/people" variant="outline" size="sm"/>
+    <button label="Settings" href="/planner/{plan}/settings" variant="outline" size="sm"/>
+  </heading>
+  <view type="kanban" source="board_tasks" columns="board_buckets" group_by="bucket" move="move_task" create="quick_add" open="/planner/task/{id}">
+    <card>
+      <field name="title"/>
+      <footer>
+        <field name="priority" fieldType="badge"/>
+        <field name="blocked_text" fieldType="badge"/>
+        <field name="due_text"/>
+        <field name="check_text"/>
+        <field name="labels_text"/>
+        <field name="assignee_names" fieldType="avatar"/>
+      </footer>
+    </card>
+    <empty title="No tasks" description="Add one at the top of a column."/>
+  </view>
+</page>

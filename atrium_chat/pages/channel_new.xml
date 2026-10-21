@@ -1,0 +1,10 @@
+<page route="/chat/new_channel" title="New channel" menu="false">
+  <view type="form" function="create_channel" submit="Create channel" success="Channel created" redirect="/chat/{id}">
+    <group title="Channel" cols="2">
+      <field name="name" label="Name" required="true"/>
+      <field name="team" label="Team" fieldType="many2one" source="list_teams" optionLabel="name" entity="teams" help="Optional. A team groups its channels in the list."/>
+      <field name="topic" label="What it is for" colspan="2"/>
+      <field name="private" label="Private" fieldType="boolean" help="Only people who are added can read it."/>
+    </group>
+  </view>
+</page>

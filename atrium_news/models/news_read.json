@@ -1,0 +1,26 @@
+{
+  "model_id": "mdl_9c1mkahvnz",
+  "name": "news_read",
+  "label": "Read mark",
+  "plural_label": "Read marks",
+  "icon": "eye",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_8370aw5elv",
+      "name": "post",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_ow89rx5s4v",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

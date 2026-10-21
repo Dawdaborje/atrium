@@ -1,0 +1,10 @@
+<page route="/forms/f/{id}/results" title="Results" menu="false" icon="chart-bar">
+  <button label="Back to the form" href="/forms/f/{id}" variant="outline"/>
+  <button label="Responses" href="/forms/f/{id}/responses" variant="outline"/>
+  <button label="As a spreadsheet file" href="/forms/f/{id}/csv" variant="outline"/>
+  <view type="form" source="results">
+    <group title="" cols="1">
+      <field name="report" label="Summary" fieldType="markdown" readonly="true"/>
+    </group>
+  </view>
+</page>

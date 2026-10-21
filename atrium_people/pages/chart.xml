@@ -1,0 +1,4 @@
+<page route="/people/chart/{id?}" title="Org chart" menu="false">
+  <button label="Show as a list" href="/people/list" variant="outline"/>
+  <orgchart source="org_chart" open="/people/{id}"/>
+</page>

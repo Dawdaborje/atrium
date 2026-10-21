@@ -1,0 +1,7 @@
+<page route="/mail/t/{id}/reply" title="Reply" menu="false" model="mail_thread">
+  <view type="form" function="reply_thread" submit="Send" success="Sent" redirect="/mail/t/{id}">
+    <group title="Your answer goes to the customer" cols="1">
+      <field name="text" label="Reply" fieldType="text" required="true"/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,55 @@
+{
+  "model_id": "mdl_nduksbijat",
+  "name": "chat_member",
+  "label": "Member",
+  "plural_label": "Members",
+  "icon": "user",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_hhrb4nsafn",
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "index": "plain",
+      "max_length": 64,
+      "help": "The key of the channel (not a link, so a key is all that is stored)"
+    },
+    {
+      "id": "fld_d2excwf56q",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_teugaxxhxi",
+      "name": "role",
+      "type": "select",
+      "default": "member",
+      "options": [
+        {
+          "id": "opt_esls5bth5d",
+          "value": "owner"
+        },
+        {
+          "id": "opt_fvc4lyeujg",
+          "value": "member"
+        }
+      ]
+    },
+    {
+      "id": "fld_gr6d7qzfwy",
+      "name": "last_read_n",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_yxj53yoayu",
+      "name": "muted",
+      "type": "bool",
+      "default": false
+    }
+  ]
+}

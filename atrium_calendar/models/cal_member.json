@@ -1,0 +1,46 @@
+{
+  "model_id": "mdl_dwx6pblhsz",
+  "name": "cal_member",
+  "label": "Calendar member",
+  "plural_label": "Calendar members",
+  "icon": "users",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_frbssjaq5x",
+      "name": "calendar",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_alflk8yrm2",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_n75yz0t5el",
+      "name": "role",
+      "type": "select",
+      "default": "editor",
+      "options": [
+        {
+          "id": "opt_ejztc06tu2",
+          "value": "owner"
+        },
+        {
+          "id": "opt_8jsjac6cnq",
+          "value": "editor"
+        },
+        {
+          "id": "opt_asz8wkplbo",
+          "value": "viewer"
+        }
+      ]
+    }
+  ]
+}

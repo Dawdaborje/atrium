@@ -1,0 +1,25 @@
+<page route="/booking/service/{id}" title="Meeting I offer" menu="false" model="bk_service">
+  <view type="form" source="get_service" function="update_service" submit="Save" success="Saved">
+    <header>
+      <button label="Delete" function="delete_service" confirm="Delete this?"/>
+    </header>
+    <group title="Meeting" cols="2">
+      <field name="title" label="Title" colspan="2" required="true"/>
+      <field name="description" label="What it is for" fieldType="text" colspan="2"/>
+      <field name="location" label="Where"/>
+      <field name="active" label="Open for booking" fieldType="boolean"/>
+      <field name="minutes" label="Length in minutes" fieldType="integer"/>
+      <field name="public" label="Open to people outside" fieldType="boolean" help="Anyone with the public address can book a free time and leave a name and an email address."/>
+      <field name="public_path" label="Public address" readonly="true" help="Share this address (add your site's domain in front). Switching it off stops it working."/>
+    </group>
+    <group title="When" cols="2">
+      <field name="weekdays" label="Days" fieldType="many2many" source="pick_weekdays" optionLabel="name" entity="days" colspan="2"/>
+      <field name="tz" label="Time zone" help="The hours are in this zone, like Europe/Oslo."/>
+      <field name="from_time" label="From"/>
+      <field name="to_time" label="Until"/>
+      <field name="buffer" label="Break after a meeting (minutes)" fieldType="integer"/>
+      <field name="notice_hours" label="Notice needed (hours)" fieldType="integer"/>
+      <field name="days_ahead" label="How many days ahead" fieldType="integer"/>
+    </group>
+  </view>
+</page>

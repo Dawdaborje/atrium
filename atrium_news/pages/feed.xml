@@ -1,0 +1,19 @@
+<page route="/news" title="News" icon="newspaper">
+  <button label="Write a post" href="/news/new"/>
+  <button label="My posts" href="/news/mine" variant="outline"/>
+  <button label="Authors" href="/news/authors" variant="outline"/>
+  <view type="list" source="feed" open="/news/p/{id}">
+    <search fields="title,summary"/>
+    <filter field="category" label="Category" source="category_options"/>
+    <columns>
+      <column field="tag" label="" fieldType="badge"/>
+      <column field="title" label="Title"/>
+      <column field="summary" label="About"/>
+      <column field="category" label="Category"/>
+      <column field="author" label="By"/>
+      <column field="when" label="Published"/>
+      <column field="likes" label="Likes"/>
+    </columns>
+    <empty title="No news yet" description="Posts from the authors of the organization show here."/>
+  </view>
+</page>

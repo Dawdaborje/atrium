@@ -1,0 +1,106 @@
+{
+  "model_id": "mdl_scjkuuiydr",
+  "name": "chat_message",
+  "label": "Message",
+  "plural_label": "Messages",
+  "icon": "message-square",
+  "title_field": "body",
+  "fields": [
+    {
+      "id": "fld_2aplbzaslo",
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain",
+      "help": "The key of the channel (not a link, so a key is all that is stored)"
+    },
+    {
+      "id": "fld_kwsmv3lkgh",
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_cdvksz2f3n",
+      "name": "author_name",
+      "type": "string",
+      "max_length": 120
+    },
+    {
+      "id": "fld_fi67pdx5b7",
+      "name": "body",
+      "type": "text"
+    },
+    {
+      "id": "fld_kwouen3b7b",
+      "name": "n",
+      "type": "int",
+      "required": true,
+      "index": "plain"
+    },
+    {
+      "id": "fld_4faeaoaz5o",
+      "name": "parent",
+      "type": "string",
+      "max_length": 64,
+      "index": "plain",
+      "help": "The message this one replies to; empty for a message of the channel itself"
+    },
+    {
+      "id": "fld_o7syymuahm",
+      "name": "reply_count",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_dd47umixog",
+      "name": "files",
+      "type": "json"
+    },
+    {
+      "id": "fld_ac6ynaydxi",
+      "name": "edited_at",
+      "type": "datetime"
+    },
+    {
+      "id": "fld_p7olqirwrn",
+      "name": "deleted",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "id": "fld_wo2yyv45gz",
+      "name": "reactions",
+      "type": "json",
+      "help": "{ emoji: [user ids] }"
+    },
+    {
+      "id": "fld_fvi42h4257",
+      "name": "mentions",
+      "type": "json",
+      "help": "User ids mentioned in the body"
+    },
+    {
+      "id": "fld_2axkte6haj",
+      "name": "mention_names",
+      "type": "json",
+      "help": "Their names as written, for highlighting"
+    },
+    {
+      "id": "fld_pin8x2kq4a",
+      "name": "pinned",
+      "type": "bool",
+      "default": false,
+      "help": "Kept at the top of the conversation's Pinned page"
+    },
+    {
+      "id": "fld_4zjn3om5f2",
+      "name": "at",
+      "type": "datetime",
+      "help": "When it was posted"
+    }
+  ]
+}

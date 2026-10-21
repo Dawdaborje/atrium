@@ -1,0 +1,36 @@
+{
+  "model_id": "mdl_b9c8wv6v3o",
+  "name": "wiki_space",
+  "label": "Space",
+  "plural_label": "Spaces",
+  "icon": "book-open",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_watbgznbeg",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 120
+    },
+    {
+      "id": "fld_bxeji5tr47",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_qatdjw9ip2",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128
+    },
+    {
+      "id": "fld_8fbuheydvq",
+      "name": "open",
+      "type": "bool",
+      "default": false,
+      "help": "Everyone in the organization can read it; only its people write"
+    }
+  ]
+}

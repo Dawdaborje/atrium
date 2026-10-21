@@ -1,0 +1,118 @@
+//! Helpers shared by the parts of the plugin.
+
+pub use aether_sdk::records::{text, Record};
+
+use aether_sdk::{prelude::*, transport};
+
+pub fn key(id: &str) -> &str {
+    id.split_once(':').map_or(id, |(_, key)| key)
+}
+
+pub fn me() -> Result<String> {
+    context::current()?.actor.id.ok_or_else(|| Error::msg("sign in to use the planner"))
+}
+
+pub fn now() -> Result<String> {
+    let ctx = context::current()?;
+    if ctx.now.is_empty() {
+        return Err(Error::msg("the kernel did not say what time it is"));
+    }
+    Ok(ctx.now)
+}
+
+pub fn today() -> Result<String> {
+    records::today()
+}
+
+pub fn id_text(record: &Record) -> &str {
+    text(record, "id").unwrap_or_default()
+}
+
+pub fn int(record: &Record, field: &str) -> i64 {
+    record.get(field).and_then(Value::as_i64).unwrap_or(0)
+}
+
+pub fn flag(record: &Record, field: &str) -> bool {
+    record.get(field).and_then(Value::as_bool).unwrap_or(false)
+}
+
+pub fn clean(label: &str, value: &str, max: usize) -> Result<String> {
+    let v = value.trim();
+    if v.is_empty() {
+        return Err(Error::msg(format!("{label} is needed")));
+    }
+    if v.chars().count() > max {
+        return Err(Error::msg(format!("{label} is at most {max} characters")));
+    }
+    Ok(v.to_string())
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct Person {
+    pub id: String,
+    pub name: String,
+}
+
+/// Everyone who can sign in to this organization.
+pub fn org_people() -> Result<Vec<Person>> {
+    let reply = transport::call("org::members", &json!({}))?;
+    Ok(reply
+        .get("data")
+        .and_then(Value::as_array)
+        .map(|rows| {
+            rows.iter()
+                .filter_map(|row| {
+                    let id = row.get("id")?.as_str()?.to_string();
+                    let name = row.get("display_name").and_then(Value::as_str).unwrap_or(&id).to_string();
+                    Some(Person { id, name })
+                })
+                .collect()
+        })
+        .unwrap_or_default())
+}
+
+pub fn name_of(people: &[Person], user: &str) -> String {
+    people
+        .iter()
+        .find(|p| key(&p.id) == key(user))
+        .map(|p| p.name.clone())
+        .unwrap_or_else(|| key(user).chars().rev().take(6).collect::<Vec<_>>().into_iter().rev().collect())
+}
+
+/// `,a,b,` for finding a person among a task's assignees with a text search; empty for nobody.
+pub fn keys_text(keys: &[String]) -> String {
+    if keys.is_empty() {
+        String::new()
+    } else {
+        format!(",{},", keys.join(","))
+    }
+}
+
+/// The user ids in a JSON list, as strings.
+pub fn strings(value: Option<&Value>) -> Vec<String> {
+    value.and_then(Value::as_array).map(|a| a.iter().filter_map(|v| v.as_str().map(str::to_string)).collect()).unwrap_or_default()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn keys_are_wrapped_in_commas_for_searching() {
+        assert_eq!(keys_text(&["a".into(), "b".into()]), ",a,b,");
+        assert_eq!(keys_text(&[]), "");
+    }
+
+    #[test]
+    fn a_list_of_strings_ignores_other_values() {
+        assert_eq!(strings(Some(&json!(["x", 3, "y"]))), ["x", "y"]);
+        assert!(strings(None).is_empty() && strings(Some(&json!("x"))).is_empty());
+    }
+
+    #[test]
+    fn names_are_cleaned_and_limited() {
+        assert_eq!(clean("a name", "  Plan  ", 10).unwrap(), "Plan");
+        assert!(clean("a name", " ", 10).is_err());
+        assert!(clean("a name", "toolongname", 5).is_err());
+    }
+}

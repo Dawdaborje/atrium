@@ -1,0 +1,17 @@
+<page route="/mailbox" title="Mailbox" icon="mail">
+  <button label="Write" href="/mailbox/new"/>
+  <button label="Connect" href="/mailbox/connect" variant="outline"/>
+  <view type="list" source="inbox_messages" open="/mailbox/m/{id}">
+    <search fields="subject,from"/>
+    <filter field="folder" label="Folder" source="folders"/>
+    <columns>
+      <column field="tag" label="" fieldType="badge"/>
+      <column field="from" label="From"/>
+      <column field="subject" label="Subject"/>
+      <column field="preview" label="Preview"/>
+      <column field="files" label="Files"/>
+      <column field="when" label="Received"/>
+    </columns>
+    <empty title="Nothing here" description="If your mailbox is not connected yet, use Connect."/>
+  </view>
+</page>

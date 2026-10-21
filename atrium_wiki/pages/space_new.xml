@@ -1,0 +1,10 @@
+<page route="/wiki/new" title="New space" menu="false">
+  <view type="form" function="create_space" submit="Create space" success="Space created" redirect="/wiki/s/{id}">
+    <group title="Space" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="open" label="Everyone in the organization can read it" fieldType="boolean"/>
+      <field name="members" label="People who can write" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people"/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,15 @@
+<page route="/wiki/s/{space}" title="Space" menu="false" icon="book-open">
+  <heading source="space_header">
+    <button label="New page" href="/wiki/s/{space}/new" size="sm"/>
+    <button label="People" href="/wiki/s/{space}/people" variant="outline" size="sm"/>
+    <button label="Settings" href="/wiki/s/{space}/settings" variant="outline" size="sm"/>
+  </heading>
+  <view type="list" source="space_pages" open="/wiki/p/{id}">
+    <columns>
+      <column field="tree_title" label="Page"/>
+      <column field="edited" label="Changed"/>
+      <column field="by" label="By"/>
+    </columns>
+    <empty title="No pages" description="Write the first page of this space."/>
+  </view>
+</page>

@@ -1,0 +1,18 @@
+<page route="/drive/{folder?}" title="Drive" shell="none" query="view" icon="hard-drive">
+  <panes>
+    <pane name="nav" title="Drive" width="220" min="180" max="320" collapsible="true">
+      <rail source="drive_nav" active="{query.view}" default="mine" open="/drive?view={id}" title="Drive"/>
+    </pane>
+    <pane name="main">
+      <files source="drive_browse" open="/drive/{id}" guard="true" usage="storage_used" settings="/drive/settings"
+             register="register_file" create_folder="create_folder" rename="rename_item" move="move_item"
+             trash="trash_item" restore="restore_item" purge="purge_item" empty_trash="empty_trash"
+             share="share_item" unshare="unshare_item" shares="list_shares" people="list_people"
+             links="list_links" create_link="create_link" revoke_link="revoke_link"
+             comments="file_comments" comment="add_comment" delete_comment="delete_comment"
+             favourite="toggle_favourite" editor="open_in_editor"
+             versions="file_versions" restore_version="restore_version" new_version="new_version"
+             tree="folder_tree" search="search_files"/>
+    </pane>
+  </panes>
+</page>

@@ -1,0 +1,15 @@
+<page route="/wiki/p/{id}/history" title="History of the page" menu="false" icon="history">
+  <button label="Back to the page" href="/wiki/p/{id}" variant="outline"/>
+  <view type="list" source="page_history">
+    <columns>
+      <column field="when" label="When (UTC)"/>
+      <column field="who" label="Who"/>
+      <column field="op" label="What" fieldType="badge"/>
+      <column field="changed" label="Changed"/>
+    </columns>
+    <actions>
+      <action name="restore" label="Put back" function="restore_version" confirm="Put the page back to how it was then? This is saved as a new version."/>
+    </actions>
+    <empty title="No history" description="Versions appear as the page is changed."/>
+  </view>
+</page>

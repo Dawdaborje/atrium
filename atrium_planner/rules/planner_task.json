@@ -1,0 +1,26 @@
+{
+  "model": "planner_task",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    },
+    {
+      "name": "members_read",
+      "operations": [
+        "read"
+      ],
+      "when": {
+        "plan": "$my_plans"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "model_id": "mdl_2nd2eaw8qi",
+  "name": "frm_done",
+  "label": "Answered",
+  "plural_label": "Answered",
+  "icon": "check",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_y5ifh0oore",
+      "name": "form",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_2eon79e39v",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

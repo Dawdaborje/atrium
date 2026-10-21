@@ -1,0 +1,26 @@
+{
+  "model": "wiki_page",
+  "access": [
+    {
+      "name": "self",
+      "roles": [
+        "via:self"
+      ],
+      "operations": [
+        "read",
+        "create",
+        "write",
+        "delete"
+      ]
+    },
+    {
+      "name": "readers_read",
+      "operations": [
+        "read"
+      ],
+      "when": {
+        "space": "$my_spaces"
+      }
+    }
+  ]
+}

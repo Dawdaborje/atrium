@@ -1,0 +1,55 @@
+{
+  "model_id": "mdl_5sh9z69kts",
+  "name": "site_site",
+  "label": "Site",
+  "plural_label": "Sites",
+  "icon": "house",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_k52g06xi07",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 120
+    },
+    {
+      "id": "fld_mgc6ddl615",
+      "name": "description",
+      "type": "string",
+      "max_length": 400
+    },
+    {
+      "id": "fld_7jo2i15qup",
+      "name": "home",
+      "type": "text",
+      "help": "The start page, in Markdown"
+    },
+    {
+      "id": "fld_12wh7vo170",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128
+    },
+    {
+      "id": "fld_j2im54108f",
+      "name": "open",
+      "type": "bool",
+      "default": false,
+      "help": "Everyone in the organization can visit it"
+    },
+    {
+      "id": "fld_xam7b5sjwz",
+      "name": "show_news",
+      "type": "bool",
+      "default": false,
+      "help": "Show the latest news on the start page"
+    },
+    {
+      "id": "fld_ua3w3uvrzc",
+      "name": "edited_at",
+      "type": "datetime"
+    }
+  ]
+}

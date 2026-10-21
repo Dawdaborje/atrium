@@ -1,0 +1,11 @@
+<page route="/calendar/availability" title="Who is free" menu="false" icon="clock">
+  <view type="list" source="availability">
+    <columns>
+      <column field="name" label="Person"/>
+      <column field="status" label="Now" fieldType="badge"/>
+      <column field="until" label="Until"/>
+      <column field="next_busy" label="Next busy"/>
+    </columns>
+    <empty title="No one here yet" description="People in the organization show here."/>
+  </view>
+</page>

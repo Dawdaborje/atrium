@@ -1,0 +1,9 @@
+#V2
+REMOVE NAMESPACE IF EXISTS atr_e2e;
+INFO FOR DB;
+DELETE roles WHERE name = 'atrium_drive.drive_admin'; SELECT name FROM roles;
+USE NS atr_e2e DB atr_org; SELECT core_user_id, display_name, is_active, deleted_at FROM org_users; INFO FOR DB;
+USE NS atr_e2e DB atr_org; SELECT * FROM org_users LIMIT 3; SELECT count() FROM org_users GROUP ALL;INFO FOR NS
+USE NS atr_e2e DB atr_org; SELECT core_user_id, display_name, is_active FROM org_users
+SELECT core_user_id, display_name FROM org_users;
+SELECT count() FROM wiki_page GROUP ALL;

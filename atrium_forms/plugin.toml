@@ -1,0 +1,36 @@
+[plugin]
+name = "atrium_forms"
+icon_path = "assets/logo.svg"
+label = "Forms"
+version = "0.1.2"
+description = "Surveys and sign-up sheets: questions of nine kinds, anonymous or named answers, results and a CSV file."
+long_description = """
+Forms for Atrium. Anyone can build a form with questions (text, paragraph, choose one, choose several, dropdown,
+rating, yes or no, number, date), open it for the organization, and read the results as totals and as single
+responses. A form can take names or be anonymous, can be answered once per person, and can close on a date.
+Written in Rust; filling a form uses the questionnaire widget. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members"]
+access_models = [
+  { name = "frm_form", permissions = ["read", "write"] },
+  { name = "frm_question", permissions = ["read", "write"] },
+  { name = "frm_response", permissions = ["read", "write"] },
+  { name = "frm_done", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Forms"
+icon = "clipboard-list"
+route = "/forms"
+description = "Surveys and sign-up sheets"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

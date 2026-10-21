@@ -1,0 +1,37 @@
+[plugin]
+name = "atrium_people"
+icon_path = "assets/logo.svg"
+label = "People"
+version = "0.2.0"
+description = "A directory of the people in the organization, with profiles and an org chart."
+long_description = """
+A directory for Atrium. Everyone who can sign in is listed; each person can fill in a profile (job title, department, who
+they report to, phone, location, skills, a short bio and a photo), and the directory can be searched and filtered by
+department. The reporting lines make an org chart. Without any other plugin it works from what people enter; the optional
+HR link keeps those fields in step with the HR records. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "events::emit"]
+access_models = [
+  { name = "people_profile", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "People"
+icon = "contact"
+route = "/people"
+description = "Directory, profiles and org chart"
+
+[[events]]
+name = "profile_changed"
+direction = "emit"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

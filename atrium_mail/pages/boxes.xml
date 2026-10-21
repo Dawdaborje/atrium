@@ -1,0 +1,15 @@
+<page route="/mail/boxes" title="Boxes" menu="false" icon="inbox">
+  <button label="New box" href="/mail/boxes/new"/>
+  <view type="list" source="my_boxes" open="/mail/b/{id}/people">
+    <columns>
+      <column field="name" label="Box"/>
+      <column field="to" label="Address"/>
+      <column field="people" label="People"/>
+      <column field="open" label="Open"/>
+    </columns>
+    <actions>
+      <action name="delete" label="Delete" function="delete_box" confirm="Delete this box? It must have no conversations." danger="true"/>
+    </actions>
+    <empty title="No boxes" description="An administrator makes a box and chooses who works it."/>
+  </view>
+</page>

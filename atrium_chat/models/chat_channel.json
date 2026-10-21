@@ -1,0 +1,88 @@
+{
+  "model_id": "mdl_qopv372ymd",
+  "name": "chat_channel",
+  "label": "Channel",
+  "plural_label": "Channels",
+  "icon": "hash",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_gl6sxe4dzo",
+      "name": "name",
+      "type": "string",
+      "max_length": 80,
+      "index": "plain",
+      "help": "Channels have one; a direct or group chat may not (it is named after its people)"
+    },
+    {
+      "id": "fld_dzqkgpeyvp",
+      "name": "team",
+      "type": "string",
+      "index": "plain",
+      "max_length": 64,
+      "help": "The key of the team (not a link, so a key is all that is stored)"
+    },
+    {
+      "id": "fld_w2cbx4jrdl",
+      "name": "kind",
+      "type": "select",
+      "required": true,
+      "default": "channel",
+      "index": "plain",
+      "options": [
+        {
+          "id": "opt_ibedzj6urp",
+          "value": "channel"
+        },
+        {
+          "id": "opt_augxcypjd2",
+          "value": "group"
+        },
+        {
+          "id": "opt_4lzcyrfe4p",
+          "value": "direct"
+        }
+      ]
+    },
+    {
+      "id": "fld_qcmhrypopp",
+      "name": "is_private",
+      "type": "bool",
+      "default": false,
+      "index": "plain"
+    },
+    {
+      "id": "fld_kifefe7uzj",
+      "name": "topic",
+      "type": "string",
+      "max_length": 250
+    },
+    {
+      "id": "fld_falhicefja",
+      "name": "archived",
+      "type": "bool",
+      "default": false,
+      "index": "plain"
+    },
+    {
+      "id": "fld_xvzoq5gubi",
+      "name": "last_n",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "id": "fld_bpn7r2vkup",
+      "name": "direct_key",
+      "type": "string",
+      "max_length": 300,
+      "index": "plain",
+      "help": "For a direct chat: the two people, so the same pair always finds the same chat"
+    },
+    {
+      "id": "fld_3326o67clc",
+      "name": "created_by",
+      "type": "string",
+      "max_length": 128
+    }
+  ]
+}

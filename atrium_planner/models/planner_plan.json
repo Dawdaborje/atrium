@@ -1,0 +1,44 @@
+{
+  "model_id": "mdl_zkadojxz6r",
+  "name": "planner_plan",
+  "label": "Plan",
+  "plural_label": "Plans",
+  "icon": "kanban",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_xy75ghtwa4",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 120,
+      "index": "plain"
+    },
+    {
+      "id": "fld_gdhupf4otn",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "id": "fld_a55fbckcvh",
+      "name": "color",
+      "type": "string",
+      "max_length": 20
+    },
+    {
+      "id": "fld_hbw53m6v6g",
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    },
+    {
+      "id": "fld_rgnnr5btlf",
+      "name": "archived",
+      "type": "bool",
+      "default": false,
+      "index": "plain"
+    }
+  ]
+}

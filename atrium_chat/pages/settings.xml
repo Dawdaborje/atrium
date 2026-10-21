@@ -1,0 +1,12 @@
+<page route="/chat/{channel}/settings" title="Conversation settings" menu="false">
+  <view type="form" source="channel_info" function="edit_channel" submit="Save" success="Saved" redirect="/chat/{channel}">
+    <header>
+      <button label="Leave" function="leave_channel" confirm="Leave this conversation?"/>
+    </header>
+    <group title="Channel" cols="1">
+      <field name="name" label="Name"/>
+      <field name="topic" label="What it is for"/>
+      <field name="archived" label="Archived" fieldType="boolean" help="An archived channel takes no new messages and leaves everyone's list."/>
+    </group>
+  </view>
+</page>

@@ -1,0 +1,66 @@
+{
+  "model_id": "mdl_wpt56dr77n",
+  "name": "drive_share",
+  "label": "Share",
+  "plural_label": "Shares",
+  "icon": "share-2",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_cbaomvwbkt",
+      "name": "item",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_vaz6xyy3dg",
+      "name": "kind",
+      "type": "select",
+      "required": true,
+      "options": [
+        {
+          "id": "opt_mzdskfbwu3",
+          "value": "folder"
+        },
+        {
+          "id": "opt_hku6e5hz5q",
+          "value": "file"
+        }
+      ]
+    },
+    {
+      "id": "fld_pnap27cokq",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain",
+      "help": "A person's id, or `org` for everyone in the organization"
+    },
+    {
+      "id": "fld_awfplfbrrd",
+      "name": "level",
+      "type": "select",
+      "required": true,
+      "default": "view",
+      "options": [
+        {
+          "id": "opt_ttvlfdw4ee",
+          "value": "view"
+        },
+        {
+          "id": "opt_y4fzqmdk55",
+          "value": "edit"
+        }
+      ]
+    },
+    {
+      "id": "fld_oi6svyp6mh",
+      "name": "granted_by",
+      "type": "string",
+      "max_length": 128
+    }
+  ]
+}

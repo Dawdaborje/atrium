@@ -1,0 +1,11 @@
+<page route="/calendar/calendars" title="Calendars" menu="false" icon="calendar">
+  <view type="list" source="my_calendars" open="/calendar/c/{id}" create="/calendar/calendars/new" create_label="New calendar">
+    <columns>
+      <column field="name" label="Calendar"/>
+      <column field="role" label="You are" fieldType="badge"/>
+      <column field="people" label="People"/>
+      <column field="events" label="Events"/>
+    </columns>
+    <empty title="No calendars" description="Make one to share events with a team."/>
+  </view>
+</page>

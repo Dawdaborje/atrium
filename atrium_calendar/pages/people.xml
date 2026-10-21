@@ -1,0 +1,17 @@
+<page route="/calendar/c/{calendar}/people" title="People in this calendar" menu="false">
+  <view type="list" source="calendar_members">
+    <columns>
+      <column field="name" label="Name"/>
+      <column field="role" label="Role" fieldType="badge"/>
+    </columns>
+    <actions>
+      <action name="remove" label="Remove" function="remove_calendar_member" confirm="Remove this person from the calendar?" danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_calendar_members" submit="Add people" success="Added">
+    <group title="Add people" cols="2">
+      <field name="users" label="People" fieldType="many2many" source="pick_other_people" optionLabel="name" entity="people" required="true"/>
+      <field name="role" label="They can" fieldType="selection" options="viewer, editor, owner"/>
+    </group>
+  </view>
+</page>

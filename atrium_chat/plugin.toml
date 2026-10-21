@@ -1,0 +1,73 @@
+[plugin]
+name = "atrium_chat"
+icon_path = "assets/logo.svg"
+label = "Chat"
+version = "0.3.0"
+description = "Teams, channels, group and direct chats, threads, unread tracking, presence and typing, live over the WebSocket."
+long_description = """
+Team chat for Atrium. Conversations are public channels (anyone may read and join), private channels, group chats and
+direct messages, optionally grouped in teams. A message is stored first and then announced live to the people on the
+channel; a rail shows what is unread, who is online and what is new in other channels. Messages can carry files, which
+open in the document viewer, and replies form threads. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "realtime::publish", "realtime::drop", "realtime::presence", "org::members", "events::emit", "notify::send"]
+access_models = [
+  { name = "chat_team", permissions = ["read", "write"] },
+  { name = "chat_channel", permissions = ["read", "write"] },
+  { name = "chat_member", permissions = ["read", "write"] },
+  { name = "chat_message", permissions = ["read", "write"] },
+  { name = "chat_mention", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Chat"
+icon = "messages-square"
+route = "/chat"
+description = "Channels, groups and direct messages"
+
+[[command]]
+name = "seed"
+function = "seed_chat"
+help = "Create the starter channel (idempotent)"
+on_install = true
+on_upgrade = true
+
+# What other plugins and webhooks may react to.
+[[events]]
+name = "message_posted"
+direction = "emit"
+
+# Live topics. The kernel asks the function named in `subscribe`, as the person who wants in.
+[[realtime]]
+topic = "channel.{channel}"
+subscribe = "can_join_channel"
+presence = true
+client_events = ["typing"]
+history = 200
+
+[[realtime]]
+topic = "thread.{thread}"
+subscribe = "can_join_thread"
+client_events = ["typing"]
+history = 100
+
+[[realtime]]
+topic = "inbox.{user}"
+subscribe = "can_join_inbox"
+history = 50
+
+[[realtime]]
+topic = "online"
+subscribe = "can_join_online"
+presence = true
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

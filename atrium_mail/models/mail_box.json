@@ -1,0 +1,25 @@
+{
+  "model_id": "mdl_gkk0kuey92",
+  "name": "mail_box",
+  "label": "Box",
+  "plural_label": "Boxes",
+  "icon": "inbox",
+  "title_field": "name",
+  "fields": [
+    {
+      "id": "fld_c4r2juf848",
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "max_length": 120
+    },
+    {
+      "id": "fld_rwi7764wct",
+      "name": "tag",
+      "type": "string",
+      "max_length": 40,
+      "index": "plain",
+      "help": "The part after + in the address; empty is the box for plain inbox@"
+    }
+  ]
+}

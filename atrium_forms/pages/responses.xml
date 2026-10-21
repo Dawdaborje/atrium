@@ -1,0 +1,14 @@
+<page route="/forms/f/{id}/responses" title="Responses" menu="false" icon="check-square">
+  <button label="Back to the form" href="/forms/f/{id}" variant="outline"/>
+  <view type="list" source="responses">
+    <columns>
+      <column field="when" label="When (UTC)"/>
+      <column field="who" label="From"/>
+      <column field="preview" label="Answers"/>
+    </columns>
+    <actions>
+      <action name="delete" label="Delete" function="delete_response" confirm="Delete this response?" danger="true"/>
+    </actions>
+    <empty title="No responses yet" description="Answers appear here as people send them."/>
+  </view>
+</page>

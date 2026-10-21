@@ -1,0 +1,50 @@
+[plugin]
+name = "atrium_drive"
+icon_path = "assets/logo.svg"
+label = "Drive"
+version = "0.3.0"
+description = "Files and folders with sharing, versions and a trash."
+long_description = """
+A drive for Atrium. Files live in folders; each file keeps every version it has had, can be shared with people or with the
+whole organization for viewing or editing (a folder's share covers everything inside it), can be shared by a link that
+expires, carries comments and favourites, is found by name and by the text inside it, and goes to a trash before it is
+deleted for good. An administrator sets a storage quota and switches links, content search and comments on or off. The stored files are guarded: the kernel serves one only to a person the drive says may read it, also
+for previews and text extraction. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = ["db::query", "db::mutate", "org::members", "events::emit", "notify::send", "media::protect", "media::release", "ocr::parse", "bridge::call"]
+bridges = ["collabora"]
+access_models = [
+  { name = "drive_folder", permissions = ["read", "write"] },
+  { name = "drive_file", permissions = ["read", "write"] },
+  { name = "drive_blob", permissions = ["read", "write"] },
+  { name = "drive_share", permissions = ["read", "write"] },
+  { name = "drive_link", permissions = ["read", "write"] },
+  { name = "drive_comment", permissions = ["read", "write"] },
+  { name = "drive_favourite", permissions = ["read", "write"] },
+  { name = "drive_setting", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Drive"
+icon = "hard-drive"
+route = "/drive"
+description = "Files, folders and sharing"
+
+# The kernel asks this before it serves a file the drive guards.
+[media_guard]
+function = "can_read_media"
+
+[[events]]
+name = "file_added"
+direction = "emit"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

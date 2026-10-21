@@ -1,0 +1,16 @@
+<page route="/meet" title="Meetings" icon="video">
+  <button label="Meet now" href="/meet/now"/>
+  <button label="Plan a meeting" href="/meet/new" variant="outline"/>
+  <view type="list" source="my_meetings" open="/meet/m/{id}">
+    <columns>
+      <column field="when" label="When"/>
+      <column field="title" label="Meeting"/>
+      <column field="host" label="Host"/>
+      <column field="role" label="You are" fieldType="badge"/>
+    </columns>
+    <actions>
+      <action name="join" label="Join" function="join_meeting"/>
+    </actions>
+    <empty title="No meetings" description="Start one now or plan one and invite colleagues."/>
+  </view>
+</page>

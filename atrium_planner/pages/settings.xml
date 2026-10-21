@@ -1,0 +1,26 @@
+<page route="/planner/{plan}/settings" title="Plan settings" menu="false">
+  <view type="form" source="plan_info" function="edit_plan" submit="Save" success="Saved">
+    <header>
+      <button label="Delete plan" function="delete_plan" confirm="Delete this plan and all its tasks? This cannot be undone."/>
+    </header>
+    <group title="Plan" cols="1">
+      <field name="name" label="Name" required="true"/>
+      <field name="description" label="What it is for" fieldType="text"/>
+      <field name="archived" label="Archived" fieldType="boolean" help="An archived plan leaves the list and takes no new tasks."/>
+    </group>
+  </view>
+  <view type="list" source="board_buckets">
+    <columns>
+      <column field="label" label="Buckets"/>
+    </columns>
+    <actions>
+      <action name="delete" label="Delete" function="delete_bucket" confirm="Delete this bucket? Its tasks move to the first bucket left." danger="true"/>
+    </actions>
+  </view>
+  <view type="form" function="add_bucket" submit="Add bucket" success="Added">
+    <group title="New bucket" cols="1"><field name="name" label="Name" required="true"/></group>
+  </view>
+  <view type="form" function="add_label" submit="Add label" success="Added">
+    <group title="New label" cols="1"><field name="name" label="Name" required="true"/></group>
+  </view>
+</page>

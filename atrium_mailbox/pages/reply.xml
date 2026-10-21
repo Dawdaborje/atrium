@@ -1,0 +1,9 @@
+<page route="/mailbox/m/{id}/reply" title="Reply" menu="false">
+  <view type="form" function="reply_message" submit="Send" success="Sent" redirect="/mailbox">
+    <group title="Your answer" cols="1">
+      <field name="all" label="Answer everyone on the message" fieldType="boolean"/>
+      <field name="text" label="Answer" fieldType="text" required="true"/>
+      <field name="files" label="Attachments" fieldType="file" guard="atrium_mailbox" multiple="true" help="Up to 10 files, 10 MB in all."/>
+    </group>
+  </view>
+</page>

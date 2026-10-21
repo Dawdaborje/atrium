@@ -1,0 +1,26 @@
+{
+  "model_id": "mdl_n9irtr5r0w",
+  "name": "news_like",
+  "label": "Like",
+  "plural_label": "Likes",
+  "icon": "heart",
+  "title_field": "user",
+  "fields": [
+    {
+      "id": "fld_cmfip5lug1",
+      "name": "post",
+      "type": "string",
+      "required": true,
+      "max_length": 64,
+      "index": "plain"
+    },
+    {
+      "id": "fld_rvtp9t649h",
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "max_length": 128,
+      "index": "plain"
+    }
+  ]
+}

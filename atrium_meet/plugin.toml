@@ -1,0 +1,34 @@
+[plugin]
+name = "atrium_meet"
+icon_path = "assets/logo.svg"
+label = "Meetings"
+version = "0.2.0"
+description = "Video meetings: start one at once or plan one, invite colleagues, join with one button."
+long_description = """
+Meetings for Atrium. Anyone can start a meeting now or plan one for later and invite colleagues, who are told. Joining
+opens the meeting room on the organization's meeting server (Jitsi Meet, set by an administrator under the bridge settings);
+the host is the moderator, and each link is made for one person, one room and a short time. Written in Rust. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = ["atrium_calendar"]
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "bridge::call", "plugins::call"]
+bridges = ["jitsi"]
+access_models = [
+  { name = "meet_meeting", permissions = ["read", "write"] },
+  { name = "meet_guest", permissions = ["read", "write"] },
+]
+is_builtin = false
+wasm_file = "out/plugin.wasm"
+
+[app]
+label = "Meetings"
+icon = "video"
+route = "/meet"
+description = "Video meetings"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"
