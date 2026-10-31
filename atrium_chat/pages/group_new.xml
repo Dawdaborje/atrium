@@ -1,8 +1,0 @@
-<page route="/chat/new_group" title="New group" menu="false">
-  <view type="form" function="create_group" submit="Start group" success="Group started" redirect="/chat/{id}">
-    <group title="Group" cols="1">
-      <field name="members" label="People" fieldType="many2many" source="list_people" optionLabel="name" entity="people" required="true" help="At least two other people."/>
-      <field name="name" label="Name" help="Optional. Without one, the group is named after its people."/>
-    </group>
-  </view>
-</page>

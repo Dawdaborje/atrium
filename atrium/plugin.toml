@@ -1,0 +1,29 @@
+[plugin]
+name = "atrium"
+icon_path = "assets/logo.svg"
+label = "Atrium"
+version = "0.1.0"
+description = "The home page of Atrium: one place to reach chat, files, planning, calendar and knowledge."
+long_description = """
+The entry to the Atrium workspace. Its name is the shortest of the workspace, so the Apps launcher makes it the host of
+the Atrium folder: opening Atrium lands on this home page, and the modules that have a single page (chat, news, forms…)
+appear in its sidebar. The home page links to every module of the suite. See docs/design.md.
+"""
+authors = [{ name = "Aether", email = "hello@aether.local" }]
+dependencies = []
+capabilities = []
+is_builtin = false
+script = "main.rhai"
+
+[app]
+label = "Atrium"
+icon = "building-2"
+route = "/atrium"
+description = "Your workplace: chat, files, planning and knowledge"
+
+[plugin.api]
+version = "0.1"
+
+[plugin.meta]
+kind = "addon"
+workspace = "atrium"

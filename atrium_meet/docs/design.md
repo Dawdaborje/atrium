@@ -5,6 +5,8 @@ that opens the right room.
 
 ## The server
 
+A built-in video server is being designed so a meeting needs no Jitsi: see `aether/docs/architecture/meet_sfu.md`. Each meeting has a `provider`: `builtin` (the default, needs `[sfu]` switched on in `aether.toml`) or `jitsi` (the bridge below, which stays). A meeting made before this field existed has none and is held on Jitsi. Joining a built-in meeting opens the call page `/meet/room/<id>`; only the host and the invited can join (`can_join_meeting`, the `[[sfu]]` join function). In the call the host can mute or remove a person and end the meeting for all (`moderate_call`, which checks that the caller is the host); anyone can share their screen.
+
 An administrator switches on the bridge `jitsi` (Settings, bridges) and sets `bridge.jitsi.base_url`. A public server (the default,
 meet.jit.si) needs nothing else. For the organization's own server, set `bridge.jitsi.app_id` and `bridge.jitsi.signing_key` to the server's
 token authentication: every link is then signed (HS256) for **one room, one person and four hours**, and says whether that person moderates.

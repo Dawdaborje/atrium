@@ -8,6 +8,8 @@ use crate::common::key;
 pub struct Person {
     pub id: String,
     pub name: String,
+    /// Where the profile picture is served, for someone who has uploaded one.
+    pub image: Option<String>,
 }
 
 /// Everyone who can sign in to this organization.
@@ -21,7 +23,8 @@ pub fn org_people() -> Result<Vec<Person>> {
                 .filter_map(|row| {
                     let id = row.get("id")?.as_str()?.to_string();
                     let name = row.get("display_name").and_then(Value::as_str).unwrap_or(&id).to_string();
-                    Some(Person { id, name })
+                    let image = row.get("avatar_url").and_then(Value::as_str).map(str::to_string);
+                    Some(Person { id, name, image })
                 })
                 .collect()
         })
@@ -41,12 +44,44 @@ pub fn is_person(people: &[Person], user: &str) -> bool {
     people.iter().any(|p| key(&p.id) == key(user))
 }
 
+/// A person's profile picture from the list; none for someone without one.
+pub fn image_of(people: &[Person], user: &str) -> Option<String> {
+    people.iter().find(|p| key(&p.id) == key(user)).and_then(|p| p.image.clone())
+}
+
+/// Put `author_image` on a message row, and on the rows nested in a payload (`row`, `rows`, `latest_replies`), from
+/// the author's current picture, so it follows a change of picture and is never stored on the message.
+pub fn stamp_images(value: &mut Value, people: &[Person]) {
+    match value {
+        Value::Array(items) => items.iter_mut().for_each(|item| stamp_images(item, people)),
+        Value::Object(fields) => {
+            if let Some(author) = fields.get("author").and_then(Value::as_str) {
+                let image = image_of(people, author);
+                fields.insert("author_image".into(), json!(image));
+            }
+            for nested in ["row", "rows", "latest_replies"] {
+                if let Some(inner) = fields.get_mut(nested) {
+                    stamp_images(inner, people);
+                }
+            }
+        }
+        _ => {}
+    }
+}
+
+/// `stamp_images` with the organization's people fetched here; a failure leaves the letters.
+pub fn stamp_images_now(value: &mut Value) {
+    if let Ok(people) = org_people() {
+        stamp_images(value, &people);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn people() -> Vec<Person> {
-        vec![Person { id: "users:ann".into(), name: "Ann Lee".into() }]
+        vec![Person { id: "users:ann".into(), name: "Ann Lee".into(), image: None }]
     }
 
     #[test]
@@ -55,6 +90,17 @@ mod tests {
         assert_eq!(name_of(&people(), "users:ann"), "Ann Lee");
         assert_eq!(name_of(&people(), "users:zzzzzzzzzz"), "zzzzzz");
         assert!(is_person(&people(), "users:ann") && !is_person(&people(), "bob"));
+    }
+
+    #[test]
+    fn images_follow_the_author() {
+        let mut people = people();
+        people[0].image = Some("/api/auth/users/ann/avatar".into());
+        let mut payload = json!({ "rows": [{ "author": "users:ann" }, { "author": "users:bob" }], "row": { "author": "ann", "latest_replies": [{ "author": "users:ann" }] } });
+        stamp_images(&mut payload, &people);
+        assert_eq!(payload["rows"][0]["author_image"], "/api/auth/users/ann/avatar");
+        assert!(payload["rows"][1]["author_image"].is_null());
+        assert_eq!(payload["row"]["latest_replies"][0]["author_image"], "/api/auth/users/ann/avatar");
     }
 }
 
@@ -85,7 +131,7 @@ pub fn names(input: Search) -> Result<Vec<Value>> {
     Ok(input
         .users
         .iter()
-        .map(|u| json!({ "id": u, "name": name_of(&people, u) }))
+        .map(|u| json!({ "id": u, "name": name_of(&people, u), "image": image_of(&people, u) }))
         .collect())
 }
 
@@ -120,9 +166,9 @@ mod mention_tests {
 
     fn people() -> Vec<Person> {
         vec![
-            Person { id: "users:ann".into(), name: "Ann Lee".into() },
-            Person { id: "users:bob".into(), name: "Bob".into() },
-            Person { id: "users:bo".into(), name: "Bo".into() },
+            Person { id: "users:ann".into(), name: "Ann Lee".into(), image: None },
+            Person { id: "users:bob".into(), name: "Bob".into(), image: None },
+            Person { id: "users:bo".into(), name: "Bo".into(), image: None },
         ]
     }
 

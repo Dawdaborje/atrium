@@ -37,6 +37,11 @@ backend = "local"
 # People outside the organization (public booking pages) say which organization they mean with a header.
 [tenancy]
 org_resolution = "header"
+# The built-in video meeting server (atrium_meet), on a port of its own.
+[sfu]
+enabled = true
+bind = "127.0.0.1:17893"
+public_ips = ["127.0.0.1"]
 TOML
 cd "$here"
 a() { "$bin" -c "$here/aether.toml" "$@"; }

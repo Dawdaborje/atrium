@@ -1,0 +1,3 @@
+<page route="/meet/room/{meeting}" title="Meeting" shell="none" menu="false" icon="video">
+  <call room="meeting.{meeting}" leave="/meet/m/{meeting}" moderate="moderate_call"/>
+</page>

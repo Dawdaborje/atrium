@@ -53,6 +53,13 @@
       "type": "string",
       "max_length": 64,
       "help": "The calendar event made for this meeting (empty when there is none)"
+    },
+    {
+      "id": "fld_3y4akzgjwn37kn6udcbm",
+      "name": "provider",
+      "type": "string",
+      "max_length": 16,
+      "help": "Where the meeting is held: `builtin` (Aether's own video server) or `jitsi` (empty means jitsi, the meetings made before the built-in server existed)"
     }
   ]
 }

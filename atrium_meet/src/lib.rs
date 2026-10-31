@@ -10,6 +10,8 @@ handler! {
     fn get_meeting(input: meetings::MeetingId) -> Value { meetings::get_meeting(input) }
     fn create_meeting(input: meetings::NewMeeting) -> Value { meetings::create_meeting(input) }
     fn start_now(input: meetings::Instant) -> Value { meetings::start_now(input) }
+    fn can_join_meeting(input: meetings::Join) -> Value { meetings::can_join_meeting(input) }
+    fn moderate_call(input: meetings::Moderate) -> Value { meetings::moderate_call(input) }
     fn join_meeting(input: meetings::MeetingId) -> Value { meetings::join_meeting(input) }
     fn cancel_meeting(input: meetings::MeetingId) -> Value { meetings::cancel_meeting(input) }
     fn pick_people(input: meetings::Pick) -> Vec<Value> { meetings::pick_people(input) }

@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use aether_sdk::{db::Filter, prelude::*};
 
 use crate::common::*;
-use crate::people::{is_person, name_of, org_people, Person};
+use crate::people::{image_of, is_person, name_of, org_people, Person};
 
 const MAX_MEMBERS: usize = 500;
 
@@ -83,7 +83,6 @@ fn group_rank(group: &str) -> (u8, String) {
     match group {
         "Channels" => (1, String::new()),
         "Groups" => (2, String::new()),
-        "Direct messages" => (3, String::new()),
         other => (0, other.to_lowercase()),
     }
 }
@@ -117,7 +116,7 @@ pub fn my_rail() -> Result<Vec<Value>> {
         }
         let kind = text(&ch, "kind").unwrap_or("channel");
         let group = match kind {
-            "direct" => "Direct messages".to_string(),
+            "direct" => String::new(),
             "group" => "Groups".to_string(),
             _ => text(&ch, "team").and_then(|t| teams.get(key(t))).cloned().unwrap_or_else(|| "Channels".to_string()),
         };
@@ -136,16 +135,23 @@ pub fn my_rail() -> Result<Vec<Value>> {
             .iter()
             .filter(|x| text(x, "channel").map(key) == Some(key(id_text(&ch))) && int(x, "n") > int(m, "last_read_n"))
             .count();
-        rows.push(json!({
+        let mut row = json!({
             "id": key(id_text(&ch)),
             "name": display_name(&ch, &user, &people, &names),
-            "group": group,
             "unread": unread,
             "mentions": mentioned,
             "muted": flag(m, "muted"),
             "kind": kind,
             "user": other_of_direct(&ch, &user),
-        }));
+        });
+        if let Some(image) = other_of_direct(&ch, &user).and_then(|other| image_of(&people, &other)) {
+            row["image"] = json!(image);
+        }
+        // Direct messages carry no group, so the rail lists them flat above the folding sections.
+        if !group.is_empty() {
+            row["group"] = json!(group);
+        }
+        rows.push(row);
     }
     rows.sort_by_key(|r| {
         let g = r["group"].as_str().unwrap_or_default();
@@ -191,6 +197,14 @@ pub fn add_member(channel: &str, user: &str, role: &str) -> Result<()> {
         "chat_member",
         &json!({ "channel": channel_id(channel), "user": user, "role": role, "last_read_n": last, "muted": false }),
     )?;
+    refresh_rail(user, channel)?;
+    Ok(())
+}
+
+/// Tell a person their list of conversations changed (they were added to one or removed from one), so their rail
+/// asks again without a reload.
+fn refresh_rail(user: &str, channel: &str) -> Result<()> {
+    realtime::publish(&inbox_topic(user), "membership", &json!({ "channel": key(channel) }))?;
     Ok(())
 }
 
@@ -345,6 +359,7 @@ fn remove_member_row(ch: &Record, user: &str) -> Result<()> {
         }
         db::delete::<Record>("chat_member", key(id_text(&row)))?;
         realtime::drop_member(&channel_topic(id_text(ch)), &stored)?;
+        refresh_rail(&stored, id_text(ch))?;
     }
     Ok(())
 }
@@ -530,10 +545,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn groups_sort_teams_first_then_channels_groups_and_direct_messages() {
-        let mut groups = vec!["Direct messages", "Groups", "Channels", "Sales", "Ops"];
+    fn groups_sort_ungrouped_direct_messages_first_then_teams_channels_and_groups() {
+        let mut groups = vec!["Groups", "Channels", "Sales", "", "Ops"];
         groups.sort_by_key(|g| group_rank(g));
-        assert_eq!(groups, ["Ops", "Sales", "Channels", "Groups", "Direct messages"]);
+        assert_eq!(groups, ["", "Ops", "Sales", "Channels", "Groups"]);
     }
 
     #[test]

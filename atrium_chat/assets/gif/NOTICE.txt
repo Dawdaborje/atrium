@@ -1,0 +1,6 @@
+Animated emoji: Noto Emoji Animation, (c) Google, licensed under Creative Commons Attribution 4.0 International (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+Source: https://googlefonts.github.io/noto-emoji-animation/
+
+The files here are the originals scaled to 96 x 96 pixels, at 10 frames per second, with a reduced palette
+(tools/build_gifs.py). Names and search words come from Emojibase (MIT), see ../emoji/LICENSE-emojibase.

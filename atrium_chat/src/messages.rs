@@ -4,10 +4,13 @@ use aether_sdk::{db::Filter, prelude::*};
 
 use crate::channels::{add_member, can_read, channel, is_open, member_of, members_of, require_read};
 use crate::common::*;
-use crate::people::{find_mentions, name_of, org_people, Person};
+use crate::people::{find_mentions, name_of, org_people, stamp_images, stamp_images_now, Person};
 
 const MAX_BODY: usize = 8000;
 const MAX_FILES: usize = 10;
+const MAX_SUBJECT: usize = 200;
+/// Replies shown under a post in the channel before the person asks for the rest.
+const PREVIEW_REPLIES: u32 = 3;
 const MAX_FANOUT: usize = 200;
 
 #[derive(Deserialize)]
@@ -19,6 +22,12 @@ pub struct Post {
     files: Option<Vec<Value>>,
     #[serde(default)]
     parent: Option<String>,
+    /// The heading of a post in a channel (a new post only).
+    #[serde(default)]
+    subject: Option<String>,
+    /// The message this one answers, shown quoted above it.
+    #[serde(default)]
+    reply_to: Option<String>,
     /// The page's query values; `thread` is the message being replied to.
     #[serde(default)]
     query: Option<Value>,
@@ -47,7 +56,9 @@ fn check_files(files: &[Value]) -> Result<Vec<Value>> {
 }
 
 fn publish(topic: &str, event: &str, payload: &Value) -> Result<()> {
-    realtime::publish(topic, event, payload)?;
+    let mut payload = payload.clone();
+    stamp_images_now(&mut payload);
+    realtime::publish(topic, event, &payload)?;
     Ok(())
 }
 
@@ -62,6 +73,19 @@ fn nudge_members(channel: &str, author: &str, n: i64) -> Result<()> {
         }
     }
     Ok(())
+}
+
+/// The start of a quoted message, on one line; a message of only files is quoted as such.
+fn quote_of(msg: &Record) -> String {
+    let body = text(msg, "body").unwrap_or_default().split_whitespace().collect::<Vec<_>>().join(" ");
+    if body.is_empty() {
+        return "Attachment".to_string();
+    }
+    let mut short: String = body.chars().take(140).collect();
+    if body.chars().count() > 140 {
+        short.push('…');
+    }
+    short
 }
 
 pub fn post(input: Post) -> Result<Value> {
@@ -100,6 +124,26 @@ pub fn post(input: Post) -> Result<Value> {
         }
         None => None,
     };
+    // Only a new post in a channel has a subject; a chat message or a reply never does.
+    let subject = match input.subject.as_deref().map(str::trim).filter(|s| !s.is_empty()) {
+        Some(s) if parent_key.is_none() && text(&ch, "kind").unwrap_or("channel") == "channel" => {
+            if s.chars().count() > MAX_SUBJECT {
+                return Err(Error::msg(format!("a subject is at most {MAX_SUBJECT} characters")));
+            }
+            Some(s.to_string())
+        }
+        _ => None,
+    };
+    let quoted = match input.reply_to.as_deref().map(key).filter(|r| !r.is_empty()) {
+        Some(r) => {
+            let msg = records::require("chat_message", r, "message")?;
+            if text(&msg, "channel").map(key) != Some(key(id_text(&ch))) || flag(&msg, "deleted") {
+                return Err(Error::msg("you can only reply to a message of this conversation"));
+            }
+            Some(msg)
+        }
+        None => None,
+    };
     let updated: Record = db::increment("chat_channel", key(id_text(&ch)), "last_n", 1.0)?.ok_or_else(|| Error::msg("the channel is gone"))?;
     let n = int(&updated, "last_n");
     let people = org_people()?;
@@ -127,7 +171,10 @@ pub fn post(input: Post) -> Result<Value> {
         "chat_message",
         &json!({
             "channel": channel_id(id_text(&ch)), "author": user, "author_name": name_of(&people, &user), "body": body, "n": n,
-            "parent": parent_key, "reply_count": 0, "at": now()?, "files": if files.is_empty() { Value::Null } else { json!(files) }, "deleted": false,
+            "parent": parent_key, "subject": subject, "reply_count": 0,
+            "reply_to": quoted.as_ref().map(|m| key(id_text(m))),
+            "reply_to_name": quoted.as_ref().map(|m| text(m, "author_name").unwrap_or_default()),
+            "reply_to_body": quoted.as_ref().map(|m| quote_of(m)), "at": now()?, "files": if files.is_empty() { Value::Null } else { json!(files) }, "deleted": false,
             "mentions": mentioned.iter().map(|p| p.id.clone()).collect::<Vec<_>>(),
             "mention_names": mentioned.iter().map(|p| p.name.clone()).collect::<Vec<_>>(),
         }),
@@ -136,14 +183,14 @@ pub fn post(input: Post) -> Result<Value> {
     match (&parent, &parent_key) {
         (Some(_), Some(p)) => {
             publish(&thread_topic(p), "message", &json!({ "row": row }))?;
-            if let Some(updated_parent) = db::increment::<Record>("chat_message", p, "reply_count", 1.0)? {
-                publish(&channel_topic(&channel_key), "message", &json!({ "row": updated_parent }))?;
-            }
+            db::increment::<Record>("chat_message", p, "reply_count", 1.0)?;
+            refresh_post(&channel_key, p)?;
         }
-        _ => publish(&channel_topic(&channel_key), "message", &json!({ "row": row }))?,
+        _ => publish(&channel_topic(&channel_key), "message", &json!({ "row": post_view(&row)? }))?,
     }
     nudge_members(&channel_key, &user, n)?;
     notify_mentions(&ch, &row, &user, &name_of(&people, &user), &mentioned, n)?;
+    notify_conversation(&ch, &row, &user, &name_of(&people, &user), &mentioned)?;
     if let Some(mine) = member_of(&channel_key, &user)? {
         db::update::<Record>("chat_member", key(id_text(&mine)), &json!({ "last_read_n": n }))?;
     }
@@ -151,7 +198,9 @@ pub fn post(input: Post) -> Result<Value> {
         "message_posted",
         &json!({ "channel": channel_key, "message": key(id_text(&row)), "author": user, "reply": parent_key.is_some() }),
     )?;
-    Ok(json!({ "row": row, "id": key(id_text(&row)), "n": n }))
+    let mut out = json!({ "row": row, "id": key(id_text(&row)), "n": n });
+    stamp_images(&mut out, &people);
+    Ok(out)
 }
 
 /// A mentioned person is told even when they muted the channel: a mark on their rail, and a notification.
@@ -178,6 +227,39 @@ fn notify_mentions(ch: &Record, row: &Record, author: &str, author_name: &str, m
     Ok(())
 }
 
+/// A direct or group message is a notification for the members who are not looking at the conversation right now: on
+/// another page or app, or with the tab in the background (idle), or not on the page at all. A notification follows
+/// the person's session, not their presence, so it reaches them wherever they are signed in. A muted conversation
+/// stays quiet, and a person already told by a mention is not told twice. Channels notify only on a mention.
+fn notify_conversation(ch: &Record, row: &Record, author: &str, author_name: &str, mentioned: &[Person]) -> Result<()> {
+    let kind = text(ch, "kind").unwrap_or_default();
+    if kind != "direct" && kind != "group" {
+        return Ok(());
+    }
+    let channel_key = key(id_text(ch)).to_string();
+    let looking = realtime::presence_state(&channel_topic(&channel_key)).unwrap_or_default();
+    let title = if kind == "direct" { author_name.to_string() } else { format!("{author_name} in {}", text(ch, "name").unwrap_or("a group chat")) };
+    let body: String = match text(row, "body").filter(|b| !b.trim().is_empty()) {
+        Some(body) => body.chars().take(140).collect(),
+        None => "Sent an attachment".to_string(),
+    };
+    let recipients: Vec<String> = members_of(&channel_key)?
+        .iter()
+        .filter(|m| !flag(m, "muted"))
+        .filter_map(|m| text(m, "user"))
+        .filter(|u| key(u) != key(author))
+        .filter(|u| !mentioned.iter().any(|p| key(&p.id) == key(u)))
+        .filter(|u| !looking.active().any(|a| key(a) == key(u)))
+        .map(str::to_string)
+        .take(MAX_FANOUT)
+        .collect();
+    if recipients.is_empty() {
+        return Ok(());
+    }
+    Notification::new(title).body(body).link(format!("/chat/{channel_key}")).to(Audience::Actors(recipients)).send()?;
+    Ok(())
+}
+
 #[derive(Deserialize)]
 pub struct EditIn {
     id: String,
@@ -193,9 +275,35 @@ fn load_message(id: &str) -> Result<(Record, Record)> {
 /// Publish a changed message where it is shown: its thread, or the channel (and the channel too for a reply).
 fn publish_row(msg: &Record, ch: &Record, event: &str, payload: &Value) -> Result<()> {
     match text(msg, "parent").filter(|p| !p.is_empty()) {
-        Some(parent) => publish(&thread_topic(parent), event, payload),
+        Some(parent) => {
+            publish(&thread_topic(parent), event, payload)?;
+            // The channel shows the newest replies under the post, so the post is sent again.
+            refresh_post(key(id_text(ch)), parent)
+        }
         None => publish(&channel_topic(id_text(ch)), event, payload),
     }
+}
+
+/// A post as the channel shows it: the row and its newest replies, oldest first.
+fn post_view(post: &Record) -> Result<Value> {
+    let mut view = json!(post);
+    if int(post, "reply_count") > 0 {
+        let filter = Filter::eq("parent", key(id_text(post))).and(Filter::eq("deleted", false));
+        let mut replies: Vec<Record> = db::find("chat_message").matching(filter).order_by("-n").limit(PREVIEW_REPLIES).all()?;
+        replies.reverse();
+        view["latest_replies"] = json!(replies);
+    } else {
+        view["latest_replies"] = json!([]);
+    }
+    Ok(view)
+}
+
+/// Send a post again, with its newest replies, to the people looking at the channel.
+fn refresh_post(channel_key: &str, post: &str) -> Result<()> {
+    if let Some(row) = db::get::<Record>("chat_message", key(post))? {
+        publish(&channel_topic(channel_key), "message", &json!({ "row": post_view(&row)? }))?;
+    }
+    Ok(())
 }
 
 pub fn edit(input: EditIn) -> Result<Value> {
@@ -210,7 +318,9 @@ pub fn edit(input: EditIn) -> Result<Value> {
     let body = clean("a message", &input.body, MAX_BODY)?;
     let row: Record = db::update("chat_message", key(id_text(&msg)), &json!({ "body": body, "edited_at": now()? }))?.ok_or_else(|| Error::msg("the message is gone"))?;
     publish_row(&msg, &ch, "message", &json!({ "row": row }))?;
-    Ok(json!({ "row": row }))
+    let mut out = json!({ "row": row });
+    stamp_images_now(&mut out);
+    Ok(out)
 }
 
 pub fn delete(input: crate::channels::IdOnly) -> Result<Value> {
@@ -224,9 +334,8 @@ pub fn delete(input: crate::channels::IdOnly) -> Result<Value> {
     db::update::<Record>("chat_message", key(id_text(&msg)), &json!({ "deleted": true, "body": "", "files": Value::Null }))?;
     publish_row(&msg, &ch, "deleted", &json!({ "id": key(id_text(&msg)) }))?;
     if let Some(parent) = text(&msg, "parent").filter(|p| !p.is_empty()) {
-        if let Some(updated) = db::increment::<Record>("chat_message", parent, "reply_count", -1.0)? {
-            publish(&channel_topic(id_text(&ch)), "message", &json!({ "row": updated }))?;
-        }
+        db::increment::<Record>("chat_message", parent, "reply_count", -1.0)?;
+        refresh_post(key(id_text(&ch)), parent)?;
     }
     Ok(json!({ "deleted": true }))
 }
@@ -248,14 +357,16 @@ fn page_size(limit: Option<u32>) -> u32 {
 fn answer(mut rows: Vec<Record>, limit: u32) -> Value {
     let more = rows.len() as u32 == limit;
     rows.reverse();
-    json!({ "rows": rows, "more": more })
+    let mut out = json!({ "rows": rows, "more": more });
+    stamp_images_now(&mut out);
+    out
 }
 
 pub fn list(input: List) -> Result<Value> {
     let ch = channel(&input.channel)?;
     let user = require_read(&ch)?;
     let limit = page_size(input.limit);
-    let mut filter = Filter::eq("channel", channel_id(id_text(&ch))).and(Filter::eq("deleted", false)).and(Filter::is_empty("parent"));
+    let mut filter = Filter::eq("channel", channel_id(id_text(&ch))).and(Filter::eq("deleted", false));
     if let Some(before) = input.before.as_deref().filter(|b| !b.is_empty()) {
         let pivot = records::require("chat_message", key(before), "message")?;
         filter = filter.and(Filter::lt("n", int(&pivot, "n")));
@@ -269,6 +380,49 @@ pub fn list(input: List) -> Result<Value> {
         }
     }
     Ok(answer(rows, limit))
+}
+
+/// The posts of a channel, oldest first: the messages that start a conversation, each with its newest replies
+/// (`latest_replies`) and the number of all of them (`reply_count`). Replies are read with `thread_messages`.
+pub fn posts(input: List) -> Result<Value> {
+    let ch = channel(&input.channel)?;
+    let user = require_read(&ch)?;
+    let limit = input.limit.map_or(20, |l| l.clamp(1, 50));
+    // Replies share the channel's numbering, so read newest first in batches and keep the ones that start a conversation.
+    let mut cursor = match input.before.as_deref().filter(|b| !b.is_empty()) {
+        Some(before) => Some(int(&records::require("chat_message", key(before), "message")?, "n")),
+        None => None,
+    };
+    let mut rows: Vec<Record> = Vec::new();
+    let mut exhausted = false;
+    while rows.len() < limit as usize && !exhausted {
+        let mut filter = Filter::eq("channel", channel_id(id_text(&ch))).and(Filter::eq("deleted", false));
+        if let Some(n) = cursor {
+            filter = filter.and(Filter::lt("n", n));
+        }
+        let batch: Vec<Record> = db::find("chat_message").matching(filter).order_by("-n").limit(limit * 3).all()?;
+        exhausted = (batch.len() as u32) < limit * 3;
+        if let Some(last) = batch.last() {
+            cursor = Some(int(last, "n"));
+        }
+        rows.extend(batch.into_iter().filter(|m| text(m, "parent").is_none_or(str::is_empty)));
+    }
+    let more = rows.len() > limit as usize || !exhausted;
+    rows.truncate(limit as usize);
+    let mut views = Vec::with_capacity(rows.len());
+    for row in &rows {
+        views.push(post_view(row)?);
+    }
+    views.reverse();
+    if input.before.as_deref().is_none_or(str::is_empty) {
+        if let Some(m) = member_of(id_text(&ch), &user)? {
+            db::update::<Record>("chat_member", key(id_text(&m)), &json!({ "last_read_n": int(&ch, "last_n") }))?;
+            crate::channels::clear_mentions(id_text(&ch), &user)?;
+        }
+    }
+    let mut out = json!({ "rows": views, "more": more });
+    stamp_images_now(&mut out);
+    Ok(out)
 }
 
 #[derive(Deserialize)]
@@ -306,6 +460,7 @@ pub fn thread(input: ThreadIn) -> Result<Value> {
         if let Some(rows) = out["rows"].as_array_mut() {
             rows.insert(0, root);
         }
+        stamp_images_now(&mut out);
     }
     Ok(out)
 }
@@ -358,7 +513,9 @@ pub fn react(input: ReactIn) -> Result<Value> {
     }
     let row: Record = db::update("chat_message", key(id_text(&msg)), &json!({ "reactions": reactions }))?.ok_or_else(|| Error::msg("the message is gone"))?;
     publish_row(&msg, &ch, "message", &json!({ "row": row }))?;
-    Ok(json!({ "row": row }))
+    let mut out = json!({ "row": row });
+    stamp_images_now(&mut out);
+    Ok(out)
 }
 
 #[derive(Deserialize, Default)]
@@ -432,7 +589,9 @@ pub fn pin(input: PinIn) -> Result<Value> {
     let pinned = !flag(&msg, "pinned");
     let row: Record = db::update("chat_message", key(id_text(&msg)), &json!({ "pinned": pinned }))?.ok_or_else(|| Error::msg("the message is gone"))?;
     publish_row(&msg, &ch, "message", &json!({ "row": row }))?;
-    Ok(json!({ "row": row, "pinned": pinned }))
+    let mut out = json!({ "row": row, "pinned": pinned });
+    stamp_images_now(&mut out);
+    Ok(out)
 }
 
 #[derive(Deserialize)]

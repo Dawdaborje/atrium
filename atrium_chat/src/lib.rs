@@ -49,6 +49,7 @@ handler! {
     fn edit_message(input: messages::EditIn) -> Value { messages::edit(input) }
     fn delete_message(input: channels::IdOnly) -> Value { messages::delete(input) }
     fn channel_messages(input: messages::List) -> Value { messages::list(input) }
+    fn channel_posts(input: messages::List) -> Value { messages::posts(input) }
     fn thread_messages(input: messages::ThreadIn) -> Value { messages::thread(input) }
     // ---- live topics
     fn can_join_channel(input: access::Join) -> Value { access::can_join_channel(input) }

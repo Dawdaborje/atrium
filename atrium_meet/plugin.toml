@@ -2,16 +2,16 @@
 name = "atrium_meet"
 icon_path = "assets/logo.svg"
 label = "Meetings"
-version = "0.2.0"
+version = "0.3.1"
 description = "Video meetings: start one at once or plan one, invite colleagues, join with one button."
 long_description = """
 Meetings for Atrium. Anyone can start a meeting now or plan one for later and invite colleagues, who are told. Joining
-opens the meeting room on the organization's meeting server (Jitsi Meet, set by an administrator under the bridge settings);
-the host is the moderator, and each link is made for one person, one room and a short time. Written in Rust. See docs/design.md.
+opens the meeting room: in Aether's own video server (the default), or on the organization's Jitsi Meet server (set by an
+administrator under the bridge settings), chosen when the meeting is made. Written in Rust. See docs/design.md.
 """
 authors = [{ name = "Aether", email = "hello@aether.local" }]
 dependencies = ["atrium_calendar"]
-capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "bridge::call", "plugins::call"]
+capabilities = ["db::query", "db::mutate", "org::members", "notify::send", "bridge::call", "plugins::call", "sfu::room", "sfu::mute", "sfu::remove", "sfu::end", "sfu::lock"]
 bridges = ["jitsi"]
 access_models = [
   { name = "meet_meeting", permissions = ["read", "write"] },
@@ -19,6 +19,12 @@ access_models = [
 ]
 is_builtin = false
 wasm_file = "out/plugin.wasm"
+
+# The built-in video room of a meeting: who may come in is decided by `can_join_meeting`, on every join.
+[[sfu]]
+room = "meeting.{meeting}"
+join = "can_join_meeting"
+max_participants = 100
 
 [app]
 label = "Meetings"

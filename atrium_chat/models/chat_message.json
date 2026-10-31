@@ -34,6 +34,7 @@
       "name": "body",
       "type": "text"
     },
+    {"id": "fld_ellhj6zdydxzqp46sbef", "name": "subject", "type": "string", "max_length": 200, "help": "The heading of a post in a channel (empty for chat messages and replies)"},
     {
       "id": "fld_kwouen3b7b",
       "name": "n",
@@ -101,6 +102,27 @@
       "name": "at",
       "type": "datetime",
       "help": "When it was posted"
+    },
+    {
+      "id": "fld_qtr2mpc5fug5rveqlzqj",
+      "name": "reply_to",
+      "type": "string",
+      "max_length": 64,
+      "help": "The message this one answers; it is shown quoted above the text"
+    },
+    {
+      "id": "fld_d5hla4ripq36vrnbpysc",
+      "name": "reply_to_name",
+      "type": "string",
+      "max_length": 120,
+      "help": "Who wrote the quoted message"
+    },
+    {
+      "id": "fld_mgj2ajjllj7hqvtejtjl",
+      "name": "reply_to_body",
+      "type": "string",
+      "max_length": 200,
+      "help": "The start of the quoted message"
     }
   ]
 }

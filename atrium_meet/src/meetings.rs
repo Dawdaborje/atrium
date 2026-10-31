@@ -1,6 +1,6 @@
 //! Meetings, their guests, and the link that opens the room.
 
-use aether_sdk::{bridge, dates};
+use aether_sdk::{bridge, dates, sfu};
 use aether_sdk::prelude::*;
 
 use crate::common::*;
@@ -83,6 +83,7 @@ pub fn get_meeting(input: MeetingId) -> Result<Value> {
     out["about"] = json!(s(&m, "about"));
     out["guests"] = json!(if guests.is_empty() { "Nobody else".to_string() } else { guests.join(", ") });
     out["host_view"] = json!(host);
+    out["provider"] = json!(provider_of(&m));
     Ok(out)
 }
 
@@ -98,6 +99,25 @@ pub struct NewMeeting {
     about: Option<String>,
     #[serde(default)]
     users: Vec<String>,
+    /// `builtin` (the default) or `jitsi`.
+    #[serde(default)]
+    provider: Option<String>,
+}
+
+/// Where a meeting is held. A meeting made before the built-in server existed has no provider and stays on Jitsi.
+fn provider_of(m: &Record) -> &'static str {
+    match s(m, "provider") {
+        "builtin" => "builtin",
+        _ => "jitsi",
+    }
+}
+
+fn chosen_provider(asked: Option<&str>) -> Result<&'static str> {
+    match asked.map(str::trim).filter(|p| !p.is_empty()) {
+        None | Some("builtin") => Ok("builtin"),
+        Some("jitsi") => Ok("jitsi"),
+        Some(_) => Err(Error::msg("a meeting is held on `builtin` or `jitsi`")),
+    }
 }
 
 fn make(me: &str, input: NewMeeting, instant: bool) -> Result<Value> {
@@ -123,7 +143,7 @@ fn make(me: &str, input: NewMeeting, instant: bool) -> Result<Value> {
     }
     let record: Record = db::create(
         "meet_meeting",
-        &json!({ "title": title, "host": me, "room": "pending", "starts_at": starts, "minutes": minutes, "about": input.about.as_deref().map(str::trim).unwrap_or_default().chars().take(2000).collect::<String>() }),
+        &json!({ "title": title, "host": me, "room": "pending", "provider": chosen_provider(input.provider.as_deref())?, "starts_at": starts, "minutes": minutes, "about": input.about.as_deref().map(str::trim).unwrap_or_default().chars().take(2000).collect::<String>() }),
     )?;
     let id = key(id_text(&record)).to_string();
     // The room name is not guessable: it is made of the record's own random key.
@@ -179,22 +199,91 @@ pub struct Instant {
     title: Option<String>,
     #[serde(default)]
     users: Vec<String>,
+    #[serde(default)]
+    provider: Option<String>,
 }
 
 /// A meeting that starts now: the host gets the link to join at once.
 pub fn start_now(input: Instant) -> Result<Value> {
     let me = me()?;
-    let made = make(&me, NewMeeting { title: input.title.unwrap_or_else(|| "Quick meeting".into()), starts_at: None, minutes: Some(60), about: None, users: input.users }, true)?;
-    let joined = join_meeting(MeetingId { id: made["id"].as_str().unwrap_or_default().to_string() })?;
-    Ok(json!({ "id": made["id"], "open_url": joined["open_url"] }))
+    let made = make(&me, NewMeeting { title: input.title.unwrap_or_else(|| "Quick meeting".into()), starts_at: None, minutes: Some(60), about: None, users: input.users, provider: input.provider }, true)?;
+    let mut joined = join_meeting(MeetingId { id: made["id"].as_str().unwrap_or_default().to_string() })?;
+    joined["id"] = made["id"].clone();
+    Ok(joined)
 }
 
-/// A link made for this person and this room: the host moderates.
+/// How this person gets into the room. A built-in meeting is a page of the app; a Jitsi meeting is a link made for this
+/// person and this room, where the host moderates.
 pub fn join_meeting(input: MeetingId) -> Result<Value> {
     let (m, me, host) = visible(&input.id)?;
+    if provider_of(&m) == "builtin" {
+        return Ok(json!({ "open_page": format!("/meet/room/{}", key(id_text(&m))) }));
+    }
     let people = org_people()?;
     let link: Value = bridge::call("jitsi", "join_link", &json!({ "room": s(&m, "room"), "name": name_of(&people, &me), "moderator": host, "ttl_secs": LINK_SECS }))?;
     Ok(json!({ "open_url": link["url"] }))
+}
+
+#[derive(Deserialize)]
+pub struct Join {
+    /// The `{meeting}` of the room name `meeting.{meeting}`.
+    #[serde(default)]
+    params: Value,
+}
+
+/// The kernel asks this on every join of a built-in room, as the person who wants in: the host, or someone invited.
+/// The host moderates the call. Anyone else does not get to know the meeting exists.
+pub fn can_join_meeting(input: Join) -> Result<Value> {
+    let id = input.params.get("meeting").and_then(Value::as_str).unwrap_or_default();
+    let Ok((m, me, host)) = visible(id) else {
+        return Ok(json!({ "allow": false, "reason": "there is no such meeting" }));
+    };
+    if provider_of(&m) != "builtin" {
+        return Ok(json!({ "allow": false, "reason": "this meeting is held elsewhere" }));
+    }
+    let people = org_people()?;
+    Ok(json!({ "allow": true, "role": if host { "host" } else { "member" }, "name": name_of(&people, &me) }))
+}
+
+#[derive(Deserialize)]
+pub struct Moderate {
+    /// The `{meeting}` of the call page.
+    meeting: String,
+    /// `mute`, `remove` or `end`.
+    action: String,
+    /// Whom it is for (the `user` of the person in the call); not needed to end the call.
+    #[serde(default)]
+    user: String,
+}
+
+/// What the host does to a running call: silence someone, send someone out, or end it for everyone.
+pub fn moderate_call(input: Moderate) -> Result<Value> {
+    let (m, me, host) = visible(&input.meeting)?;
+    if !host {
+        return Err(Error::msg("only the host can do that"));
+    }
+    if provider_of(&m) != "builtin" {
+        return Err(Error::msg("this meeting is held elsewhere"));
+    }
+    let room = format!("meeting.{}", input.meeting);
+    match input.action.as_str() {
+        "end" => sfu::end(&room, "The host ended the meeting")?,
+        "mute" | "remove" => {
+            if input.user.is_empty() {
+                return Err(Error::msg("say whom"));
+            }
+            if key(&input.user) == key(&me) {
+                return Err(Error::msg("you cannot do that to yourself; leave instead"));
+            }
+            if input.action == "mute" {
+                sfu::mute(&room, &input.user, "audio")?;
+            } else {
+                sfu::remove(&room, &input.user, "The host removed you from the meeting")?;
+            }
+        }
+        _ => return Err(Error::msg("unknown action")),
+    }
+    Ok(json!({ "ok": true }))
 }
 
 pub fn cancel_meeting(input: MeetingId) -> Result<Value> {

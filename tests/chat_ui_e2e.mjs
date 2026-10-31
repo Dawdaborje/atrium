@@ -175,12 +175,14 @@ try {
 	);
 
 	// --- people, settings, search
-	await A.goto(`${BASE}/web/chat/${ch}/members`);
+	await A.goto(`${BASE}/web/chat/${ch}`);
+	await A.getByRole('button', { name: 'People' }).click();
 	await A.getByText('bob').first().waitFor({ timeout: 15000 }).then(
-		() => check('the people page lists who is in the conversation', true),
-		() => check('the people page lists who is in the conversation', false, 'no bob')
+		() => check('the people dialog lists who is in the conversation', true),
+		() => check('the people dialog lists who is in the conversation', false, 'no bob')
 	);
 	check('...with a Remove button', (await A.getByRole('button', { name: 'Remove' }).count()) > 0);
+	await A.keyboard.press('Escape');
 	await A.goto(`${BASE}/web/chat/${ch}/settings`);
 	await A.locator('input').first().waitFor({ timeout: 15000 });
 	await A.waitForFunction((n) => [...document.querySelectorAll('input')].some((i) => i.value === n), 'ops-' + run, { timeout: 10000 }).then(
@@ -198,10 +200,11 @@ try {
 	await shot(A, 'chat-search');
 
 	// --- new message form
-	await A.goto(`${BASE}/web/chat/new_message`);
-	await A.getByText('To').first().waitFor({ timeout: 15000 });
+	await A.goto(`${BASE}/web/chat`);
+	await A.getByRole('button', { name: 'New conversation' }).first().click();
+	await A.getByRole('dialog').getByText('To').first().waitFor({ timeout: 15000 });
 	await shot(A, 'chat-new-message');
-	check('the new message form opens', (await text(A)).includes('New message'));
+	check('the new conversation dialog opens', (await A.getByRole('dialog').count()) === 1);
 
 	// --- browse
 	await A.goto(`${BASE}/web/chat/browse`);

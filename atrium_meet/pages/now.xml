@@ -2,6 +2,7 @@
   <view type="form" function="start_now" submit="Start and join" success="Starting">
     <group title="Start a meeting now" cols="1">
       <field name="title" label="Title" help="Quick meeting if left empty"/>
+      <field name="provider" label="Held on" fieldType="selection" options="builtin, jitsi" help="builtin: Aether's own video server · jitsi: the organization's Jitsi Meet server"/>
       <field name="users" label="Invite" fieldType="many2many" source="pick_people" optionLabel="name" entity="people"/>
     </group>
   </view>

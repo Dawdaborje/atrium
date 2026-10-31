@@ -1,7 +1,0 @@
-<page route="/chat/new_message" title="New message" menu="false">
-  <view type="form" function="open_direct" submit="Open" success="Opened" redirect="/chat/{id}">
-    <group title="Message" cols="1">
-      <field name="user" label="To" fieldType="many2one" source="list_people" optionLabel="name" entity="people" required="true"/>
-    </group>
-  </view>
-</page>

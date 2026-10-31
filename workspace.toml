@@ -6,13 +6,14 @@ description = "Open-source workplace suite: files, planning, calendar, chat, kno
 long_description = """
 Atrium addons for Aether, the open-source counterpart of a workplace suite. Planned modules: drive, planner,
 people, calendar, chat, wiki, sites, forms, news, mail and meetings. Optional HR link to the hrms workspace.
-See README.md and the roadmap in the Aether architecture docs (atrium/roadmap).
+See README.md and the roadmap in docs/roadmap.md.
 """
 group_label = "Atrium"
 group_icon = "./assets/atrium.svg"
 
-# Members are added phase by phase, see docs/architecture/atrium/roadmap.md.
+# Members are added phase by phase, see docs/roadmap.md.
 [workspace.plugins]
+atrium = { path = "./atrium" }
 atrium_chat = { path = "./atrium_chat" }
 atrium_drive = { path = "./atrium_drive" }
 atrium_planner = { path = "./atrium_planner" }

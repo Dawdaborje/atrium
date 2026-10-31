@@ -2,10 +2,10 @@
 name = "atrium_chat"
 icon_path = "assets/logo.svg"
 label = "Chat"
-version = "0.3.0"
+version = "0.4.0"
 description = "Teams, channels, group and direct chats, threads, unread tracking, presence and typing, live over the WebSocket."
 long_description = """
-Team chat for Atrium. Conversations are public channels (anyone may read and join), private channels, group chats and
+Team chat for Atrium. A channel is a board of posts (a subject and a body, with its replies under it, like a team workspace); groups and direct messages are a stream of messages. Channels are public channels (anyone may read and join), private channels, group chats and
 direct messages, optionally grouped in teams. A message is stored first and then announced live to the people on the
 channel; a rail shows what is unread, who is online and what is new in other channels. Messages can carry files, which
 open in the document viewer, and replies form threads. Written in Rust. See docs/design.md.
@@ -35,6 +35,22 @@ function = "seed_chat"
 help = "Create the starter channel (idempotent)"
 on_install = true
 on_upgrade = true
+
+# The emoji every message box of the organization offers (`<composer emoji="true">`). Built by tools/build_emoji.py.
+[[emoji_pack]]
+name = "emojibase"
+label = "Emoji"
+file = "emoji/pack.json"
+
+[[gif_pack]]
+name = "noto-animated"
+label = "Animated emoji"
+file = "gif/pack.json"
+
+[[gif_pack]]
+name = "genz"
+label = "Gen Z"
+file = "genz/pack.json"
 
 # What other plugins and webhooks may react to.
 [[events]]

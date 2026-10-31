@@ -1,0 +1,22 @@
+<page route="/atrium" title="Atrium" icon="building-2">
+  <heading title="Welcome to Atrium" subtitle="Your team's workplace: talk, share, plan and find things in one place." logo="/api/ui/plugins/atrium/logo"/>
+  <tiles title="Talk" cols="4">
+    <tile label="Chat" description="Channels, groups and direct messages" href="/chat" plugin="atrium_chat" icon="messages-square"/>
+    <tile label="Meetings" description="Video meetings" href="/meet" plugin="atrium_meet" icon="video"/>
+    <tile label="Mailbox" description="Your own mail" href="/mailbox" plugin="atrium_mailbox" icon="mail"/>
+    <tile label="Shared inbox" description="Mailboxes a team answers together" href="/mail" plugin="atrium_mail" icon="inbox"/>
+  </tiles>
+  <tiles title="Work" cols="4">
+    <tile label="Drive" description="Files, folders and sharing" href="/drive" plugin="atrium_drive" icon="hard-drive"/>
+    <tile label="Planner" description="Plans, boards and tasks" href="/planner" plugin="atrium_planner" icon="kanban"/>
+    <tile label="Calendar" description="Calendars, events and availability" href="/calendar" plugin="atrium_calendar" icon="calendar-days"/>
+    <tile label="Booking" description="Offer time and book colleagues" href="/booking" plugin="atrium_booking" icon="clock"/>
+    <tile label="Forms" description="Surveys and sign-up sheets" href="/forms" plugin="atrium_forms" icon="clipboard-list"/>
+  </tiles>
+  <tiles title="Know" cols="4">
+    <tile label="Wiki" description="Shared knowledge" href="/wiki" plugin="atrium_wiki" icon="book-open"/>
+    <tile label="News" description="Company news and announcements" href="/news" plugin="atrium_news" icon="newspaper"/>
+    <tile label="Sites" description="Start pages for teams and departments" href="/sites" plugin="atrium_sites" icon="home"/>
+    <tile label="People" description="Directory, profiles and org chart" href="/people" plugin="atrium_people" icon="contact"/>
+  </tiles>
+</page>

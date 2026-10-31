@@ -1,34 +1,94 @@
-<page route="/chat/{channel?}" title="Chat" shell="none" query="thread" icon="messages-square">
+<page route="/chat/{channel?}" query="pinned,people" title="Chat" shell="none" icon="messages-square">
   <panes focus="{channel}" back="/chat">
-    <pane name="rail" title="Conversations" width="280" min="220" max="440" collapsible="true">
+    <pane name="rail" title="Conversations" width="340" min="260" max="520" collapsible="true">
       <group cols="2">
-        <button label="New conversation" href="/chat/new_message" colspan="2"/>
-        <button label="New channel" size="sm" href="/chat/new_channel" variant="outline"/>
-        <button label="New group" size="sm" href="/chat/new_group" variant="outline"/>
+        <modal label="New conversation" title="New conversation" variant="default" size="default" block="true" colspan="2">
+          <view type="form" function="open_direct" submit="Open" success="Opened" redirect="/chat/{id}">
+            <group cols="1">
+              <field name="user" label="To" fieldType="many2one" source="list_people" optionLabel="name" entity="people" required="true"/>
+            </group>
+          </view>
+        </modal>
+        <modal label="New channel" title="New channel" variant="outline" size="sm" block="true">
+          <view type="form" function="create_channel" submit="Create channel" success="Channel created" redirect="/chat/{id}">
+            <group cols="2">
+              <field name="name" label="Name" required="true"/>
+              <field name="team" label="Team" fieldType="many2one" source="list_teams" optionLabel="name" entity="teams" help="Optional. A team groups its channels in the list."/>
+              <field name="members" label="People" fieldType="many2many" source="list_people" optionLabel="name" entity="people" colspan="2" help="Optional. You can add more people later."/>
+              <field name="topic" label="What it is for" colspan="2"/>
+              <field name="private" label="Private" fieldType="boolean" help="Only people who are added can read it."/>
+            </group>
+          </view>
+        </modal>
+        <modal label="New group" title="New group" variant="outline" size="sm" block="true">
+          <view type="form" function="create_group" submit="Start group" success="Group started" redirect="/chat/{id}">
+            <group cols="1">
+              <field name="members" label="People" fieldType="many2many" source="list_people" optionLabel="name" entity="people" required="true" help="At least two other people."/>
+              <field name="name" label="Name" help="Optional. Without one, the group is named after its people."/>
+            </group>
+          </view>
+        </modal>
         <button label="Browse" size="sm" href="/chat/browse" variant="outline"/>
         <button label="Search" size="sm" href="/chat/search" variant="outline"/>
       </group>
-      <rail source="my_channels" topic="inbox.{me}" presence="online" active="{channel}" open="/chat/{id}" search="true" title="Conversations" empty="No conversations yet."/>
+      <rail avatar="true" source="my_channels" topic="inbox.{me}" presence="kernel:online" active="{channel}" open="/chat/{id}" search="true" title="Conversations" empty="No conversations yet."/>
     </pane>
     <pane name="welcome" show="!{channel}">
       <empty title="Choose a conversation" description="Pick one from the list, or start a new one.">
-        <button label="New conversation" href="/chat/new_message"/>
+        <modal label="New conversation" title="New conversation" variant="default" size="default">
+          <view type="form" function="open_direct" submit="Open" success="Opened" redirect="/chat/{id}">
+            <group cols="1">
+              <field name="user" label="To" fieldType="many2one" source="list_people" optionLabel="name" entity="people" required="true"/>
+            </group>
+          </view>
+        </modal>
       </empty>
     </pane>
     <pane name="main" show="{channel}">
       <heading source="channel_header" topic="channel.{channel}">
-        <button label="Pinned" href="/chat/{channel}/pinned" variant="outline" size="sm"/>
+        <button label="Pinned" href="/chat/{channel}?pinned=1" variant="outline" size="sm"/>
         <button label="Alerts" href="/chat/{channel}/notifications" variant="outline" size="sm"/>
-        <button label="People" href="/chat/{channel}/members" variant="outline" size="sm"/>
+        <button label="People" href="/chat/{channel}?people=1" variant="outline" size="sm"/>
         <button label="Settings" href="/chat/{channel}/settings" variant="outline" size="sm"/>
       </heading>
       <presence topic="channel.{channel}" source="people"/>
-      <messages source="channel_messages" topic="channel.{channel}" typing="true" time_field="at" thread="?thread={id}" react="react" pin="pin_message" edit="edit_message" delete="delete_message" empty="Nobody has written here yet."/>
-      <composer send="post_message" topic="channel.{channel}" typing="true" attach="true" mentions="list_people"/>
+      <when source="channel_header" field="kind" is="channel">
+        <posts source="channel_posts" replies="thread_messages" topic="channel.{channel}" send="post_message" react="react" pin="pin_message" edit="edit_message" delete="delete_message" emoji="true" gif="true" attach="true" mentions="list_people" start="Start a new post" empty="No posts yet. Start the first one."/>
+      </when>
+      <when source="channel_header" field="kind" isnot="channel">
+        <messages source="channel_messages" topic="channel.{channel}" typing="true" people="people" time_field="at" reply="true" react="react" pin="pin_message" edit="edit_message" delete="delete_message" empty="Nobody has written here yet."/>
+        <composer emoji="true" gif="true" send="post_message" reply="true" topic="channel.{channel}" typing="true" attach="true" mentions="list_people"/>
+      </when>
     </pane>
-    <pane name="thread" title="Thread" width="380" min="280" max="560" show="{query.thread}">
-      <messages source="thread_messages" topic="thread.{query.thread}" typing="true" time_field="at" react="react" pin="pin_message" edit="edit_message" delete="delete_message" empty="No replies yet."/>
-      <composer send="post_message" topic="thread.{query.thread}" typing="true" attach="true" mentions="list_people" placeholder="Reply…"/>
+    <pane name="pinned" title="Pinned" width="360" min="260" max="520" show="{query.pinned}">
+      <button label="Close" href="/chat/{channel}" variant="outline" size="sm"/>
+      <view type="list" source="pinned_messages" open="/chat/{channel}">
+        <columns>
+          <column field="author_name" label="From"/>
+          <column field="body" label="Message"/>
+          <column field="at" label="When" fieldType="datetime"/>
+        </columns>
+        <actions>
+          <action name="unpin" label="Unpin" function="pin_message"/>
+        </actions>
+      </view>
+    </pane>
+    <pane name="people" title="People" width="320" min="260" max="520" show="{query.people}">
+      <button label="Close" href="/chat/{channel}" variant="outline" size="sm"/>
+      <view type="list" source="channel_members">
+        <columns>
+          <column field="name" label="Name"/>
+          <column field="role" label="Role"/>
+        </columns>
+        <actions>
+          <action name="remove" label="Remove" function="remove_member" confirm="Remove this person from the conversation?" danger="true"/>
+        </actions>
+      </view>
+      <view type="form" function="add_members" submit="Add people" success="Added">
+        <group title="Add people" cols="1">
+          <field name="users" label="People" fieldType="many2many" source="list_people" optionLabel="name" entity="people" required="true"/>
+        </group>
+      </view>
     </pane>
   </panes>
 </page>

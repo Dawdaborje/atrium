@@ -10,7 +10,7 @@ WebSocket and of the chat widgets (`<panes>`, `<rail>`, `<messages>`, `<composer
 | `chat_team` | A named group of channels (Ops, Sales). Only an administrator makes teams. |
 | `chat_channel` | A conversation: `kind` is `channel`, `group` or `direct`. `is_private`, `archived`, `topic`, `last_n` (the number of the last message, the source of sequence and unread counts) and, for a direct chat, `direct_key` (the two people, sorted, so a pair always finds one chat). |
 | `chat_member` | A person in a conversation: `role` (`owner` or `member`), `last_read_n`, `muted`. |
-| `chat_message` | `n` (position in its channel), `at` (when), `author`, `author_name` (kept at posting time), `body`, `files`, `parent` (the message it replies to), `reply_count`, `reactions` (`{ emoji: [users] }`), `mentions` and `mention_names`, `edited_at`, `deleted`. |
+| `chat_message` | `n` (position in its channel), `at` (when), `author`, `author_name` (kept at posting time), `body`, `files`, `subject` (the heading of a post in a channel), `parent` (the post a reply answers), `reply_count`, `reactions` (`{ emoji: [users] }`), `mentions` and `mention_names`, `edited_at`, `deleted`. |
 | `chat_mention` | One row for each unread mention of a person: `channel`, `user`, `message`, `n`. Reading the channel clears them. |
 
 Rules allow only the plugin's own functions to touch these (`via:self`): who may see what is decided in code, not by
@@ -24,6 +24,18 @@ record rules, because "is a member of this channel" is a question about another 
   anyone in it may add people. A direct message cannot be left, added to or removed from.
 - Anyone may edit their own message; the author, the channel's owner or an administrator may delete one.
 - Messages are text of at most 8000 characters, with up to 10 files that must come from the media store.
+
+## Channels are posts, chats are messages
+
+A **channel** is a board of *posts*: each post is a card with an optional subject and a body, and its replies sit under
+it (the newest three, with "View earlier replies" for the rest and a box to reply in place). A new post is started from
+the bar under the board ("Start a new post"). Replies belong to the post (`parent`), never to the channel's main
+list. A **group** or **direct** chat is a stream of messages in bubbles, with quoting (`reply_to`) instead of threads.
+The page draws one or the other from `channel_header.kind` with `<when>`.
+
+`channel_posts` answers the top-level messages (`{ limit, before }`, oldest first, `{ rows, more }`); each row carries
+`latest_replies` and `reply_count`. When a reply is posted, edited, reacted to or deleted, the post is published
+again on `channel.{channel}` with its fresh `latest_replies`, so the board stays current without joining each thread.
 
 ## Live topics
 
@@ -42,7 +54,7 @@ ends their live membership (`realtime::drop`).
 Starting: `my_channels` (the rail, with unread and mention counts), `browse_channels`, `create_channel`, `create_group`, `open_direct`, `create_team`,
 `list_teams`, `list_people`, `people`. Belonging: `join_channel`, `leave_channel`, `add_members`, `remove_member`,
 `edit_channel`, `channel_info`, `mark_read`. Messages: `post_message`, `edit_message`, `delete_message`,
-`channel_messages` (oldest first, `{ limit, before }`), `thread_messages`, `react` (toggles the caller's reaction), `search_messages` (the conversations the caller can read, newest first), `channel_members`, `channel_header`, `set_muted`, `my_membership`, `pin_message` (toggles the pin; members and administrators) and `pinned_messages`. The heading has **Pinned** (the pinned page, with Unpin) and **Alerts** (mute for the caller). Posting emits the event `message_posted`
+`channel_messages` (oldest first, `{ limit, before }`; chats), `channel_posts` (the posts of a channel), `thread_messages` (a post and all its replies), `react` (toggles the caller's reaction), `search_messages` (the conversations the caller can read, newest first), `channel_members`, `channel_header`, `set_muted`, `my_membership`, `pin_message` (toggles the pin; members and administrators) and `pinned_messages`. The heading has **Pinned** (the pinned page, with Unpin) and **Alerts** (mute for the caller). Posting emits the event `message_posted`
 (`channel`, `message`, `author`, `reply`) for other plugins.
 
 ## Mentions
@@ -60,11 +72,26 @@ see `atrium_hr_link`.
 ## Pages
 
 `/chat/{channel?}` is the app: a rail of conversations (with unread badges and online dots), the channel with who is
-here, its messages and composer, and a thread pane that opens with `?thread=<id>`. `/chat/new_channel`,
-`/chat/new_message` and `/chat/new_group` are forms; `/chat/browse` lists open channels; `/chat/search` searches messages;
-`/chat/{channel}/members` and `/chat/{channel}/settings` manage a conversation (add and remove people, rename, archive, leave).
+here, its messages and composer, and a thread pane that opens with `?thread=<id>`. New channel, new conversation, new group and the people of a conversation are dialogs on the chat page; `/chat/browse` lists open channels; `/chat/search` searches messages;
+`/chat/{channel}/settings` renames, archives or leaves a conversation.
 
 ## Not built yet
 
 Message menus beyond pin, edit, delete and react, full-text
 search with ranking, notifications settings, and typing in direct messages across tabs.
+
+## Emoji
+
+This plugin ships the organization's emoji, and the web app has none of its own. `assets/emoji/pack.json` is built from
+[Emojibase](https://github.com/milesj/emojibase) (MIT, licence in `assets/emoji/LICENSE-emojibase`) by
+`python3 tools/build_emoji.py` and registered in `plugin.toml` with `[[emoji_pack]]`. The kernel lists registered packs
+at `GET /api/ui/emoji` and serves the file as a static asset; any `<composer emoji="true">`, in this plugin or another,
+offers them. To change what is offered (a language, a subset), re-run the script; to add a pack from another plugin,
+declare its own `[[emoji_pack]]`. See [Emoji packs](../../../aether/docs/plugin/emoji.md).
+
+## GIFs
+
+`assets/gif/pack.json` lists 136 small animated emoji (Noto Emoji Animation, CC BY 4.0, see `assets/gif/NOTICE.txt`),
+built by `python3 tools/build_gifs.py` and registered with `[[gif_pack]]`. The kernel lists packs at `GET /api/ui/gifs`;
+`<composer gif="true">` shows a GIF button and attaches the chosen file like any upload. See
+[GIF packs](../../../aether/docs/plugin/gifs.md).

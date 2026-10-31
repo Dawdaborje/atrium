@@ -1,0 +1,2 @@
+Original text animations drawn by tools/build_genz_gifs.py; no third-party artwork.
+Lettering: Noto Sans Black, licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
