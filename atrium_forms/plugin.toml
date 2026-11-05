@@ -3,7 +3,7 @@ name = "atrium_forms"
 icon_path = "assets/logo.svg"
 label = "Forms"
 version = "0.1.2"
-description = "Surveys and sign-up sheets: questions of nine kinds, anonymous or named answers, results and a CSV file."
+description = "Surveys and sign-up sheets with nine kinds of question, anonymous or named answers, results and CSV export."
 long_description = """
 Forms for Atrium. Anyone can build a form with questions (text, paragraph, choose one, choose several, dropdown,
 rating, yes or no, number, date), open it for the organization, and read the results as totals and as single
